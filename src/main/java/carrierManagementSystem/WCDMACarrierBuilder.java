@@ -1,24 +1,41 @@
 package carrierManagementSystem;
 
+/**
+ * 
+ * This class is a child class to CarrierBuilder. It builds WCDMACarrier objects.
+ * 
+ */
 public class WCDMACarrierBuilder implements CarrierBuilder {
-
     private Integer carrierId;
     private RFPorts[] rfPorts;
     private CarrierFrequencies carrierFrequencies;
     private Double transmittingPower;
 
+	/**
+	 * Sets up an ID for the WCDMA carrier.
+	 * 
+	 * @param carrierID The ID for carrier.
+	 */
     @Override
     public void setCarrierId(Integer carrierID) {
         this.carrierId = carrierID;
 
     }
 
+	/**
+	 * Sets up RF ports for WCDMA.
+	 * 
+	 * @param rfPorts The RF ports for WCDMA. WCDMA needs 2 RF ports.
+	 */
     @Override
     public void setRFPorts(RFPorts[] rfPorts) {
+		// Catch exception for null rfPorts.
         if (rfPorts == null) {
             throw new NullPointerException("WCDMA RF Ports are not configured!");
         }
 
+		// Setup the RF ports for the WCDMA carrier and if the number of elements 
+		// is less than 2 it will throw an exception.
         if (rfPorts.length == 2) {
             this.rfPorts = new RFPorts[2];
             System.arraycopy(rfPorts, 0, this.rfPorts, 0, rfPorts.length);
@@ -28,18 +45,33 @@ public class WCDMACarrierBuilder implements CarrierBuilder {
         }
     }
 
+	/**
+	 * Sets up carrier frequency for WCDMA.
+	 * 
+	 * @param carrierFrequencies Configures the WCDMA band.
+	 */
     @Override
     public void setFrequencyBand(CarrierFrequencies carrierFrequencies) {
         this.carrierFrequencies = carrierFrequencies;
 
     }
 
+	/**
+	 * Sets up transmission power for WCDMA.
+	 * 
+	 * @param transmittingPower Sets up the power.
+	 */
     @Override
     public void setTransmittingPower(Double transmittingPower) {
         this.transmittingPower = transmittingPower;
 
     }
 
+	/**
+	 * Returns a built WCDMACarrier object.
+	 * 
+	 * @return The built WCDMACarrier.
+	 */
     public WCDMACarrier getWCDMACarrier() {
         return new WCDMACarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
     }

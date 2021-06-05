@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class builds WCDMA carriers. The WCDMACarrierBuilder class uses this
+ * class to build an object. Each private data member inside this class has a
+ * getter method which helps the builder class to build its object by using them.
+ */
 public class WCDMACarrier {
     private final Integer carrierId;
     private List<RFPorts> rfPorts;
@@ -20,22 +25,47 @@ public class WCDMACarrier {
         }
     }
 
+	/**
+	 * Returns the carrier id to the builder class.
+	 * 
+	 * @return The carrier id, as an Integer.
+	 */
     public Integer getCarrierId() {
         return carrierId;
     }
 
+	/**
+	 * Returns a list of RF ports to the builder class.
+	 * 
+	 * @return The RF ports, as a List.
+	 */
     public List<RFPorts> getRfPorts() {
         return rfPorts;
     }
 
+	/**
+	 * Returns the carrier frequency band to the builder class.
+	 *
+	 * @return The carrier frequency, as a CarrierFrequencies object.
+	 */
     public CarrierFrequencies getCarrierFrequencies() {
         return carrierFrequencies;
     }
 
+	/**
+	 * Returns the transmitting power to the builder class.
+	 *
+	 * @return The transmission power, as a Double.
+	 */
     public Double getTransmittingPower() {
         return transmittingPower;
     }
 
+	/**
+	 * Collects all elements of the carrier into a formatted String.
+	 *
+	 * @return The collected information, as a String.
+	 */
     public String print() {
         StringBuffer info = new StringBuffer();
 
