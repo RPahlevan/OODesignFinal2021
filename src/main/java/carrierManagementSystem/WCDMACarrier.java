@@ -1,7 +1,6 @@
 package carrierManagementSystem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,57 +14,57 @@ public class WCDMACarrier {
     private final CarrierFrequencies carrierFrequencies;
     private final Double transmittingPower;
 
-    public WCDMACarrier(Integer carrierId, RFPorts[] rfPorts, CarrierFrequencies carrierFrequencies,
+    public WCDMACarrier(Integer carrierId, List<RFPorts> rfPorts, CarrierFrequencies carrierFrequencies,
                         Double transmittingPower) {
         this.carrierId = carrierId;
         this.carrierFrequencies = carrierFrequencies;
         this.transmittingPower = transmittingPower;
         if (rfPorts != null) {
-            this.rfPorts = new ArrayList<>(Arrays.asList(rfPorts));
+            this.rfPorts = new ArrayList<>(rfPorts);
         }
     }
 
-	/**
-	 * Returns the carrier id to the builder class.
-	 * 
-	 * @return The carrier id, as an Integer.
-	 */
+    /**
+     * Returns the carrier id to the builder class.
+     *
+     * @return The carrier id, as an Integer.
+     */
     public Integer getCarrierId() {
         return carrierId;
     }
 
-	/**
-	 * Returns a list of RF ports to the builder class.
-	 * 
-	 * @return The RF ports, as a List.
-	 */
+    /**
+     * Returns a list of RF ports to the builder class.
+     *
+     * @return The RF ports, as a List.
+     */
     public List<RFPorts> getRfPorts() {
         return rfPorts;
     }
 
-	/**
-	 * Returns the carrier frequency band to the builder class.
-	 *
-	 * @return The carrier frequency, as a CarrierFrequencies object.
-	 */
+    /**
+     * Returns the carrier frequency band to the builder class.
+     *
+     * @return The carrier frequency, as a CarrierFrequencies object.
+     */
     public CarrierFrequencies getCarrierFrequencies() {
         return carrierFrequencies;
     }
 
-	/**
-	 * Returns the transmitting power to the builder class.
-	 *
-	 * @return The transmission power, as a Double.
-	 */
+    /**
+     * Returns the transmitting power to the builder class.
+     *
+     * @return The transmission power, as a Double.
+     */
     public Double getTransmittingPower() {
         return transmittingPower;
     }
 
-	/**
-	 * Collects all elements of the carrier into a formatted String.
-	 *
-	 * @return The collected information, as a String.
-	 */
+    /**
+     * Collects all elements of the carrier into a formatted String.
+     *
+     * @return The collected information, as a String.
+     */
     public String print() {
         StringBuffer info = new StringBuffer();
 
