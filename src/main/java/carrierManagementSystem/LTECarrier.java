@@ -1,76 +1,61 @@
 package carrierManagementSystem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class LTECarrier {
 
-	private Integer carrierId;
-	private RFPorts[] rfPorts;
-	private CarrierFrequencies carrierFrequencies;
-	private Double transmittingPower;
+    private final Integer carrierId;
+    private List<RFPorts> rfPorts;
+    private final CarrierFrequencies carrierFrequencies;
+    private final Double transmittingPower;
 
-	public LTECarrier(Integer carrierId, RFPorts[] rfPorts, CarrierFrequencies carrierFrequencies,
-			Double transmittingPower) {
-		this.carrierId = carrierId;
-		this.carrierFrequencies = carrierFrequencies;
-		this.transmittingPower = transmittingPower;
-		if (rfPorts != null) {
-			this.rfPorts = new RFPorts[4];
-			for (int i = 0; i < rfPorts.length; i++) {
-				this.rfPorts[i] = rfPorts[i];
-			}
-			;
-		}
-	}
+    public LTECarrier(Integer carrierId, RFPorts[] rfPorts, CarrierFrequencies carrierFrequencies,
+                      Double transmittingPower) {
+        this.carrierId = carrierId;
+        this.carrierFrequencies = carrierFrequencies;
+        this.transmittingPower = transmittingPower;
+        if (rfPorts != null) {
+            this.rfPorts = new ArrayList<>(Arrays.asList(rfPorts));
+        }
+    }
 
-	public Integer getCarrierId() {
-		return carrierId;
-	}
+    public Integer getCarrierId() {
+        return carrierId;
+    }
 
-	public RFPorts[] getRfPorts() {
-		return rfPorts;
-	}
+    public List<RFPorts> getRfPorts() {
+        return rfPorts;
+    }
 
-	public CarrierFrequencies getCarrierFrequencies() {
-		return carrierFrequencies;
-	}
+    public CarrierFrequencies getCarrierFrequencies() {
+        return carrierFrequencies;
+    }
 
-	public Double getTransmittingPower() {
-		return transmittingPower;
-	}
+    public Double getTransmittingPower() {
+        return transmittingPower;
+    }
 
-	public String print() {
-		String info = "";
+    public String print() {
+        StringBuffer info = new StringBuffer();
 
-		info += "LTE Carrier ID:  ";
-		if (carrierId != null) {
-			info += carrierId + "\n";
-		} else {
-			info += "not configured \n";
-		}
+        info.append("LTE Carrier ID: ");
+        info.append(carrierId != null ? carrierId : "Not configured");
 
-		info += "LTE Carrier Frequency: ";
-		if (carrierFrequencies != null) {
-			info += carrierFrequencies.getBand() + "\n";
-		} else {
-			info += "not configured \n";
-		}
+        info.append("\nLTE Carrier Frequency: ");
+        info.append(carrierFrequencies != null ? carrierFrequencies.getBand() : "Not configured");
 
-		info += "LTE RF Ports: ";
-		if (rfPorts != null) {
-			for (int i = 0; i < rfPorts.length; i++) {
-				info += rfPorts[i].getRFPort() + " ";
-			}
-			;
-		} else {
-			info += "not configured";
-		}
+        info.append("\nLTE RF Ports: ");
+        if (rfPorts != null) {
+            rfPorts.forEach(port -> info.append(port.getRFPort()).append("  "));
+        } else {
+            info.append("Not configured");
+        }
 
-		info += "\nLTE Transmission Power: ";
-		if (transmittingPower != null) {
-			info += transmittingPower + "\n";
-		} else {
-			info += "not configured\n";
-		}
+        info.append("\nLTE Transmission Power: ");
+        info.append(transmittingPower != null ? transmittingPower : "Not configured");
 
-		return info;
-	}
+        return info.append("\n").toString();
+    }
 }

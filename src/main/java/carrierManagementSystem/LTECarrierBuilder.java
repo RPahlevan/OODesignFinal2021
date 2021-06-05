@@ -1,55 +1,46 @@
 package carrierManagementSystem;
+
 /**
- * 
  * @author epahram
- *	
  */
 
 public class LTECarrierBuilder implements CarrierBuilder {
-	private Integer carrierId;
-	private RFPorts[] rfPorts;
-	private CarrierFrequencies carrierFrequencies;
-	private Double transmittingPower;
+    private Integer carrierId;
+    private RFPorts[] rfPorts;
+    private CarrierFrequencies carrierFrequencies;
+    private Double transmittingPower;
 
-	@Override
-	public void setCarrierId(Integer carrierID) {
-		this.carrierId = carrierID;
+    @Override
+    public void setCarrierId(Integer carrierID) {
+        this.carrierId = carrierID;
+    }
 
-	}
+    @Override
+    public void setRFPorts(RFPorts[] rfPorts) {
+        if (rfPorts == null) {
+            throw new NullPointerException("LTE RF Ports are not configured!");
+        }
 
-	@Override
-	public void setRFPorts(RFPorts[] rfPorts) {
+        if (rfPorts.length == 4) {
+            this.rfPorts = new RFPorts[4];
+            System.arraycopy(rfPorts, 0, this.rfPorts, 0, rfPorts.length);
+        } else {
+            throw new ArrayIndexOutOfBoundsException(
+                    "Invalid value for the number of LTE ports. The number of RF Ports for LTE carrier has to be 4.");
+        }
+    }
 
-		if (rfPorts == null) {
-			throw new NullPointerException("LTE RF Ports are not configured!");
-		}
+    @Override
+    public void setFrequencyBand(CarrierFrequencies carrierFrequencies) {
+        this.carrierFrequencies = carrierFrequencies;
+    }
 
-		if (rfPorts.length == 4) {
-			this.rfPorts = new RFPorts[4];
-			for (int i = 0; i < rfPorts.length; i++) {
-				this.rfPorts[i] = rfPorts[i];
-			}
-			;
-		} else {
-			throw new ArrayIndexOutOfBoundsException(
-					"Invalid value for the number of LTE prots. Number of RF Ports for LTE carrier has to be 4.");
-		}
-	}
+    @Override
+    public void setTransmittingPower(Double transmittingPower) {
+        this.transmittingPower = transmittingPower;
+    }
 
-	@Override
-	public void setFrequencyBand(CarrierFrequencies carrierFrequencies) {
-		this.carrierFrequencies = carrierFrequencies;
-
-	}
-
-	@Override
-	public void setTransmittingPower(Double transmittingPower) {
-		this.transmittingPower = transmittingPower;
-
-	}
-
-	public LTECarrier getLTECarrier() {
-		return new LTECarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
-	}
-
+    public LTECarrier getLTECarrier() {
+        return new LTECarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
+    }
 }
