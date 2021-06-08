@@ -58,7 +58,7 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void displayCarrier(int carrierId) {
-        radioUnits.forEach(ru -> ru.getCarriers().getCarrierId().forEach(carrier -> {
+        radioUnits.forEach(ru -> ru.getCarriers().forEach(carrier -> {
             if (carrier.getCarrierId() == carrierId) {
                 carrier.print();
                 return;
