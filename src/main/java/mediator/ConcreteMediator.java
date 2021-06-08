@@ -10,7 +10,7 @@ package mediator;
  * In future iterations, the mediator will also handle communication between
  * the Network Management System while maintaining a list of references to
  * built RUs.
- *
+ * <p>
  * This class acts a Singleton to maintain data-consistency given the requirement
  * that the system should be able to handle multiple users at once. Having two
  * ConcreteMediators would result in two distinct lists of RUs, which would cause
@@ -52,20 +52,22 @@ public class ConcreteMediator implements Mediator {
     }
 
     /**
-     * Displays the carrier associated with an RU given a specific
-     * RU ID number.
+     * Displays the carrier associated with the ID supplied.
      *
-     * @param id The ID number for the RU that will have its carrier displayed.
+     * @param id The ID number for the carrier that will be displayed.
      */
     @Override
-    public void displayCarrier(int id) {
+    public void displayCarrier(int carrierId) {
         radioUnits.forEach(ru -> {
-            if (ru.getId() == id) {
-                System.out.println(ru.displayCarrier());
-                return;
-            }
+            ru.getCarriers().getCarrierId().forEach(carrier -> {
+                if (carrier.getCarrierId() == carrierId) {
+                    carrier.print();
+                    return;
+                }
+            });
         });
-        System.out.println(String.format("No RUs with the ID %d have been registered with the system.", id));
+        System.out.println(String.format(
+                "No carriers with the ID %d have been registered with the system.", carrierId));
     }
 
 }
