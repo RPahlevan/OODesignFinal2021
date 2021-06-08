@@ -26,7 +26,7 @@ public class ConcreteMediator implements Mediator {
      * Required to be private to ensure the Singleton Pattern is followed.
      */
     private ConcreteMediator() {
-        radioUnits = new List<RadioUnit>();
+        radioUnits = new ArrayList<>();
     }
 
     /**
@@ -54,20 +54,18 @@ public class ConcreteMediator implements Mediator {
     /**
      * Displays the carrier associated with the ID supplied.
      *
-     * @param id The ID number for the carrier that will be displayed.
+     * @param carrierId The ID number for the carrier that will be displayed.
      */
     @Override
     public void displayCarrier(int carrierId) {
-        radioUnits.forEach(ru -> {
-            ru.getCarriers().getCarrierId().forEach(carrier -> {
-                if (carrier.getCarrierId() == carrierId) {
-                    carrier.print();
-                    return;
-                }
-            });
-        });
-        System.out.println(String.format(
-                "No carriers with the ID %d have been registered with the system.", carrierId));
+        radioUnits.forEach(ru -> ru.getCarriers().getCarrierId().forEach(carrier -> {
+            if (carrier.getCarrierId() == carrierId) {
+                carrier.print();
+                return;
+            }
+        }));
+        System.out.printf(
+                "No carriers with the ID %d have been registered with the system.%n", carrierId);
     }
 
 }
