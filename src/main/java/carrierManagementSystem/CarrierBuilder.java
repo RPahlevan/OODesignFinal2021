@@ -24,7 +24,7 @@ public interface CarrierBuilder {
      * @param rfPorts The RF ports for the carrier.
      *                WCDMA needs 2 RF ports and LTE needs 4 RF ports.
      */
-    void setRFPorts(List<RFPorts> rfPorts);
+    void setRfPorts(List<RfPorts> rfPorts);
 
     /**
      * Sets up the carrier frequency for WCDMA and LTE.

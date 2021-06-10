@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * This class is a child class to CarrierBuilder. It builds LTECarrier objects.
  */
-public class LTECarrierBuilder implements CarrierBuilder {
+public class LteCarrierBuilder implements CarrierBuilder {
     private Integer carrierId;
-    private List<RFPorts> rfPorts;
+    private List<RfPorts> rfPorts;
     private CarrierFrequencies carrierFrequencies;
     private Double transmittingPower;
 
@@ -28,7 +28,7 @@ public class LTECarrierBuilder implements CarrierBuilder {
      * @param rfPorts The RF ports for LTE. LTE needs 4 RF ports.
      */
     @Override
-    public void setRFPorts(List<RFPorts> rfPorts) {
+    public void setRfPorts(List<RfPorts> rfPorts) {
         // Catch exception for null rfPorts.
         if (rfPorts == null) {
             throw new NullPointerException("LTE RF Ports are not configured!");
@@ -69,7 +69,7 @@ public class LTECarrierBuilder implements CarrierBuilder {
      *
      * @return The built LTECarrier.
      */
-    public LTECarrier getLTECarrier() {
-        return new LTECarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
+    public LteCarrier getLteCarrier() {
+        return new LteCarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
     }
 }

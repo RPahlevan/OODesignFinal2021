@@ -6,9 +6,9 @@ import java.util.List;
 /**
  * This class is a child class to CarrierBuilder. It builds WCDMACarrier objects.
  */
-public class WCDMACarrierBuilder implements CarrierBuilder {
+public class WcdmaCarrierBuilder implements CarrierBuilder {
     private Integer carrierId;
-    private List<RFPorts> rfPorts;
+    private List<RfPorts> rfPorts;
     private CarrierFrequencies carrierFrequencies;
     private Double transmittingPower;
 
@@ -29,7 +29,7 @@ public class WCDMACarrierBuilder implements CarrierBuilder {
      * @param rfPorts The RF ports for WCDMA. WCDMA needs 2 RF ports.
      */
     @Override
-    public void setRFPorts(List<RFPorts> rfPorts) {
+    public void setRfPorts(List<RfPorts> rfPorts) {
         // Catch exception for null rfPorts.
         if (rfPorts == null) {
             throw new NullPointerException("WCDMA RF Ports are not configured!");
@@ -72,7 +72,7 @@ public class WCDMACarrierBuilder implements CarrierBuilder {
      *
      * @return The built WCDMACarrier.
      */
-    public WCDMACarrier getWCDMACarrier() {
-        return new WCDMACarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
+    public WcdmaCarrier getWcdmaCarrier() {
+        return new WcdmaCarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
     }
 }
