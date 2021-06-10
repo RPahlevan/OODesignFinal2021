@@ -75,17 +75,17 @@ public class ConcreteMediator implements Mediator {
     /**
      * Print the RAT type for a RU associated with the specified name.
      * 
-     * @param ip The IP associated with the targeted RU.
+     * @param name The name associated with the targeted RU.
      */
     @Override
-    public void printRatType(String ip) {
+    public void printRatType(String name) {
     	radioUnits.forEach(ru -> {
     		if (ru.getIpAddress().equals(name)) {
     			System.out.println(ru.getRatType());
     			return;
     		}
     	});
-    	System.out.printf("[ERROR] No RUs exist with the IP: %s%n", ip);
+    	System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
     }
     
     /**
@@ -94,20 +94,20 @@ public class ConcreteMediator implements Mediator {
      * @param name The name associated with the targeted RU.
      */
     @Override
-    public void printVendor(String ip) {
+    public void printVendor(String name) {
     	radioUnits.forEach(ru -> {
     		if (ru.getIpAddress().equals(name)) {
     			System.out.println(ru.getVendorType());
     			return;
     		}
     	});
-    	System.out.printf("[ERROR] No RUs exist with the IP: %s%n", ip);
+    	System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
     }
     
     /**
      * Print the alarm for a RU associated with the specified name.
      * 
-     * @param ip The IP associated with the targeted RU.
+     * @param name The name associated with the targeted RU.
      */
     @Override
     public void printAlarmStatus(String name) {
@@ -117,7 +117,7 @@ public class ConcreteMediator implements Mediator {
     			return;
     		}
     	});
-    	System.out.printf("[ERROR] No RUs exist with the IP: %s%n", ip);
+    	System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
     }
     
     /**
