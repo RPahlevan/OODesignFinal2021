@@ -1,5 +1,9 @@
 package mediator;
 
+import java.util.ArrayList;
+import java.util.List;
+import radiounit.RadioUnit;
+
 /**
  * The ConcreteMediator class is responsible for handling control/communication
  * logic between various system throughout the Wireless Network Management System.
@@ -44,11 +48,95 @@ public class ConcreteMediator implements Mediator {
      *
      * @param radioUnit The RU that will be registered with the mediator.
      */
-    @Override
-    public synchronized void register(RadioUnit radioUnit) {
+    private synchronized void register(RadioUnit radioUnit) {
         if (!radioUnits.contains(radioUnit)) {
             radioUnits.add(radioUnit);
         }
+    }
+    
+    /**
+     * Returns a list of RUs currently registered with the mediator.
+     * 
+     * @return A list of registered RUs.
+     */
+    @Override 
+    public List<RadioUnit> getRegisteredRadioUnits() {
+    	return radioUnits;
+    }
+    
+    /**
+     * Prints a formatted list of RUs currently registered with the mediator.
+     */
+    @Override
+    public void printRegistereredRaidoUnits() {
+    	radioUnits.forEach(ru -> ru.print());
+    }
+    
+    /**
+     * Print the RAT type for a RU associated with the specified name.
+     * 
+     * @param ip The IP associated with the targeted RU.
+     */
+    @Override
+    public void printRatType(String ip) {
+    	radioUnits.forEach(ru -> {
+    		if (ru.getIpAddress().equals(name)) {
+    			System.out.println(ru.getRatType());
+    			return;
+    		}
+    	});
+    	System.out.printf("[ERROR] No RUs exist with the IP: %s%n", ip);
+    }
+    
+    /**
+     * Print the vendor for a RU associated with the specified name.
+     * 
+     * @param name The name associated with the targeted RU.
+     */
+    @Override
+    public void printVendor(String ip) {
+    	radioUnits.forEach(ru -> {
+    		if (ru.getIpAddress().equals(name)) {
+    			System.out.println(ru.getVendorType());
+    			return;
+    		}
+    	});
+    	System.out.printf("[ERROR] No RUs exist with the IP: %s%n", ip);
+    }
+    
+    /**
+     * Print the alarm for a RU associated with the specified name.
+     * 
+     * @param ip The IP associated with the targeted RU.
+     */
+    @Override
+    public void printAlarmStatus(String name) {
+    	radioUnits.forEach(ru -> {
+    		if (ru.getIpAddress().equals(name)) {
+    			System.out.println(ru.getAlarmStatus());
+    			return;
+    		}
+    	});
+    	System.out.printf("[ERROR] No RUs exist with the IP: %s%n", ip);
+    }
+    
+    /**
+     * Create a bare bones RU. In the future this method will handle the
+     * control logic associated with which RU is to be created. For now,
+     * We just create a generic RU with the passed parameters.
+     * 
+     * @param name The name of the RU.
+     * @param vendor The vendor for the RU.
+     * @param ratType The RAT type for the RU.
+     */
+    @Override
+    public void createRU(String name, Vendor vendor, RatType ratType) {
+    	/* We are making a barebones RU, so we *technically* don't care
+    	 * about figuring out what kind of RU is being made.
+    	 * If we do, this will be updated to call the appropriate 
+    	 * constructor via switch statements.
+    	 */
+    	this.register(new RadioUnit(name, vendor, ratType));
     }
 
     /**
@@ -65,7 +153,7 @@ public class ConcreteMediator implements Mediator {
             }
         }));
         System.out.printf(
-                "No carriers with the ID %d have been registered with the system.%n", carrierId);
+                "[ERROR] No carriers with the ID %d have been registered with any registered RUs.%n", carrierId);
     }
 
 }
