@@ -3,7 +3,6 @@ package userinterface;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeMap;
 
 import carrierManagementSystem.*;
 import mediator.*;
