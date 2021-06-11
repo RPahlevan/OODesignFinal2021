@@ -19,7 +19,7 @@ public interface Mediator {
     
     void printAlarmStatus(String name);
     
-    void printRegistereredRaidoUnits();
+    void printRegisteredRaidoUnits();
 
     void displayCarrierOnRu(String name);
 

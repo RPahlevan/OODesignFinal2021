@@ -71,7 +71,7 @@ public class ConcreteMediator implements Mediator {
      * Prints a formatted list of RUs currently registered with the mediator.
      */
     @Override
-    public void printRegistereredRaidoUnits() {
+    public void printRegisteredRaidoUnits() {
         radioUnits.forEach(ru -> ru.print());
     }
 
