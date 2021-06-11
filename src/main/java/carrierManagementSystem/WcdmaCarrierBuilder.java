@@ -72,7 +72,7 @@ public class WcdmaCarrierBuilder implements CarrierBuilder {
      *
      * @return The built WCDMACarrier.
      */
-    public WcdmaCarrier getWcdmaCarrier() {
+    public Carrier getWcdmaCarrier() {
         return new WcdmaCarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
     }
 }

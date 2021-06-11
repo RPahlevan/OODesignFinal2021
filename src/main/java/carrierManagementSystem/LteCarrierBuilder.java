@@ -69,7 +69,7 @@ public class LteCarrierBuilder implements CarrierBuilder {
      *
      * @return The built LTECarrier.
      */
-    public LteCarrier getLteCarrier() {
+    public Carrier getLteCarrier() {
         return new LteCarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
     }
 }

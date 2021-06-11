@@ -3,6 +3,7 @@ package carrierManagementSystem;
 import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EmptyStackException;
 import java.util.List;
 
 /**
@@ -29,11 +30,15 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     public Carrier createLteCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
             Double transmittingPower) {
         LteCarrierBuilder lteCarrier = new LteCarrierBuilder();
-        lteCarrier.setCarrierId(carrierIdGenerator.pop());
+        try {
+        	lteCarrier.setCarrierId(carrierIdGenerator.pop());
+        	}catch (EmptyStackException e) {
+        		System.out.println("carrierIdGenerator stack for LTE carrier is empty!");
+        		}
         lteCarrier.setFrequencyBand(carrierFrequencies);
         lteCarrier.setTransmittingPower(transmittingPower);
         lteCarrier.setRfPorts(rfPorts);
-        LteCarrier LTE = lteCarrier.getLteCarrier();
+        Carrier LTE = lteCarrier.getLteCarrier();
         System.out.println("Final result: \n" + LTE.print());
         return LTE;
     }
@@ -42,11 +47,15 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     public Carrier createWcdmaCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
             Double transmittingPower) {
         WcdmaCarrierBuilder wcdmaCarrier = new WcdmaCarrierBuilder();
-        wcdmaCarrier.setCarrierId(carrierIdGenerator.pop());
+        try {
+        	wcdmaCarrier.setCarrierId(carrierIdGenerator.pop());
+        	}catch (EmptyStackException e) {
+        		System.out.println("carrierIdGenerator stack for WCDMA carrier is empty!");
+        		}
         wcdmaCarrier.setFrequencyBand(carrierFrequencies);
         wcdmaCarrier.setTransmittingPower(transmittingPower);
         wcdmaCarrier.setRfPorts(rfPorts);
-        WcdmaCarrier WCDMA = wcdmaCarrier.getWcdmaCarrier();
+        Carrier WCDMA = wcdmaCarrier.getWcdmaCarrier();
         System.out.println("Final result: \n" + WCDMA.print());
         return WCDMA;
     }
