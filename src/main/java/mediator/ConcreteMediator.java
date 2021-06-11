@@ -142,16 +142,36 @@ public class ConcreteMediator implements Mediator {
         this.register(new RadioUnit(name, vendor, ratType));
     }
 
+    /**
+     * Creates an RU and then add a newly created carrier to that existing RU.
+     *
+     * @param rfPorts The RF Ports that will be used with this carrier.
+     * @param carrierFrequencies The frequencies that will be used with this carrier.
+     * @param transmittingPower The transmitting power of the carrier.
+     * @param name The name of the RU this carrier will be added to.
+     * @param vendor The vendor for the newly created RU.
+     * @param ratType The RAT type for the newly created RU.
+     */
+    @Override
     public void createCarrierAndRu(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
                                    Double transmittingPower, String name, Vendor vendor, RatType ratType) {
         createRu(name, vendor, ratType);
         createCarrier(rfPorts, carrierFrequencies, transmittingPower, name);
     }
 
+    /**
+     * Creates a Carrier and add it to an existing RU.
+     *
+     * @param rfPorts The RF Ports that will be used with this carrier.
+     * @param carrierFrequencies The frequencies that will be used with this carrier.
+     * @param transmittingPower The transmitting power of the carrier.
+     * @param name The name of the RU this carrier will be added to.
+     */
+    @Override
     public void createCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
-                              Double transmittingPower, String ruName) {
+                              Double transmittingPower, String name) {
         radioUnits.forEach(ru -> {
-            if (ru.getRadioUnitName().equals(ruName)) {
+            if (ru.getRadioUnitName().equals(name)) {
                 switch(rfPorts.size()) {
                     case 2:
                         ru.setupCarrier(carrierManagement.createWcdmaCarrier(rfPorts, carrierFrequencies, transmittingPower));
@@ -167,24 +187,19 @@ public class ConcreteMediator implements Mediator {
             }
         });
         System.out.printf(
-                "[ERROR] No RU with that name %s is registered with the system%n", ruName);
+                "[ERROR] No RU with that name %s is registered with the system%n", name);
     }
 
     /**
-     * Displays the carrier associated with the ID supplied.
+     * Displays the carriers associated with an RU.
      *
-     * @param carrierId The ID number for the carrier that will be displayed.
+     * @param name The name of the RU for which the carriers will be displayed.
      */
     @Override
-    public void displayCarrier(int carrierId) {
-        radioUnits.forEach(ru -> ru.getCarriers().forEach(carrier -> {
-            if (carrier.getCarrierId() == carrierId) {
-                carrier.print();
-                return;
-            }
-        }));
+    public void displayCarrierOnRu(String name) {
+        radioUnits.forEach(ru -> ru.getCarriers().forEach(carrier.print()));
         System.out.printf(
-                "[ERROR] No carriers with the ID %d have been registered with any registered RUs.%n", carrierId);
+                "[ERROR] No RU with the name %s have been registered with the system.%n", name);
     }
 
 }
