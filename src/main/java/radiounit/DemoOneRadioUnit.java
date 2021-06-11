@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * 
  * @author Matthew
  *
+ * This is currently just a temporary class for demo purposes
  */
 
 public class DemoOneRadioUnit implements ManagedRadioUnit {
