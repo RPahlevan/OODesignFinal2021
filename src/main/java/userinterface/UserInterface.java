@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
 
+//import carrierManagementSystem;
+
 public class UserInterface {
 	
     public static void main(String[] args) {
     	//ConcreteMediator mediator = new ConcreteMediator();
     	//private List<Carrier> carrierList = new ArrayList<>();
     	String option;
+    	
+    	//CarrierManagementSystemDirector carrierManagement = new CarrierManagementSystemDirector();
     	
         System.out.println("Hello, World!");
         Scanner input = new Scanner(System.in);
@@ -22,9 +26,10 @@ public class UserInterface {
         				+ "1.	Create Carrier\n"
         				+ "2.	Create Radio Unit\n"
         				+ "3.	List Carriers\n"
-        				+ "4.	List suported RAT types\n"
-        				+ "5.	List radio vendors\n"
-        				+ "6.	List alarm status levels\n";
+        				+ "4.	Display carriers on RU"
+        				+ "5.	List suported RAT types\n"
+        				+ "6.	List radio vendors\n"
+        				+ "7.	List alarm status levels\n";
         		System.out.println(menu);
         		option = input.next();
         		switch (option) {
@@ -33,7 +38,7 @@ public class UserInterface {
         				break;
         			case "1":
         				// 1.Create Carrier
-        				//carrierList.add(createCarrierHelper(mediator));
+        				//carrierList.add(createCarrierHelper(carrierManagement));
         				break;
         			case "2":
         				// 2.Create Radio Unit     				
@@ -42,7 +47,7 @@ public class UserInterface {
         				String ruName = input.next();
         				String vendor = chooseVendor(input);
         				String ratType = chooseRATtype(input);
-        				//mediator.createRadioUnit(ruName, vendor, ratType);
+        				//mediator.createRU(ruName, vendor, ratType);
         				
         				
         		}
@@ -84,10 +89,15 @@ public class UserInterface {
 	 * @return Carrier   	carrier
 	 */
 /*	
-	private static Carrier createCarrierHelper(mediator) {
+	private static Carrier createCarrierHelper(carrierManagement) {
+		String ratType;
+		String[] rfPorts;
+		String freqBand;
+		double transPower;
+		Carrier carrier;
 		do {
 			// get RAT type
-			String ratType = chooseRATtype(input);
+			ratType = chooseRATtype(input);
 			if (ratType.equals("Back")) {
 				break;
 			}
@@ -99,14 +109,13 @@ public class UserInterface {
 			} else {
 				noOfRfPorts = RF_PORT_NUMBER.WCDMA_RF_PORTS_NUMBER.getValue();
 			}
-			String[] rfPorts = chooseRfPorts(noOfRfPorts, input);
+			rfPorts = chooseRfPorts(noOfRfPorts, input);
 			
 			//get Frequency band
-			String freqBand = chooseFreqBand(ratType, input);
+			freqBand = chooseFreqBand(ratType, input);
 			
 			//get transmitting power
 			System.out.println("Please enter a number for transmitting Power:\n");
-			double transPower;
 			do {
 				String transPowerText = input.next();
 				try {
@@ -119,7 +128,11 @@ public class UserInterface {
 			} while (true);			
 			break;	
 		} while (true);
-		Carrier carrier = mediator.creatCarrier(); 
+		if (ratType.equals("LTE")){
+			carrier = carrierManagement.creatLteCarrier(rfPorts); 
+		} else {
+			carrier = carrierManagement.creatWcdmaCarrier(rfPorts); 
+		}		
 		return carrier;
 	}
 */
