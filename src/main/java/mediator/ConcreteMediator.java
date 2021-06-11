@@ -1,8 +1,9 @@
 package mediator;
 
+import radiounit.RadioUnit;
+
 import java.util.ArrayList;
 import java.util.List;
-import radiounit.RadioUnit;
 
 /**
  * The ConcreteMediator class is responsible for handling control/communication
@@ -24,6 +25,7 @@ import radiounit.RadioUnit;
 public class ConcreteMediator implements Mediator {
     private static volatile ConcreteMediator UNIQUE_INSTANCE = new ConcreteMediator();
     private List<RadioUnit> radioUnits;
+    private CarrierManagementIf carrierManagement;
 
     /**
      * Constructor for the ConcreteMediator class.
@@ -31,6 +33,7 @@ public class ConcreteMediator implements Mediator {
      */
     private ConcreteMediator() {
         radioUnits = new ArrayList<>();
+        carrierManagement = new CarrierManagementSystemDirector();
     }
 
     /**
@@ -53,90 +56,118 @@ public class ConcreteMediator implements Mediator {
             radioUnits.add(radioUnit);
         }
     }
-    
+
     /**
      * Returns a list of RUs currently registered with the mediator.
-     * 
+     *
      * @return A list of registered RUs.
      */
-    @Override 
+    @Override
     public List<RadioUnit> getRegisteredRadioUnits() {
-    	return radioUnits;
+        return radioUnits;
     }
-    
+
     /**
      * Prints a formatted list of RUs currently registered with the mediator.
      */
     @Override
     public void printRegistereredRaidoUnits() {
-    	radioUnits.forEach(ru -> ru.print());
+        radioUnits.forEach(ru -> ru.print());
     }
-    
+
     /**
      * Print the RAT type for a RU associated with the specified name.
-     * 
+     *
      * @param name The name associated with the targeted RU.
      */
     @Override
     public void printRatType(String name) {
-    	radioUnits.forEach(ru -> {
-    		if (ru.getIpAddress().equals(name)) {
-    			System.out.println(ru.getRatType());
-    			return;
-    		}
-    	});
-    	System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        radioUnits.forEach(ru -> {
+            if (ru.getRadioUnitName().equals(name)) {
+                System.out.println(ru.getRatType());
+                return;
+            }
+        });
+        System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
     }
-    
+
     /**
      * Print the vendor for a RU associated with the specified name.
-     * 
+     *
      * @param name The name associated with the targeted RU.
      */
     @Override
     public void printVendor(String name) {
-    	radioUnits.forEach(ru -> {
-    		if (ru.getIpAddress().equals(name)) {
-    			System.out.println(ru.getVendorType());
-    			return;
-    		}
-    	});
-    	System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        radioUnits.forEach(ru -> {
+            if (ru.getRadioUnitName().equals(name)) {
+                System.out.println(ru.getVendorType());
+                return;
+            }
+        });
+        System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
     }
-    
+
     /**
      * Print the alarm for a RU associated with the specified name.
-     * 
+     *
      * @param name The name associated with the targeted RU.
      */
     @Override
     public void printAlarmStatus(String name) {
-    	radioUnits.forEach(ru -> {
-    		if (ru.getIpAddress().equals(name)) {
-    			System.out.println(ru.getAlarmStatus());
-    			return;
-    		}
-    	});
-    	System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        radioUnits.forEach(ru -> {
+            if (ru.getRadioUnitName().equals(name)) {
+                System.out.println(ru.getAlarmStatus());
+                return;
+            }
+        });
+        System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
     }
-    
+
     /**
      * Create a bare bones RU. In the future this method will handle the
      * control logic associated with which RU is to be created. For now,
      * We just create a generic RU with the passed parameters.
-     * 
-     * @param name The name of the RU.
-     * @param vendor The vendor for the RU.
+     *
+     * @param name    The name of the RU.
+     * @param vendor  The vendor for the RU.
      * @param ratType The RAT type for the RU.
      */
     @Override
-    public void createRU(String name, Vendor vendor, RatType ratType) {
-    	/* We are making a barebones RU, so we *technically* don't care
-    	 * about figuring out what kind of RU is being made.
-    	 * If we do, this will be updated to call the appropriate 
-    	 * constructor via switch statements.
-    	 */
-    	this.register(new RadioUnit(name, vendor, ratType));
+    public void createRu(String name, Vendor vendor, RatType ratType) {
+        /* We are making a barebones RU, so we *technically* don't care
+         * about figuring out what kind of RU is being made.
+         * If we do, this will be updated to call the appropriate
+         * constructor via switch statements.
+         */
+        this.register(new RadioUnit(name, vendor, ratType));
+    }
+
+    public void createCarrierAndRu(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+                                   Double transmittingPower, String name, Vendor vendor, RatType ratType) {
+        createRu(name, vendor, ratType);
+        createCarrier(rfPorts, carrierFrequencies, transmittingPower, name);
+    }
+
+    public void createCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+                              Double transmittingPower, String ruName) {
+        radioUnits.forEach(ru -> {
+            if (ru.getRadioUnitName().equals(ruName)) {
+                switch(rfPorts.size()) {
+                    case 2:
+                        ru.setupCarrier(carrierManagement.createWcdmaCarrier(rfPorts, carrierFrequencies, transmittingPower));
+                        return;
+                    case 4:
+                        ru.setupCarrier(carrierManagement.createLteCarrier(rfPorts, carrierFrequencies, transmittingPower));
+                        return;
+                    default:
+                        System.out.printf(
+                                "[ERROR] Invalid number of RF ports. Requires 2 or 4, but got %s%n", rfPorts.size());
+                        return;
+                }
+            }
+        });
+        System.out.printf(
+                "[ERROR] No RU with that name %s is registered with the system%n", ruName);
     }
 
     /**

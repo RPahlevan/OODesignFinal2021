@@ -11,7 +11,7 @@ import java.util.List;
 public interface Mediator {
 	List<RadioUnits> getRegisteredRadioUnits();
     
-    void createRU(String name, Vendor vendor, RatType ratType);
+    void createRu(String name, Vendor vendor, RatType ratType);
     
     void printVendor(String name);
     
@@ -22,4 +22,10 @@ public interface Mediator {
     void printRegistereredRaidoUnits();
 
     void displayCarrier(int id);
+
+    void createCarrierAndRu(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+                       Double transmittingPower, String name, Vendor vendor, RatType ratType);
+
+    void createCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+                       Double transmittingPower, String ruName);
 }
