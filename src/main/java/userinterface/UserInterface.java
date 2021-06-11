@@ -6,30 +6,30 @@ import java.util.Arrays;
 import java.util.TreeMap;
 
 //import carrierManagementSystem;
+//import mediator;
 
 public class UserInterface {
 	
     public static void main(String[] args) {
-    	//ConcreteMediator mediator = new ConcreteMediator();
-    	//private List<Carrier> carrierList = new ArrayList<>();
     	String option;
+    	String ruName;
+    	//ConcreteMediator mediator = ConcreteMediator.getInstance();
     	
-    	//CarrierManagementSystemDirector carrierManagement = new CarrierManagementSystemDirector();
-    	
-        System.out.println("Hello, World!");
+        System.out.println("Welcome!");
         Scanner input = new Scanner(System.in);
         do {
         	option = "-1";
         	try {
         		String menu = "\nPlease enter the number corresponding to the option you would like to choose:\n"
         				+ "0.	Exit Program\n"
-        				+ "1.	Create Carrier\n"
-        				+ "2.	Create Radio Unit\n"
-        				+ "3.	List Carriers\n"
-        				+ "4.	Display carriers on RU"
-        				+ "5.	List suported RAT types\n"
-        				+ "6.	List radio vendors\n"
-        				+ "7.	List alarm status levels\n";
+        				+ "1.	Create Radio Unit\n"
+        				+ "2.	Create Carrier on Radio Unit\n"
+        				+ "3.	Create Carrier and Radio Unit\n"
+        				+ "4.	List carriers on RU\n"
+        				+ "5.	List RU suported RAT type\n"
+        				+ "6.	List Radio Unit vendor\n"
+        				+ "7.	List RU alarm status level\n"
+        				+ "8.	List registerd Radio Units\n";
         		System.out.println(menu);
         		option = input.next();
         		switch (option) {
@@ -37,27 +37,102 @@ public class UserInterface {
         				System.out.println("Goodbye!\n");
         				break;
         			case "1":
-        				// 1.Create Carrier
-        				//carrierList.add(createCarrierHelper(carrierManagement));
-        				break;
-        			case "2":
-        				// 2.Create Radio Unit     				
+        				// 1.Create Radio Unit     				
         				// get vendor
-        				System.out.println("Please enter Radio Unit name:");
-        				String ruName = input.next();
+        				System.out.println("Please enter a name for the Radio Unit:\n"
+                                + "For example: LTE#1\n"
+                                + "Enter 'Back' to go back to the menu\n");
+        				ruName = input.next();
+        				if (ruName.toUpperCase().equals("BACK")) {
+        					break;
+        				}
         				String vendor = chooseVendor(input);
         				String ratType = chooseRATtype(input);
         				//mediator.createRU(ruName, vendor, ratType);
-        				
-        				
+        				System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully created");
+        				break;
+        			case "2":
+        				// 2.Create Carrier on Radio Unit
+        				System.out.println("To create carrier on Radio Unit, you need to have a Radio Unit ready first\n"
+        						+ "Please enter the Radio Unit name:\n"
+        						+ "Enter 'Back' to go back to the menu\n");
+        				ruName = input.next();
+        				if (ruName.toUpperCase().equals("BACK")) {
+        					break;
+        				}
+        				createCarrierOnRu(ruName, input);
+        				System.out.println("Carrier has been successfully created on " + "Radio Unit " + "'" + ruName + "'");
+        				break;
+        			case "3":
+        				//3.Create Carrier and Radio Unit
+        				System.out.println("Please enter a new Radio Unit name\n"
+                                + "For example: LTE#1\n"
+        						+ "Enter 'Back' to go back to the menu\n");
+        				ruName = input.next();
+        				if (ruName.toUpperCase().equals("BACK")) {
+        					break;
+        				}
+        				createCarrierAndRu(ruName, input);
+        				break;
+        			case "4":
+        				//4.List carriers on RU
+        				System.out.println("Please enter a new Radio Unit name:\n"
+                                + "For example: LTE#1\n"
+                                + "Enter 'Back' to go back to the menu\n");        				
+        				ruName = input.next();
+        				if (ruName.toUpperCase().equals("BACK")) {
+        					break;
+        				}
+        				//mediator.displayCarrierOnRu(ruName);
+        				break;
+        			case "5":
+        				//5.Display RU supported RAT types
+        				System.out.println("Please enter the name of the Radio Unit you want to list the supported RAT type of:\n"
+                                + "For example: LTE#1\n"
+                                + "Enter 'Back' to go back to the menu\n");
+        				ruName = input.next();
+        				if (ruName.toUpperCase().equals("BACK")) {
+        					break;
+        				}        				
+        				//mediator.printRatType(ruName);
+        				break;
+        			case "6":
+        				//6.List Radio Unit vendor
+	    				System.out.println("Please enter the name of the Radio Unit you want to list the vendor of:\n"
+	                            + "For example: LTE#1\n"
+	                            + "Enter 'Back' to go back to the menu\n");
+	    				ruName = input.next();
+	    				if (ruName.toUpperCase().equals("BACK")) {
+	    					break;
+	    				}
+	    				//mediator.printVendor(ruName);
+	    				break;
+        			case "7":
+        				//7.List RU alarm status level
+	    				System.out.println("Please enter the name of the Radio Unit you want to list the valarm status level of:\n"
+	                            + "For example: LTE#1\n"
+	                            + "Enter 'Back' to go back to the menu\n");
+	    				ruName = input.next();
+	    				if (ruName.toUpperCase().equals("BACK")) {
+	    					break;
+	    				}
+	    				//mediator.printAlarmStatus(ruName);
+	    				break;
+        			case "8":
+        				//8.List registerd Radio Units
+        				//mediator.printRegisteredRadioUnits();
+        				break;
+	    			default:
+                        System.out.println("Unsupported option, please try again!");
+                        break;
+       				
         		}
         		
         	} catch (Exception e) {
         		System.out.println("Invalid input, please try again!");
         		continue;
         	}
-        	
-        	
+
         } while(!option.equals("0"));
     } // main
 
@@ -80,62 +155,98 @@ public class UserInterface {
 		
 	}
 	/**
-	 * Helper method that create a carrier based on user-choose
+	 * Helper method that create a carrier on existing RU based on user-choose
 	 * RAT typre, RF Ports, Frequency band and transmitting power
-	 * Returns the carrier created
 	 * 
 	 * @param  mediator    	ConcreateMediator instance to send request
 	 *    					to mediator
-	 * @return Carrier   	carrier
+	 * @param  ruName       name of the radio unit to create carrier on
+	 * @return void  	
 	 */
-/*	
-	private static Carrier createCarrierHelper(carrierManagement) {
+	
+	private static void createCarrierOnRu(String ruName, Scanner input) {
 		String ratType;
 		String[] rfPorts;
 		String freqBand;
 		double transPower;
-		Carrier carrier;
-		do {
-			// get RAT type
-			ratType = chooseRATtype(input);
-			if (ratType.equals("Back")) {
-				break;
-			}
-			
-			//get RF Ports
-			int noOfRfPorts;
-			if (ratType.equals("LTE")) {
-				noOfRfPorts = RF_PORT_NUMBER.LTE_RF_PORTS_NUMBER.getValue();
-			} else {
-				noOfRfPorts = RF_PORT_NUMBER.WCDMA_RF_PORTS_NUMBER.getValue();
-			}
-			rfPorts = chooseRfPorts(noOfRfPorts, input);
-			
-			//get Frequency band
-			freqBand = chooseFreqBand(ratType, input);
-			
-			//get transmitting power
-			System.out.println("Please enter a number for transmitting Power:\n");
-			do {
-				String transPowerText = input.next();
-				try {
-					transPower = Double.valueOf(transPowerText);
-					break;
-				} catch (NumberFormatException  e) {
-					System.out.println("'" + transPowerText + "'" + " is not a valid number, Try agian!");
-					continue;
-				}        						
-			} while (true);			
-			break;	
-		} while (true);
-		if (ratType.equals("LTE")){
-			carrier = carrierManagement.creatLteCarrier(rfPorts); 
-		} else {
-			carrier = carrierManagement.creatWcdmaCarrier(rfPorts); 
-		}		
-		return carrier;
+
+		// get RAT type
+		ratType = chooseRATtype(input);
+				
+		//get RF Ports
+		rfPorts = chooseRfPorts(ratType, input);
+		
+		//get Frequency band
+		freqBand = chooseFreqBand(ratType, input);
+		
+		//get transmitting power
+		transPower = getTransPower(input);
+
+		//mediator.createCarrier(rfPorts, freqBand, transPower, ruName);
+
+
 	}
-*/
+
+	
+	
+	/**
+	 * Helper method that create a carrier on existing RU based on user-choose
+	 * RAT typre, RF Ports, Frequency band and transmitting power
+	 * 
+	 * @param  mediator    	ConcreateMediator instance to send request
+	 *    					to mediator
+	 * @param  ruName       name of the radio unit to create carrier on
+	 * @return void  	
+	 */
+	
+	private static void createCarrierAndRu(String ruName, Scanner input) {
+		String vendor;
+		String ratType;
+		String[] rfPorts;
+		String freqBand;
+		double transPower;
+
+		//get vendor for radio unit
+		vendor = chooseVendor(input);
+		
+		//get RAT type
+        ratType = chooseRATtype(input);
+	
+		//get RF Ports
+		rfPorts = chooseRfPorts(ratType, input);			
+		
+		//get Frequency band
+		freqBand = chooseFreqBand(ratType, input);
+			
+		//get transmitting power
+		transPower = getTransPower(input);
+
+		//mediator.createCarrierAndRu(rfPorts, freqBand, transPower, ruName, vendor, ratType);
+
+	}
+	
+	/**
+	 * Helper method that get the transmitting power for carrier from user
+	 * Returns the transmitting power user entered
+	 * 
+	 * @param  input    Scanner instance to get user input
+	 * @return double   transmitting power
+	 */	
+	private static double getTransPower(Scanner input) {
+		double transPower;
+		System.out.println("Please enter a number for transmitting Power:\n");
+		do {
+			String transPowerText = input.next();
+			try {
+				transPower = Double.valueOf(transPowerText);
+				break;
+			} catch (NumberFormatException  e) {
+				System.out.println("'" + transPowerText + "'" + " is not a valid number, Try agian!");
+				continue;
+			}        						
+		} while (true);
+		return transPower;
+	}
 	
 	
 	/**
@@ -147,7 +258,7 @@ public class UserInterface {
 	 */	
 	private static String chooseVendor(Scanner input) {
 		String vendor = null;
-		System.out.println("Please choose Vendor:\n"
+		System.out.println("Please choose a Vendor for Radio Unit:\n"
 				+ "1.	Ericsson\n"
 				+ "2.	Nokia\n");
 
@@ -177,15 +288,11 @@ public class UserInterface {
 	 */
 	private static String chooseRATtype(Scanner input) {
 		String rat = null;
-		System.out.println("\nPlease choose the RAT type:\n"
+		System.out.println("\nPlease choose a RAT type:\n"
 				+ "1.	LTE\n"
-				+ "2.	WCDM\n"
-				+ "Enter 'Back' to go back to the menu\n");
+				+ "2.	WCDM\n");
 		do {
-			String subOption = input.next();
-			if (subOption.toUpperCase().equals("BACK")) {
-				return "Back";
-			}			
+			String subOption = input.next();		
 			switch (subOption) {
 				case "1":
 					rat = "LTE";
@@ -211,7 +318,13 @@ public class UserInterface {
 	 * @return RfPorts[]   an array of RF ports
 	 */	
 	//Temporary return a string[], need to change to RfPorts type
-	private static String[] chooseRfPorts(int noOfRfPorts, Scanner input) {
+	private static String[] chooseRfPorts(String ratType, Scanner input) {
+		int noOfRfPorts;
+		if (ratType.equals("LTE")) {
+			noOfRfPorts = RF_PORT_NUMBER.LTE_RF_PORTS_NUMBER.getValue();
+		} else {
+			noOfRfPorts = RF_PORT_NUMBER.WCDMA_RF_PORTS_NUMBER.getValue();
+		}		
 		String[] ports = new String[noOfRfPorts];
 		int count = 0;
 		System.out.println(
