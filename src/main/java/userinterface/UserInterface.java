@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.TreeMap;
 
-//import carrierManagementSystem;
-//import mediator;
+import carrierManagementSystem.*;
+import mediator.*;
+import radiounit.*;
 
 public class UserInterface {
 	
     public static void main(String[] args) {
     	String option;
     	String ruName;
-    	//ConcreteMediator mediator = ConcreteMediator.getInstance();
+    	ConcreteMediator mediator = ConcreteMediator.getInstance();
     	
         System.out.println("Welcome!");
         Scanner input = new Scanner(System.in);
@@ -46,9 +47,9 @@ public class UserInterface {
         				if (ruName.toUpperCase().equals("BACK")) {
         					break;
         				}
-        				String vendor = chooseVendor(input);
-        				String ratType = chooseRATtype(input);
-        				//mediator.createRU(ruName, vendor, ratType);
+        				Vendor vendor = chooseVendor(input);
+        				RatType ratType = chooseRATtype(input);
+        				mediator.createRU(ruName, vendor, ratType);
         				System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully created");
         				break;
         			case "2":
@@ -60,7 +61,7 @@ public class UserInterface {
         				if (ruName.toUpperCase().equals("BACK")) {
         					break;
         				}
-        				createCarrierOnRu(ruName, input);
+        				createCarrierOnRu(ruName, mediator, input);
         				System.out.println("Carrier has been successfully created on " + "Radio Unit " + "'" + ruName + "'");
         				break;
         			case "3":
@@ -72,7 +73,7 @@ public class UserInterface {
         				if (ruName.toUpperCase().equals("BACK")) {
         					break;
         				}
-        				createCarrierAndRu(ruName, input);
+        				createCarrierAndRu(ruName, mediator, input);
         				break;
         			case "4":
         				//4.List carriers on RU
@@ -83,7 +84,7 @@ public class UserInterface {
         				if (ruName.toUpperCase().equals("BACK")) {
         					break;
         				}
-        				//mediator.displayCarrierOnRu(ruName);
+        				mediator.displayCarrierOnRu(ruName);
         				break;
         			case "5":
         				//5.Display RU supported RAT types
@@ -94,7 +95,7 @@ public class UserInterface {
         				if (ruName.toUpperCase().equals("BACK")) {
         					break;
         				}        				
-        				//mediator.printRatType(ruName);
+        				mediator.printRatType(ruName);
         				break;
         			case "6":
         				//6.List Radio Unit vendor
@@ -105,7 +106,7 @@ public class UserInterface {
 	    				if (ruName.toUpperCase().equals("BACK")) {
 	    					break;
 	    				}
-	    				//mediator.printVendor(ruName);
+	    				mediator.printVendor(ruName);
 	    				break;
         			case "7":
         				//7.List RU alarm status level
@@ -116,11 +117,11 @@ public class UserInterface {
 	    				if (ruName.toUpperCase().equals("BACK")) {
 	    					break;
 	    				}
-	    				//mediator.printAlarmStatus(ruName);
+	    				mediator.printAlarmStatus(ruName);
 	    				break;
         			case "8":
         				//8.List registerd Radio Units
-        				//mediator.printRegisteredRadioUnits();
+        				mediator.printRegisteredRaidoUnits();
         				break;
 	    			default:
                         System.out.println("Unsupported option, please try again!");
@@ -164,10 +165,10 @@ public class UserInterface {
 	 * @return void  	
 	 */
 	
-	private static void createCarrierOnRu(String ruName, Scanner input) {
-		String ratType;
-		String[] rfPorts;
-		String freqBand;
+	private static void createCarrierOnRu(String ruName, ConcreteMediator mediator, Scanner input) {
+		RatType ratType;
+		RfPorts[] rfPorts;
+		CarrierFrequencies freqBand;
 		double transPower;
 
 		// get RAT type
@@ -182,7 +183,7 @@ public class UserInterface {
 		//get transmitting power
 		transPower = getTransPower(input);
 
-		//mediator.createCarrier(rfPorts, freqBand, transPower, ruName);
+		mediator.createCarrier(rfPorts, freqBand, transPower, ruName);
 
 
 	}
@@ -199,11 +200,11 @@ public class UserInterface {
 	 * @return void  	
 	 */
 	
-	private static void createCarrierAndRu(String ruName, Scanner input) {
-		String vendor;
-		String ratType;
-		String[] rfPorts;
-		String freqBand;
+	private static void createCarrierAndRu(String ruName, ConcreteMediator mediator, Scanner input) {
+		Vendor vendor;
+		RatType ratType;
+		RfPorts[] rfPorts;
+		CarrierFrequencies freqBand;
 		double transPower;
 
 		//get vendor for radio unit
@@ -254,10 +255,10 @@ public class UserInterface {
 	 * Returns the vendor user choose
 	 * 
 	 * @param  input    Scanner instance to get user input
-	 * @return String   vendor
+	 * @return Vendor   vendor
 	 */	
-	private static String chooseVendor(Scanner input) {
-		String vendor = null;
+	private static Vendor chooseVendor(Scanner input) {
+		Vendor vendor = null;
 		System.out.println("Please choose a Vendor for Radio Unit:\n"
 				+ "1.	Ericsson\n"
 				+ "2.	Nokia\n");
@@ -266,10 +267,10 @@ public class UserInterface {
 			String subOption = input.next();
 			switch (subOption) {
 				case "1":
-					vendor = "Ericsson";
+					vendor = "Ericsson";//Todo: change to Vendor enum
 					break;
 				case "2":
-					vendor = "Nokia";
+					vendor = "Nokia";//Todo: change to Vendor enum
 					break;
 				default:
 					System.out.println("Invalid input, please try again.");
@@ -284,10 +285,10 @@ public class UserInterface {
 	 * Returns the RAT type user choose.
 	 * 
 	 * @param input     Scanner instance to get user input
-	 * @return String   the RAT type
+	 * @return RatType   the RAT type
 	 */
-	private static String chooseRATtype(Scanner input) {
-		String rat = null;
+	private static RatType chooseRATtype(Scanner input) {
+		RatType rat = null;
 		System.out.println("\nPlease choose a RAT type:\n"
 				+ "1.	LTE\n"
 				+ "2.	WCDM\n");
@@ -295,10 +296,10 @@ public class UserInterface {
 			String subOption = input.next();		
 			switch (subOption) {
 				case "1":
-					rat = "LTE";
+					rat = "LTE";//Todo: change to RatType enum
 					break;
 				case "2":
-					rat = "WCDMA";
+					rat = "WCDMA";//Todo: change to RatType enum
 					break;
 				default:
 					System.out.println("Invalid input, please try again.");
@@ -312,20 +313,19 @@ public class UserInterface {
 	
 	/**
 	 * Helper method that get the RF Ports from user.
-	 * Returns a list of RF Ports user choose.
+	 * Returns a list of RF Ports.
 	 * 
 	 * @param input        Scanner instance to get user input
 	 * @return RfPorts[]   an array of RF ports
 	 */	
-	//Temporary return a string[], need to change to RfPorts type
-	private static String[] chooseRfPorts(String ratType, Scanner input) {
+	private static RfPorts[] chooseRfPorts(String ratType, Scanner input) {
 		int noOfRfPorts;
 		if (ratType.equals("LTE")) {
 			noOfRfPorts = RF_PORT_NUMBER.LTE_RF_PORTS_NUMBER.getValue();
 		} else {
 			noOfRfPorts = RF_PORT_NUMBER.WCDMA_RF_PORTS_NUMBER.getValue();
 		}		
-		String[] ports = new String[noOfRfPorts];
+		RfPorts[] ports = new RfPorts[noOfRfPorts];
 		int count = 0;
 		System.out.println(
 				"Please choose " + noOfRfPorts + " RF ports\n"
@@ -341,28 +341,28 @@ public class UserInterface {
 			String subOption = input.next();
 			switch (subOption) {
 				case "1":
-					ports[count++] = "RF_0 = A";
+					ports[count++] = RfPorts.RF_O;
 					break;
 				case "2":
-					ports[count++] = "RF_1 = B";
+					ports[count++] = RfPorts.RF_1;
 					break;
 				case "3":
-					ports[count++] = "RF_2 = C";
+					ports[count++] = RfPorts.RF_2;
 					break;
 				case "4":
-					ports[count++] = "RF_3 = D";
+					ports[count++] = RfPorts.RF_3;
 					break;
 				case "5":
-					ports[count++] = "RF_4 = E";
+					ports[count++] = RfPorts.RF_4;
 					break;
 				case "6":
-					ports[count++] = "RF_5 = F";
+					ports[count++] = RfPorts.RF_5;
 					break;
 				case "7":
-					ports[count++] = "RF_6 = G";
+					ports[count++] = RfPorts.RF_6;
 					break;
 				case "8":
-					ports[count++] = "RF_7 = H";
+					ports[count++] = RfPorts.RF_7;
 					break;
 				default:
 					System.out.println("Invalid input, please try again.");
@@ -381,9 +381,8 @@ public class UserInterface {
 	 * @param input                 Scanner instance to get user input
 	 * @return CarrierFrequencies   Carrier frequency band
 	 */
-	//temporary return a String, should return CarrierFrequencies type
-	private static String chooseFreqBand(String ratType, Scanner input) {
-		String freqBand = null;
+	private static CarrierFrequencies chooseFreqBand(String ratType, Scanner input) {
+		CarrierFrequencies freqBand = null;
 		System.out.println("Please choose Carrier Frequency Band:");
 		if (ratType == "LTE") {
 			System.out.println(
@@ -411,58 +410,58 @@ public class UserInterface {
 			switch (subOption) {
 				case "1":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_1  = 1920 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_1;
 					} else {
-						freqBand = "WCDMA_BAND_1  = 2100 MHz";
+						freqBand = CarrierFrequencies.WCDMA_BAND_1;
 					}
 					break;
 				case "2":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_2  = 1850 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_2;
 					} else {
-						freqBand = "WCDMA_BAND_2  = 1900 MHz";
+						freqBand = CarrierFrequencies.WCDMA_BAND_2;
 					}					
 					break;
 				case "3":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_3  = 1710 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_3;
 					} else {
-						freqBand = "WCDMA_BAND_3  = 1800 MHz";
+						freqBand = CarrierFrequencies.WCDMA_BAND_3;
 					}					
 					break;
 				case "4":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_4  = 1755 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_4;
 					} else {
-						freqBand = "WCDMA_BAND_4  = 2100/1700 MHz";
+						freqBand = CarrierFrequencies.WCDMA_BAND_4;
 					}
 					break;
 				case "5":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_5  = 824 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_5;
 					} else {
-						freqBand = "WCDMA_BAND_5  = 850 MHz - for the U.S.";
+						freqBand = CarrierFrequencies.WCDMA_BAND_5;
 					}
 					break;
 				case "6":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_6  = 830 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_6;
 					} else {
-						freqBand = "WCDMA_BAND_6  = 850 MHz - for Japan";
+						freqBand = CarrierFrequencies.WCDMA_BAND_6;
 					}
 					break;
 				case "7":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_7  = 2500 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_7;
 					} else {
-						freqBand = "WCDMA_BAND_7  = 2500 MHz";
+						freqBand = CarrierFrequencies.WCDMA_BAND_7;
 					}
 					break;
 				case "8":
 					if (ratType == "LTE") {
-						freqBand = "LTE_BAND_8 = 880 MHz";
+						freqBand = CarrierFrequencies.LTE_BAND_8;
 					} else {
-						freqBand = "WCDMA_BAND_8  = 900 MHz";
+						freqBand = CarrierFrequencies.WCDMA_BAND_8 ;
 					}
 					break;
 				default:
