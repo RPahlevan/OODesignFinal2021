@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class CarrierManagementSystemClient {
 
     public static void main(String[] args) {
-        CarrierManagementSystemDirector director = new CarrierManagementSystemDirector();
+        CarrierManagementSystemDirector director = CarrierManagementSystemDirector.getInstance();
 
         /**
          * The below code would show how to create LTE carrier with a carrier id, RF
