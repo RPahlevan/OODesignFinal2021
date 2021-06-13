@@ -3,6 +3,8 @@ package carrierManagementSystem;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import common.FrequencyBand;
+import common.RfPorts;
 
 /**
  * Client class. This class would perform the unit tests for the carrier

@@ -2,6 +2,9 @@ package carrierManagementSystem;
 
 import java.util.List;
 
+import common.FrequencyBand;
+import common.RfPorts;
+
 /**
  * The CarrierBuilder interface defines all possible ways to configure a LTE and
  * WCDMA carrier.

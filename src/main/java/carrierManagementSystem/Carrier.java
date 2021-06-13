@@ -3,6 +3,9 @@ package carrierManagementSystem;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.FrequencyBand;
+import common.RfPorts;
+
 /**
  * This abstract class defines a Carrier that will have concrete implementations
  * for different RAT types.

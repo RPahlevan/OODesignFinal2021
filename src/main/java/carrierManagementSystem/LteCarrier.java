@@ -2,6 +2,9 @@ package carrierManagementSystem;
 
 import java.util.List;
 
+import common.FrequencyBand;
+import common.RfPorts;
+
 /**
  * This class builds LTE carriers. The LTECarrierBuilder class uses this class
  * to build an object. Each private data member inside this class has a getter
