@@ -12,11 +12,11 @@ import java.util.List;
  */
 public abstract class Carrier {
 	protected int carrierId;
-	protected List<RfPort> rfPorts;
-	protected CarrierFrequency carrierFreq;
+	protected List<RfPorts> rfPorts;
+	protected FrequencyBand carrierFreq;
 	protected double transmittingPower;
 	
-	public Carrier(int carrierId, List<RfPort> rfPorts, CarrierFrequency freq)
+	public Carrier(int carrierId, List<RfPorts> rfPorts, FrequencyBand freq)
 	{
 		this.carrierId = carrierId;
 		this.carrierFreq = freq;
@@ -43,7 +43,7 @@ public abstract class Carrier {
      *
      * @return The RF ports, as a List.
      */
-    public List<RfPort> getRfPorts() {
+    public List<RfPorts> getRfPorts() {
         return rfPorts;
     }
 
@@ -52,7 +52,7 @@ public abstract class Carrier {
      *
      * @return The carrier frequency, as a CarrierFrequencies object.
      */
-    public CarrierFrequency getCarrierFrequencies() {
+    public FrequencyBand getCarrierFrequencies() {
         return carrierFreq;
     }
 

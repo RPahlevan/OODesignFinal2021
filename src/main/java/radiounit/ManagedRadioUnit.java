@@ -6,7 +6,7 @@ package radiounit;
 import java.util.List;
 import common.AlarmStatusLevel;
 import common.Carrier;
-import common.CarrierFrequency;
+import common.FrequencyBand;
 import common.RatType;
 
 /**
@@ -33,7 +33,7 @@ public interface ManagedRadioUnit {
 	
 	public void setupCarrier(Carrier carrier);
 	
-	public void modifyCarrier(int carrierId, CarrierFrequency freq);
+	public void modifyCarrier(int carrierId, FrequencyBand freq);
 	
 	public void removeCarrier(int carrierId);
 	

@@ -1,4 +1,4 @@
-package carrierManagementSystem;
+package common;
 
 /**
  * This class contain information related to LTE and WCDMA bands.

@@ -4,7 +4,7 @@ import java.util.List;
 
 import common.AlarmStatusLevel;
 import common.Carrier;
-import common.CarrierFrequency;
+import common.FrequencyBand;
 import common.RatType;
 
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class DemoOneRadioUnit implements ManagedRadioUnit {
 	}
 
 	@Override
-	public void modifyCarrier(int carrierId, CarrierFrequency freq) {
+	public void modifyCarrier(int carrierId, FrequencyBand freq) {
 		System.out.println("Modifying carrier");
 
 	}
