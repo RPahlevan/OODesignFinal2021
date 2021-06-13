@@ -1,4 +1,9 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.Carrier;
+import common.FrequencyBand;
+import common.RfPort;
+import mediator.ConcreteMediator;
 
 import java.util.Stack;
 import java.util.ArrayList;
@@ -14,9 +19,9 @@ import java.util.List;
  * carrier it creates.
  */
 public class CarrierManagementSystemDirector implements CarrierManagementIf {
+    private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
     private final int LTE_MAXIMUM_CARRIER_ID = 500; 
     private final int WCDMA_MAXIMUM_CARRIER_ID = 500;
-	private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = null;
     private Stack<Integer> lteCarrierIdGenerator = new Stack<Integer>();
     private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<Integer>();
 
@@ -45,15 +50,12 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
      * @return CarrierManagementSystemDirector singleton instance
      */
     public static CarrierManagementSystemDirector getInstance() {
-        if (UNIQUE_INSTANCE == null) {
-            UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
-        }
         return UNIQUE_INSTANCE;
     }
 
     @Override
-    public Carrier createLteCarrier(List<RfPorts> rfPorts, FrequencyBand frequencyBand,
-            Double transmittingPower) {
+    public Carrier createLteCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand,
+                                    Double transmittingPower) {
         LteCarrierBuilder lteCarrier = new LteCarrierBuilder();
         try {
             lteCarrier.setCarrierId(lteCarrierIdGenerator.pop());
@@ -69,8 +71,8 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     }
 
     @Override
-    public Carrier createWcdmaCarrier(List<RfPorts> rfPorts, FrequencyBand frequencyBand,
-            Double transmittingPower) {
+    public Carrier createWcdmaCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand,
+                                      Double transmittingPower) {
         WcdmaCarrierBuilder wcdmaCarrier = new WcdmaCarrierBuilder();
         try {
             wcdmaCarrier.setCarrierId(wcdmaCarrierIdGenerator.pop());

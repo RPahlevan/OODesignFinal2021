@@ -4,10 +4,8 @@
 package radiounit;
 
 import java.util.List;
-import common.AlarmStatusLevel;
-import common.Carrier;
-import common.CarrierFrequency;
-import common.RatType;
+
+import common.*;
 
 /**
  * @author edavleu
@@ -15,46 +13,46 @@ import common.RatType;
  */
 public interface ManagedRadioUnit {
 	
-	public void setup();
+	void setup();
 	
-	public void activate();
+	void activate();
 	
-	public void deactivate();
+	void deactivate();
+
+	void release();
 	
-	public void release();
+	void signalScaling();
 	
-	public void signalScaling();
+	void postActivation();
 	
-	public void postActivation();
+	void performSelfDiagnostics();
+
+	void acknowledgeAlarm();
 	
-	public void performSelfDiagnostics();
+	void setupCarrier(Carrier carrier);
 	
-	public void acknowledgeAlarm();
+	void modifyCarrier(int carrierId, FrequencyBand freq);
 	
-	public void setupCarrier(Carrier carrier);
+	void removeCarrier(int carrierId);
 	
-	public void modifyCarrier(int carrierId, CarrierFrequency freq);
+	void removeAllCarriers();
 	
-	public void removeCarrier(int carrierId);
+	String getCurrentState();
 	
-	public void removeAllCarriers();
+	String getIpAddress();
 	
-	public String getCurrentState();
+	String getRadioUnitName();
 	
-	public String getIpAddress();
+	Vendor getVendor();
 	
-	public String getRadioUnitName();
+	RatType getRatType();
 	
-	public String getVendor();
+	List<Carrier> getCarriers();
 	
-	public RatType getRatType();
+	AlarmStatusLevel getAlarmStatus();
 	
-	public List<Carrier> getCarriers();
+	void setRadioUnitName(String name);
 	
-	public AlarmStatusLevel getAlarmStatus();
-	
-	public void setRadioUnitName(String name);
-	
-	public void raiseAlarm(AlarmStatusLevel alarm);
+	void raiseAlarm(AlarmStatusLevel alarm);
 	
 }

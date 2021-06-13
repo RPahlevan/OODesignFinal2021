@@ -1,4 +1,7 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.FrequencyBand;
+import common.RfPort;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,7 +22,7 @@ public class CarrierManagementSystemClient {
          *
          * Please note that a LTE carrier needs 4 RF ports.
          */
-        List<RfPorts> LteRfPorts = Stream.of(RfPorts.RF_3, RfPorts.RF_4, RfPorts.RF_5, RfPorts.RF_6)
+        List<RfPort> LteRfPorts = Stream.of(RfPort.RF_3, RfPort.RF_4, RfPort.RF_5, RfPort.RF_6)
                 .collect(Collectors.toList());
         FrequencyBand LteBand_3 = FrequencyBand.LTE_BAND_3;
         double transmittingPower = 12.2;
@@ -31,7 +34,7 @@ public class CarrierManagementSystemClient {
          * 
          * Please note that WCDMA carrier needs 2 rf ports.
          */
-        List<RfPorts> WcdmaRfPorts = Stream.of(RfPorts.RF_1, RfPorts.RF_2).collect(Collectors.toList());
+        List<RfPort> WcdmaRfPorts = Stream.of(RfPort.RF_1, RfPort.RF_2).collect(Collectors.toList());
         FrequencyBand WcdmaBand_5 = FrequencyBand.WCDMA_BAND_5;
         transmittingPower = 11.7;
         director.createWcdmaCarrier(WcdmaRfPorts, WcdmaBand_5, transmittingPower);

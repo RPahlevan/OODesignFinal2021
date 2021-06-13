@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package common;
 
@@ -11,24 +11,23 @@ import java.util.List;
  * for different RAT types.
  */
 public abstract class Carrier {
-	protected int carrierId;
-	protected List<RfPort> rfPorts;
-	protected CarrierFrequency carrierFreq;
-	protected double transmittingPower;
-	
-	public Carrier(int carrierId, List<RfPort> rfPorts, CarrierFrequency freq)
-	{
-		this.carrierId = carrierId;
-		this.carrierFreq = freq;
-		
-		if (rfPorts == null || rfPorts.isEmpty())
-		{
-			System.out.println("ERROR: attempting create carrier without RF ports");
-		}
-		
-		this.rfPorts = new ArrayList<>(rfPorts);
-	}
-	
+    protected Integer carrierId;
+    protected List<RfPort> rfPorts;
+    protected FrequencyBand frequencyBand;
+    protected Double transmittingPower;
+
+    public Carrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower) {
+        this.carrierId = carrierId;
+        this.frequencyBand = freq;
+
+        if (rfPorts == null || rfPorts.isEmpty()) {
+            System.out.println("[ERROR] Attempted to create a carrier without RF ports.");
+        }
+
+        this.rfPorts = new ArrayList<>(rfPorts);
+        this.transmittingPower = transmittingPower;
+    }
+
     /**
      * Returns the carrier id to the builder class.
      *
@@ -52,8 +51,8 @@ public abstract class Carrier {
      *
      * @return The carrier frequency, as a CarrierFrequencies object.
      */
-    public CarrierFrequency getCarrierFrequencies() {
-        return carrierFreq;
+    public FrequencyBand getCarrierFrequencies() {
+        return frequencyBand;
     }
 
     /**

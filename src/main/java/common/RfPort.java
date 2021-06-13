@@ -24,7 +24,7 @@ public enum RfPort {
      *
      * @return The RF port information, as a String.
      */
-    public String getRfPortLabel() {
+    public String getRfPort() {
         return rfPort;
     }
 }

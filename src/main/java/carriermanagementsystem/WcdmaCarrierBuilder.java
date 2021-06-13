@@ -1,4 +1,8 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.Carrier;
+import common.FrequencyBand;
+import common.RfPort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +11,7 @@ import java.util.List;
  */
 public class WcdmaCarrierBuilder implements CarrierBuilder {
     private Integer carrierId;
-    private List<RfPorts> rfPorts;
+    private List<RfPort> rfPorts;
     private FrequencyBand frequencyBand;
     private Double transmittingPower;
 
@@ -28,7 +32,7 @@ public class WcdmaCarrierBuilder implements CarrierBuilder {
      * @param rfPorts The RF ports for WCDMA. WCDMA needs 2 RF ports.
      */
     @Override
-    public void setRfPorts(List<RfPorts> rfPorts) {
+    public void setRfPorts(List<RfPort> rfPorts) {
         // Catch exception for null rfPorts.
         if (rfPorts == null) {
             throw new NullPointerException("WCDMA RF Ports are not configured!");

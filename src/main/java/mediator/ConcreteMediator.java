@@ -1,6 +1,9 @@
 package mediator;
 
-import radiounit.RadioUnit;
+import carriermanagementsystem.CarrierManagementSystemDirector;
+import common.*;
+import radiounit.DemoOneRadioUnit;
+import radiounit.ManagedRadioUnit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +24,15 @@ import java.util.List;
  * ConcreteMediators would result in two distinct lists of RUs, which would cause
  * a communication breakdown between the various systems as they try to determine
  * (and fail to do so) which mediator contains the RU they need to interface with.
+ *
+ * @author ebreojh
  */
 public class ConcreteMediator implements Mediator {
     private static volatile ConcreteMediator UNIQUE_INSTANCE = new ConcreteMediator();
-    private List<RadioUnit> radioUnits;
-    private CarrierManagementIf carrierManagement;
+
+    private List<ManagedRadioUnit> radioUnits;
+    private List<Carrier> carriers;
+    private CarrierManagementSystemDirector carrierManagement;
 
     /**
      * Constructor for the ConcreteMediator class.
@@ -33,7 +40,7 @@ public class ConcreteMediator implements Mediator {
      */
     private ConcreteMediator() {
         radioUnits = new ArrayList<>();
-        carrierManagement = new CarrierManagementSystemDirector();
+        carrierManagement = CarrierManagementSystemDirector.getInstance();
     }
 
     /**
@@ -51,7 +58,7 @@ public class ConcreteMediator implements Mediator {
      *
      * @param radioUnit The RU that will be registered with the mediator.
      */
-    private synchronized void register(RadioUnit radioUnit) {
+    private synchronized void register(ManagedRadioUnit radioUnit) {
         if (!radioUnits.contains(radioUnit)) {
             radioUnits.add(radioUnit);
         }
@@ -63,7 +70,7 @@ public class ConcreteMediator implements Mediator {
      * @return A list of registered RUs.
      */
     @Override
-    public List<RadioUnit> getRegisteredRadioUnits() {
+    public List<ManagedRadioUnit> getRegisteredRadioUnits() {
         return radioUnits;
     }
 
@@ -72,7 +79,7 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void printRegisteredRaidoUnits() {
-        radioUnits.forEach(ru -> ru.print());
+        radioUnits.forEach(ru -> System.out.println(ru.getRadioUnitName()));
     }
 
     /**
@@ -100,7 +107,7 @@ public class ConcreteMediator implements Mediator {
     public void printVendor(String name) {
         radioUnits.forEach(ru -> {
             if (ru.getRadioUnitName().equals(name)) {
-                System.out.println(ru.getVendorType());
+                System.out.println(ru.getVendor());
                 return;
             }
         });
@@ -139,7 +146,8 @@ public class ConcreteMediator implements Mediator {
          * If we do, this will be updated to call the appropriate
          * constructor via switch statements.
          */
-        this.register(new RadioUnit(name, vendor, ratType));
+        this.register(new DemoOneRadioUnit(name, vendor, ratType) {
+        });
     }
 
     /**
@@ -153,7 +161,7 @@ public class ConcreteMediator implements Mediator {
      * @param ratType The RAT type for the newly created RU.
      */
     @Override
-    public void createCarrierAndRu(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    public void createCarrierAndRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                                    Double transmittingPower, String name, Vendor vendor, RatType ratType) {
         createRu(name, vendor, ratType);
         createCarrier(rfPorts, carrierFrequencies, transmittingPower, name);
@@ -168,7 +176,7 @@ public class ConcreteMediator implements Mediator {
      * @param name The name of the RU this carrier will be added to.
      */
     @Override
-    public void createCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    public void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                               Double transmittingPower, String name) {
         radioUnits.forEach(ru -> {
             if (ru.getRadioUnitName().equals(name)) {
@@ -197,7 +205,7 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void displayCarrierOnRu(String name) {
-        radioUnits.forEach(ru -> ru.getCarriers().forEach(carrier.print()));
+        radioUnits.forEach(ru -> ru.getCarriers().forEach(carrier -> carrier.toString()));
         System.out.printf(
                 "[ERROR] No RU with the name %s have been registered with the system.%n", name);
     }

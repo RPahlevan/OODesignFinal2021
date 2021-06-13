@@ -1,4 +1,8 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.Carrier;
+import common.FrequencyBand;
+import common.RfPort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +12,7 @@ import java.util.List;
  */
 public class LteCarrierBuilder implements CarrierBuilder {
     private Integer carrierId;
-    private List<RfPorts> rfPorts;
+    private List<RfPort> rfPorts;
     private FrequencyBand frequencyBand;
     private Double transmittingPower;
 
@@ -28,7 +32,7 @@ public class LteCarrierBuilder implements CarrierBuilder {
      * @param rfPorts The RF ports for LTE. LTE needs 4 RF ports.
      */
     @Override
-    public void setRfPorts(List<RfPorts> rfPorts) {
+    public void setRfPorts(List<RfPort> rfPorts) {
         // Catch exception for null rfPorts.
         if (rfPorts == null) {
             throw new NullPointerException("LTE RF Ports are not configured!");

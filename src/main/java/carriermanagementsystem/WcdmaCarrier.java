@@ -1,4 +1,8 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.Carrier;
+import common.FrequencyBand;
+import common.RfPort;
 
 import java.util.List;
 
@@ -7,9 +11,9 @@ import java.util.List;
  * class to build an object. Each private data member inside this class has a
  * getter method which helps the builder class to build its object by using them.
  */
-public class WcdmaCarrier extends Carrier{
+public class WcdmaCarrier extends Carrier {
 
-    public WcdmaCarrier(Integer carrierId, List<RfPorts> rfPorts, FrequencyBand frequencyBand,
+    public WcdmaCarrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand frequencyBand,
                         Double transmittingPower) {
         super(carrierId, rfPorts, frequencyBand, transmittingPower);
     }

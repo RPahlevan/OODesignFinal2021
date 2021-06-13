@@ -1,5 +1,11 @@
 package mediator;
 
+import common.FrequencyBand;
+import common.RatType;
+import common.RfPort;
+import common.Vendor;
+import radiounit.ManagedRadioUnit;
+
 import java.util.List;
 
 /**
@@ -7,9 +13,11 @@ import java.util.List;
  * for all other components of the WirelessNetworkManagementSystem.
  * <p>
  * To view its implementation, please view {@link ConcreteMediator}
+ *
+ * @author ebreojh
  */
 public interface Mediator {
-	List<RadioUnits> getRegisteredRadioUnits();
+	List<ManagedRadioUnit> getRegisteredRadioUnits();
     
     void createRu(String name, Vendor vendor, RatType ratType);
     
@@ -23,9 +31,9 @@ public interface Mediator {
 
     void displayCarrierOnRu(String name);
 
-    void createCarrierAndRu(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
-                       Double transmittingPower, String name, Vendor vendor, RatType ratType);
+    void createCarrierAndRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
+                            Double transmittingPower, String name, Vendor vendor, RatType ratType);
 
-    void createCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                        Double transmittingPower, String ruName);
 }

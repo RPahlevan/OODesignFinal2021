@@ -1,4 +1,8 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.Carrier;
+import common.FrequencyBand;
+import common.RfPort;
 
 import java.util.List;
 
@@ -9,8 +13,8 @@ import java.util.List;
  */
 public class LteCarrier extends Carrier {
 
-    public LteCarrier(Integer carrierId, List<RfPorts> rfPorts, FrequencyBand frequencyBand,
-            Double transmittingPower) {
+    public LteCarrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand frequencyBand,
+                      Double transmittingPower) {
         super(carrierId, rfPorts, frequencyBand, transmittingPower);
     }
 
