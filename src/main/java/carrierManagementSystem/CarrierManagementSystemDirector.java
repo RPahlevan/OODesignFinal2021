@@ -14,16 +14,29 @@ import java.util.List;
  * carrier it creates.
  */
 public class CarrierManagementSystemDirector implements CarrierManagementIf {
-    private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = null;
-    private Stack<Integer> carrierIdGenerator = new Stack<Integer>();
-    private ArrayList<Integer> randomizeCarrierId = new ArrayList<Integer>();
+    private final int LTE_MAXIMUM_CARRIER_ID = 500; 
+    private final int WCDMA_MAXIMUM_CARRIER_ID = 500;
+	private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = null;
+    private Stack<Integer> lteCarrierIdGenerator = new Stack<Integer>();
+    private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<Integer>();
 
     private CarrierManagementSystemDirector() {
-        for (int i = 1; i < 1001; i++) {
-            randomizeCarrierId.add(i);
+        ArrayList<Integer> lteRandomizeCarrierId = new ArrayList<Integer>();
+        ArrayList<Integer> wcdmaRandomizeCarrierId = new ArrayList<Integer>();
+        
+        //Generate random number for lte carrier ID.
+        for (int i = 1; i < LTE_MAXIMUM_CARRIER_ID; i++) {
+            lteRandomizeCarrierId.add(i);
         }
-        Collections.shuffle(randomizeCarrierId);
-        carrierIdGenerator.addAll(randomizeCarrierId);
+        Collections.shuffle(lteRandomizeCarrierId);
+        lteCarrierIdGenerator.addAll(lteRandomizeCarrierId);
+        
+        //Generate random number for wcdma carrier ID.
+        for (int i = 1; i < WCDMA_MAXIMUM_CARRIER_ID; i++) {
+            wcdmaRandomizeCarrierId.add(i);
+        }
+        Collections.shuffle(wcdmaRandomizeCarrierId);
+        wcdmaCarrierIdGenerator.addAll(wcdmaRandomizeCarrierId);
     }
     
     /**
@@ -39,36 +52,36 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     }
 
     @Override
-    public Carrier createLteCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    public Carrier createLteCarrier(List<RfPorts> rfPorts, FrequencyBand frequencyBand,
             Double transmittingPower) {
         LteCarrierBuilder lteCarrier = new LteCarrierBuilder();
         try {
-            lteCarrier.setCarrierId(carrierIdGenerator.pop());
+            lteCarrier.setCarrierId(lteCarrierIdGenerator.pop());
         } catch (EmptyStackException e) {
-            System.out.println("carrierIdGenerator stack for LTE carrier is empty!");
+            System.out.println("Maximum LTE carriers reached. Please remove unused carriers.");
         }
-        lteCarrier.setFrequencyBand(carrierFrequencies);
+        lteCarrier.setFrequencyBand(frequencyBand);
         lteCarrier.setTransmittingPower(transmittingPower);
         lteCarrier.setRfPorts(rfPorts);
-        Carrier LTE = lteCarrier.getLteCarrier();
-        System.out.println("Final result: \n" + LTE.print());
-        return LTE;
+        Carrier lte = lteCarrier.getCarrier();
+        System.out.println("Final result: \n" + lte.toString());
+        return lte;
     }
 
     @Override
-    public Carrier createWcdmaCarrier(List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    public Carrier createWcdmaCarrier(List<RfPorts> rfPorts, FrequencyBand frequencyBand,
             Double transmittingPower) {
         WcdmaCarrierBuilder wcdmaCarrier = new WcdmaCarrierBuilder();
         try {
-            wcdmaCarrier.setCarrierId(carrierIdGenerator.pop());
+            wcdmaCarrier.setCarrierId(wcdmaCarrierIdGenerator.pop());
         } catch (EmptyStackException e) {
-            System.out.println("carrierIdGenerator stack for WCDMA carrier is empty!");
+            System.out.println("Maximum WCDMA carriers reached. Please remove unused carriers.");
         }
-        wcdmaCarrier.setFrequencyBand(carrierFrequencies);
+        wcdmaCarrier.setFrequencyBand(frequencyBand);
         wcdmaCarrier.setTransmittingPower(transmittingPower);
         wcdmaCarrier.setRfPorts(rfPorts);
-        Carrier WCDMA = wcdmaCarrier.getWcdmaCarrier();
-        System.out.println("Final result: \n" + WCDMA.print());
-        return WCDMA;
+        Carrier wcdma = wcdmaCarrier.getCarrier();
+        System.out.println("Final result: \n" + wcdma.toString());
+        return wcdma;
     }
 }

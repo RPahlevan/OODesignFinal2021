@@ -9,7 +9,7 @@ import java.util.List;
 public class LteCarrierBuilder implements CarrierBuilder {
     private Integer carrierId;
     private List<RfPorts> rfPorts;
-    private CarrierFrequencies carrierFrequencies;
+    private FrequencyBand frequencyBand;
     private Double transmittingPower;
 
     /**
@@ -47,11 +47,11 @@ public class LteCarrierBuilder implements CarrierBuilder {
     /**
      * Sets up carrier frequency for LTE.
      *
-     * @param carrierFrequencies Configures the LTE band.
+     * @param frequencyBand Configures the LTE band.
      */
     @Override
-    public void setFrequencyBand(CarrierFrequencies carrierFrequencies) {
-        this.carrierFrequencies = carrierFrequencies;
+    public void setFrequencyBand(FrequencyBand frequencyBand) {
+        this.frequencyBand = frequencyBand;
     }
 
     /**
@@ -69,7 +69,7 @@ public class LteCarrierBuilder implements CarrierBuilder {
      *
      * @return The built LTECarrier.
      */
-    public Carrier getLteCarrier() {
-        return new LteCarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
+    public Carrier getCarrier() {
+        return new LteCarrier(carrierId, rfPorts, frequencyBand, transmittingPower);
     }
 }

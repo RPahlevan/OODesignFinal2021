@@ -10,9 +10,9 @@ public enum RfPorts {
     RF_0("RF_0 = A"), RF_1("RF_1 = B"), RF_2("RF_2 = C"), RF_3("RF_3 = D"), RF_4("RF_4 = E"), RF_5("RF_5 = F"),
     RF_6("RF_6 = G"), RF_7("RF_7 = H");
 
-    final String RfPort;
+    private final String RfPort;
 
-    RfPorts(String RfPort) {
+    private RfPorts(String RfPort) {
         this.RfPort = RfPort;
     }
 

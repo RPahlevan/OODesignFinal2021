@@ -10,13 +10,13 @@ import java.util.List;
 public abstract class Carrier {
     protected Integer carrierId;
     protected List<RfPorts> rfPorts;
-    protected CarrierFrequencies carrierFrequencies;
+    protected FrequencyBand frequencyBand;
     protected Double transmittingPower;
 
-    public Carrier(Integer carrierId, List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    public Carrier(Integer carrierId, List<RfPorts> rfPorts, FrequencyBand frequencyBand,
             Double transmittingPower) {
         this.carrierId = carrierId;
-        this.carrierFrequencies = carrierFrequencies;
+        this.frequencyBand = frequencyBand;
         this.transmittingPower = transmittingPower;
         if (rfPorts != null) {
             this.rfPorts = new ArrayList<>(rfPorts);
@@ -46,8 +46,8 @@ public abstract class Carrier {
      *
      * @return The carrier frequency, as a CarrierFrequencies object.
      */
-    public CarrierFrequencies getCarrierFrequencies() {
-        return carrierFrequencies;
+    public FrequencyBand getCarrierFrequencies() {
+        return frequencyBand;
     }
 
     /**
@@ -64,5 +64,5 @@ public abstract class Carrier {
      *
      * @return The collected information, as a String.
      */
-    public abstract String print();
+    public abstract String toString();
 }

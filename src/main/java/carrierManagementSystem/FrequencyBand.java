@@ -3,7 +3,7 @@ package carrierManagementSystem;
 /**
  * This class contain information related to LTE and WCDMA bands.
  */
-public enum CarrierFrequencies {
+public enum FrequencyBand {
     /**
      * List of WCDMA bands.
      */
@@ -21,7 +21,7 @@ public enum CarrierFrequencies {
 
     private final String FrequencyBand;
 
-    CarrierFrequencies(String FrequencyBand) {
+    private FrequencyBand(String FrequencyBand) {
         this.FrequencyBand = FrequencyBand;
     }
 

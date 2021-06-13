@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class WcdmaCarrier extends Carrier{
 
-    public WcdmaCarrier(Integer carrierId, List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    public WcdmaCarrier(Integer carrierId, List<RfPorts> rfPorts, FrequencyBand frequencyBand,
                         Double transmittingPower) {
-        super(carrierId, rfPorts, carrierFrequencies, transmittingPower);
+        super(carrierId, rfPorts, frequencyBand, transmittingPower);
     }
 
     /**
@@ -19,14 +19,14 @@ public class WcdmaCarrier extends Carrier{
      *
      * @return The collected information, as a String.
      */
-    public String print() {
+    public String toString() {
         StringBuffer info = new StringBuffer();
 
         info.append("WCDMA Carrier ID: ");
         info.append(carrierId != null ? carrierId : "Not configured");
 
         info.append("\nWCDMA Carrier Frequency: ");
-        info.append(carrierFrequencies != null ? carrierFrequencies.getBand() : "Not configured");
+        info.append(frequencyBand != null ? frequencyBand.getBand() : "Not configured");
 
         info.append("\nWCDMA RF Ports: ");
         if (rfPorts != null) {

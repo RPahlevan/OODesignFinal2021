@@ -9,9 +9,9 @@ import java.util.List;
  */
 public class LteCarrier extends Carrier {
 
-    public LteCarrier(Integer carrierId, List<RfPorts> rfPorts, CarrierFrequencies carrierFrequencies,
+    public LteCarrier(Integer carrierId, List<RfPorts> rfPorts, FrequencyBand frequencyBand,
             Double transmittingPower) {
-        super(carrierId, rfPorts, carrierFrequencies, transmittingPower);
+        super(carrierId, rfPorts, frequencyBand, transmittingPower);
     }
 
     /**
@@ -19,14 +19,14 @@ public class LteCarrier extends Carrier {
      *
      * @return The collected information, as a String.
      */
-    public String print() {
+    public String toString() {
         StringBuffer info = new StringBuffer();
 
         info.append("LTE Carrier ID: ");
         info.append(carrierId != null ? carrierId : "Not configured");
 
         info.append("\nLTE Carrier Frequency: ");
-        info.append(carrierFrequencies != null ? carrierFrequencies.getBand() : "Not configured");
+        info.append(frequencyBand != null ? frequencyBand.getBand() : "Not configured");
 
         info.append("\nLTE RF Ports: ");
         if (rfPorts != null) {

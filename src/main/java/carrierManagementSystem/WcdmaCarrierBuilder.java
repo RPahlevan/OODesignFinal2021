@@ -2,14 +2,13 @@ package carrierManagementSystem;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * This class is a child class to CarrierBuilder. It builds WCDMACarrier objects.
  */
 public class WcdmaCarrierBuilder implements CarrierBuilder {
     private Integer carrierId;
     private List<RfPorts> rfPorts;
-    private CarrierFrequencies carrierFrequencies;
+    private FrequencyBand frequencyBand;
     private Double transmittingPower;
 
     /**
@@ -48,11 +47,11 @@ public class WcdmaCarrierBuilder implements CarrierBuilder {
     /**
      * Sets up carrier frequency for WCDMA.
      *
-     * @param carrierFrequencies Configures the WCDMA band.
+     * @param frequencyBand Configures the WCDMA band.
      */
     @Override
-    public void setFrequencyBand(CarrierFrequencies carrierFrequencies) {
-        this.carrierFrequencies = carrierFrequencies;
+    public void setFrequencyBand(FrequencyBand frequencyBand) {
+        this.frequencyBand = frequencyBand;
 
     }
 
@@ -72,7 +71,7 @@ public class WcdmaCarrierBuilder implements CarrierBuilder {
      *
      * @return The built WCDMACarrier.
      */
-    public Carrier getWcdmaCarrier() {
-        return new WcdmaCarrier(carrierId, rfPorts, carrierFrequencies, transmittingPower);
+    public Carrier getCarrier() {
+        return new WcdmaCarrier(carrierId, rfPorts, frequencyBand, transmittingPower);
     }
 }

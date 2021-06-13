@@ -12,14 +12,14 @@ import java.util.List;
 public interface CarrierBuilder {
 
     /**
-     * Sets up an ID for both LTE and WCDMA carrier.
+     * Sets up an ID for carrier.
      *
      * @param carrierID The ID for the carrier.
      */
     void setCarrierId(Integer carrierID);
 
     /**
-     * Sets up the RF ports for LTE and WCDMA.
+     * Sets up the RF ports.
      *
      * @param rfPorts The RF ports for the carrier.
      *                WCDMA needs 2 RF ports and LTE needs 4 RF ports.
@@ -27,16 +27,23 @@ public interface CarrierBuilder {
     void setRfPorts(List<RfPorts> rfPorts);
 
     /**
-     * Sets up the carrier frequency for WCDMA and LTE.
+     * Sets up the carrier frequency.
      *
-     * @param carrierFrequencies The carrier frequency for the LTE or WCDMA band.
+     * @param frequencyBand The carrier frequency for the LTE or WCDMA band.
      */
-    void setFrequencyBand(CarrierFrequencies carrierFrequencies);
+    void setFrequencyBand(FrequencyBand frequencyBand);
 
     /**
-     * Sets up the transmission power for WCDMA and LTE.
+     * Sets up the transmission power.
      *
      * @param transmittingPower The power for the carrier.
      */
     void setTransmittingPower(Double transmittingPower);
+    
+    /**
+     * Returns a built Carrier object.
+     *
+     * @return The built Carrier.
+     */
+    public Carrier getCarrier();
 }
