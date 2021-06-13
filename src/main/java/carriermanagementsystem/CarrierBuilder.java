@@ -49,5 +49,5 @@ public interface CarrierBuilder {
      *
      * @return The built Carrier.
      */
-    public Carrier getCarrier();
+    Carrier getCarrier();
 }

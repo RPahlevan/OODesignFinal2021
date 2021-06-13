@@ -5,6 +5,7 @@ package common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This abstract class defines a Carrier that will have concrete implementations
@@ -24,7 +25,7 @@ public abstract class Carrier {
             System.out.println("[ERROR] Attempted to create a carrier without RF ports.");
         }
 
-        this.rfPorts = new ArrayList<>(rfPorts);
+        this.rfPorts = new ArrayList<>(Objects.requireNonNull(rfPorts));
         this.transmittingPower = transmittingPower;
     }
 

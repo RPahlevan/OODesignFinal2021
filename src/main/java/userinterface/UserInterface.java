@@ -25,15 +25,19 @@ public class UserInterface {
             option = "-1";
             try {
                 String menu = "\nPlease enter the number corresponding to the option you would like to choose:\n"
-                        + "0.	Exit Program\n"
-                        + "1.	Create Radio Unit\n"
-                        + "2.	Create Carrier on Radio Unit\n"
-                        + "3.	Create Carrier and Radio Unit\n"
-                        + "4.	List carriers on RU\n"
-                        + "5.	List RU suported RAT type\n"
-                        + "6.	List Radio Unit vendor\n"
-                        + "7.	List RU alarm status level\n"
-                        + "8.	List registerd Radio Units\n";
+                        + "0.   Exit Program\n"
+                        + "1.   Create Radio Unit\n"
+                        + "2.   Create Carrier \n"
+                        + "3.   Create Carrier on Radio Unit\n"
+                        + "4.   Create Carrier and Radio Unit\n"
+                        + "5.   List carriers on RU\n"
+                        + "6.   List RU supported RAT type\n"
+                        + "7.   List Radio Unit vendor\n"
+                        + "8.   List RU alarm status level\n"
+                        + "9.   List registered Radio Units\n"
+                        + "10.  List all Carriers\n"
+                        + "11.  Add Carrier to RU\n";
+
                 System.out.println(menu);
                 option = input.next();
                 switch (option) {
@@ -56,8 +60,15 @@ public class UserInterface {
                         System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully created");
                         break;
                     case "2":
-                        // 2.Create Carrier on Radio Unit
-                        System.out.println("To create carrier on Radio Unit, you need to have a Radio Unit ready first\n"
+                        // 2.Create Carrier
+                        // get vendor
+                        System.out.println("Enter 'Back' to go back to the menu\n");
+                        createCarrierOnRu(null, input);
+                        System.out.println("Carrier has been successfully created");
+                        break;
+                    case "3":
+                        // 3.Create Carrier on Radio Unit
+                        System.out.println("To create a carrier on Radio Unit, you need to have a Radio Unit ready first\n"
                                 + "Please enter the Radio Unit name:\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
@@ -67,8 +78,8 @@ public class UserInterface {
                         createCarrierOnRu(ruName, input);
                         System.out.println("Carrier has been successfully created on " + "Radio Unit " + "'" + ruName + "'");
                         break;
-                    case "3":
-                        //3.Create Carrier and Radio Unit
+                    case "4":
+                        //4.Create Carrier and Radio Unit
                         System.out.println("Please enter a new Radio Unit name\n"
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
@@ -78,9 +89,9 @@ public class UserInterface {
                         }
                         createCarrierAndRu(ruName, input);
                         break;
-                    case "4":
-                        //4.List carriers on RU
-                        System.out.println("Please enter a new Radio Unit name:\n"
+                    case "5":
+                        //5.List carriers on RU
+                        System.out.println("Please enter the name of the Radio Unit you want to list the carriers of:\n"
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
@@ -89,8 +100,8 @@ public class UserInterface {
                         }
                         mediator.displayCarrierOnRu(ruName);
                         break;
-                    case "5":
-                        //5.Display RU supported RAT types
+                    case "6":
+                        //6.Display RU supported RAT types
                         System.out.println("Please enter the name of the Radio Unit you want to list the supported RAT type of:\n"
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
@@ -100,8 +111,8 @@ public class UserInterface {
                         }
                         mediator.printRatType(ruName);
                         break;
-                    case "6":
-                        //6.List Radio Unit vendor
+                    case "7":
+                        //7.List Radio Unit vendor
                         System.out.println("Please enter the name of the Radio Unit you want to list the vendor of:\n"
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
@@ -111,9 +122,9 @@ public class UserInterface {
                         }
                         mediator.printVendor(ruName);
                         break;
-                    case "7":
-                        //7.List RU alarm status level
-                        System.out.println("Please enter the name of the Radio Unit you want to list the valarm status level of:\n"
+                    case "8":
+                        //8.List RU alarm status level
+                        System.out.println("Please enter the name of the Radio Unit you want to list the alarm status level of:\n"
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
@@ -122,9 +133,17 @@ public class UserInterface {
                         }
                         mediator.printAlarmStatus(ruName);
                         break;
-                    case "8":
-                        //8.List registerd Radio Units
+                    case "9":
+                        //9.List registered Radio Units
                         mediator.printRegisteredRaidoUnits();
+                        break;
+                    case "10":
+                        //10.List all created carriers.
+                        mediator.printCreatedCarriers();
+                        break;
+                    case "11":
+                        //11.Add carrier to RU.
+                        //TODO Implement this.
                         break;
                     default:
                         System.out.println("Unsupported option, please try again!");
@@ -134,7 +153,6 @@ public class UserInterface {
 
             } catch (Exception e) {
                 System.out.println("Invalid input, please try again!");
-                continue;
             }
 
         } while (!option.equals("0"));
@@ -163,7 +181,9 @@ public class UserInterface {
 
     /**
      * Helper method that create a carrier on existing RU based on user-choose
-     * RAT typre, RF Ports, Frequency band and transmitting power
+     * RAT type, RF Ports, Frequency band and transmitting power.
+     * The option also exists to create a stand-alone carrier that will
+     * not be added to an RU on creation.
      *
      * @param ruName   name of the radio unit to create carrier on
      * @return void
@@ -187,9 +207,14 @@ public class UserInterface {
         //get transmitting power
         transPower = getTransPower(input);
 
-        mediator.createCarrier(rfPorts, freqBand, transPower, ruName);
+        if (ruName != null) {
+            mediator.createCarrierOnRu(rfPorts, freqBand, transPower, ruName);
+        } else {
+            mediator.createCarrier(rfPorts, freqBand, transPower);
+        }
 
     }
+
 
 
     /**
@@ -222,7 +247,7 @@ public class UserInterface {
         //get transmitting power
         transPower = getTransPower(input);
 
-        //mediator.createCarrierAndRu(rfPorts, freqBand, transPower, ruName, vendor, ratType);
+        mediator.createCarrierAndRu(rfPorts, freqBand, transPower, ruName, vendor, ratType);
 
     }
 
@@ -239,11 +264,10 @@ public class UserInterface {
         do {
             String transPowerText = input.next();
             try {
-                transPower = Double.valueOf(transPowerText);
+                transPower = Double.parseDouble(transPowerText);
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("'" + transPowerText + "'" + " is not a valid number, Try agian!");
-                continue;
             }
         } while (true);
         return transPower;
@@ -266,15 +290,12 @@ public class UserInterface {
         do {
             String subOption = input.next();
             switch (subOption) {
-                case "1":
-                    vendor = Vendor.ERICSSON;
-                    break;
-                case "2":
-                    vendor = Vendor.NOKIA;
-                    break;
-                default:
+                case "1" -> vendor = Vendor.ERICSSON;
+                case "2" -> vendor = Vendor.NOKIA;
+                default -> {
                     System.out.println("Invalid input, please try again.");
                     continue;
+                }
             }
         } while (vendor == null);
 
@@ -296,15 +317,12 @@ public class UserInterface {
         do {
             String subOption = input.next();
             switch (subOption) {
-                case "1":
-                    rat = RatType.LTE;
-                    break;
-                case "2":
-                    rat = RatType.WCDMA;
-                    break;
-                default:
+                case "1" -> rat = RatType.LTE;
+                case "2" -> rat = RatType.WCDMA;
+                default -> {
                     System.out.println("Invalid input, please try again.");
                     continue;
+                }
             }
         } while (rat == null);
 
@@ -321,7 +339,7 @@ public class UserInterface {
      */
     private static List<RfPort> chooseRfPorts(RatType ratType, Scanner input) {
         int noOfRfPorts;
-        if (ratType.equals("LTE")) {
+        if (ratType.equals(RatType.LTE)) {
             noOfRfPorts = RF_PORT_NUMBER.LTE_RF_PORTS_NUMBER.getValue();
         } else {
             noOfRfPorts = RF_PORT_NUMBER.WCDMA_RF_PORTS_NUMBER.getValue();
@@ -341,41 +359,42 @@ public class UserInterface {
         do {
             String subOption = input.next();
             switch (subOption) {
-                case "1":
+                case "1" -> {
                     ports.add(RfPort.RF_0);
                     count++;
-                    break;
-                case "2":
+                }
+                case "2" -> {
                     ports.add(RfPort.RF_1);
                     count++;
-                    break;
-                case "3":
+                }
+                case "3" -> {
                     ports.add(RfPort.RF_2);
                     count++;
-                    break;
-                case "4":
+                }
+                case "4" -> {
                     ports.add(RfPort.RF_3);
                     count++;
-                    break;
-                case "5":
+                }
+                case "5" -> {
                     ports.add(RfPort.RF_4);
                     count++;
-                    break;
-                case "6":
+                }
+                case "6" -> {
                     ports.add(RfPort.RF_5);
                     count++;
-                    break;
-                case "7":
+                }
+                case "7" -> {
                     ports.add(RfPort.RF_6);
                     count++;
-                    break;
-                case "8":
+                }
+                case "8" -> {
                     ports.add(RfPort.RF_7);
                     count++;
-                    break;
-                default:
+                }
+                default -> {
                     System.out.println("Invalid input, please try again.");
                     continue;
+                }
             }
             if (count != noOfRfPorts) {
                 System.out.println("Enter next number:");
@@ -476,7 +495,6 @@ public class UserInterface {
                     break;
                 default:
                     System.out.println("Invalid input, please try again.");
-                    continue;
             }
         } while (freqBand == null);
 

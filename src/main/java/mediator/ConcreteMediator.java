@@ -29,11 +29,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author ebreojh
  */
 public class ConcreteMediator implements Mediator {
-    private static volatile ConcreteMediator UNIQUE_INSTANCE = new ConcreteMediator();
+    private static final ConcreteMediator UNIQUE_INSTANCE = new ConcreteMediator();
 
-    private List<ManagedRadioUnit> radioUnits;
-    private List<Carrier> carriers;
-    private CarrierManagementSystemDirector carrierManagement;
+    private final List<ManagedRadioUnit> radioUnits;
+    private final List<Carrier> carriers;
+    private final CarrierManagementSystemDirector carrierManagement;
 
     /**
      * Constructor for the ConcreteMediator class.
@@ -41,6 +41,7 @@ public class ConcreteMediator implements Mediator {
      */
     private ConcreteMediator() {
         radioUnits = new ArrayList<>();
+        carriers = new ArrayList<>();
         carrierManagement = CarrierManagementSystemDirector.getInstance();
     }
 
@@ -80,7 +81,11 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void printRegisteredRaidoUnits() {
-        radioUnits.forEach(ru -> System.out.println(ru.getRadioUnitName()));
+        if (radioUnits.size() == 0) {
+            System.out.println("[ERROR] No RUs have been registered with the system.");
+        } else {
+            radioUnits.forEach(ru -> System.out.println(ru.getRadioUnitName()));
+        }
     }
 
     /**
@@ -153,7 +158,7 @@ public class ConcreteMediator implements Mediator {
      * @param ratType The RAT type for the RU.
      */
     @Override
-    public void createRu(String name, Vendor vendor, RatType ratType) {
+    public synchronized void createRu(String name, Vendor vendor, RatType ratType) {
         /* We are making a barebones RU, so we *technically* don't care
          * about figuring out what kind of RU is being made.
          * If we do, this will be updated to call the appropriate
@@ -174,10 +179,10 @@ public class ConcreteMediator implements Mediator {
      * @param ratType The RAT type for the newly created RU.
      */
     @Override
-    public void createCarrierAndRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
+    public synchronized void createCarrierAndRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                                    Double transmittingPower, String name, Vendor vendor, RatType ratType) {
         createRu(name, vendor, ratType);
-        createCarrier(rfPorts, carrierFrequencies, transmittingPower, name);
+        createCarrierOnRu(rfPorts, carrierFrequencies, transmittingPower, name);
     }
 
     /**
@@ -189,29 +194,51 @@ public class ConcreteMediator implements Mediator {
      * @param name The name of the RU this carrier will be added to.
      */
     @Override
-    public void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
+    public synchronized void createCarrierOnRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                               Double transmittingPower, String name) {
-        AtomicBoolean flag = new AtomicBoolean(false);
-        radioUnits.forEach(ru -> {
+        Carrier carrier;
+        for (ManagedRadioUnit ru : radioUnits) {
             if (ru.getRadioUnitName().equals(name)) {
-                flag.set(true);
-                switch(rfPorts.size()) {
-                    case 2:
-                        ru.setupCarrier(carrierManagement.createWcdmaCarrier(rfPorts, carrierFrequencies, transmittingPower));
+                switch (rfPorts.size()) {
+                    case 2 -> {
+                        carrier = carrierManagement.createWcdmaCarrier(rfPorts, carrierFrequencies, transmittingPower);
+                        carriers.add(carrier);
+                        ru.setupCarrier(carrier);
                         return;
-                    case 4:
-                        ru.setupCarrier(carrierManagement.createLteCarrier(rfPorts, carrierFrequencies, transmittingPower));
+                    }
+                    case 4 -> {
+                        carrier = carrierManagement.createLteCarrier(rfPorts, carrierFrequencies, transmittingPower);
+                        carriers.add(carrier);
+                        ru.setupCarrier(carrier);
                         return;
-                    default:
+                    }
+                    default -> {
                         System.out.printf(
                                 "[ERROR] Invalid number of RF ports. Requires 2 or 4, but got %s%n", rfPorts.size());
                         return;
+                    }
                 }
             }
-        });
-        if (!flag.get()) {
-            System.out.printf(
-                    "[ERROR] No RU with that name %s is registered with the system%n", name);
+        }
+        System.out.printf("[ERROR] No RU with that name %s is registered with the system%n", name);
+    }
+
+    /**
+     *
+     * @param rfPorts
+     * @param carrierFrequencies
+     * @param transmittingPower
+     */
+    @Override
+    public synchronized void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies, Double transmittingPower) {
+        switch (rfPorts.size()) {
+            case 2 -> carriers.add(carrierManagement.createWcdmaCarrier(rfPorts, carrierFrequencies, transmittingPower));
+            case 4 -> carriers.add(carrierManagement.createLteCarrier(rfPorts, carrierFrequencies, transmittingPower));
+            default -> {
+                System.out.printf(
+                        "[ERROR] Invalid number of RF ports. Requires 2 or 4, but got %s%n", rfPorts.size());
+                return;
+            }
         }
     }
 
@@ -230,7 +257,7 @@ public class ConcreteMediator implements Mediator {
                     System.out.printf(
                             "[ERROR] The RU with the name %s has no carriers associated with it.%n", name);
                 } else {
-                    ru.getCarriers().forEach(carrier -> carrier.toString());
+                    ru.getCarriers().forEach(carrier -> System.out.println(carrier.toString()));
                 }
                 return;
             }
@@ -238,6 +265,19 @@ public class ConcreteMediator implements Mediator {
         if (!flag.get()) {
             System.out.printf(
                     "[ERROR] No RUs with the name %s have been registered with the system.%n", name);
+        }
+    }
+
+    /**
+     * Prints all Carriers that have been created within the system. These do
+     * not need to be carriers associated with an RU.
+     */
+    @Override
+    public void printCreatedCarriers() {
+        if (carriers.size() == 0) {
+            System.out.println("[ERROR] No Carriers have been added to the system.");
+        } else {
+            carriers.forEach(carrier -> carrier.toString());
         }
     }
 

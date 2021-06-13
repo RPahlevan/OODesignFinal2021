@@ -3,7 +3,6 @@ package carriermanagementsystem;
 import common.Carrier;
 import common.FrequencyBand;
 import common.RfPort;
-import mediator.ConcreteMediator;
 
 import java.util.Stack;
 import java.util.ArrayList;
@@ -22,12 +21,12 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
     private final int LTE_MAXIMUM_CARRIER_ID = 500; 
     private final int WCDMA_MAXIMUM_CARRIER_ID = 500;
-    private Stack<Integer> lteCarrierIdGenerator = new Stack<Integer>();
-    private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<Integer>();
+    private Stack<Integer> lteCarrierIdGenerator = new Stack<>();
+    private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<>();
 
     private CarrierManagementSystemDirector() {
-        ArrayList<Integer> lteRandomizeCarrierId = new ArrayList<Integer>();
-        ArrayList<Integer> wcdmaRandomizeCarrierId = new ArrayList<Integer>();
+        ArrayList<Integer> lteRandomizeCarrierId = new ArrayList<>();
+        ArrayList<Integer> wcdmaRandomizeCarrierId = new ArrayList<>();
         
         //Generate random number for lte carrier ID.
         for (int i = 1; i < LTE_MAXIMUM_CARRIER_ID; i++) {

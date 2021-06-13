@@ -29,11 +29,16 @@ public interface Mediator {
     
     void printRegisteredRaidoUnits();
 
+    void printCreatedCarriers();
+
     void displayCarrierOnRu(String name);
 
     void createCarrierAndRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                             Double transmittingPower, String name, Vendor vendor, RatType ratType);
 
-    void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
+    void createCarrierOnRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                        Double transmittingPower, String ruName);
+
+    void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
+                       Double transmittingPower);
 }

@@ -80,25 +80,37 @@ public class DemoOneRadioUnit implements ManagedRadioUnit {
     @Override
     public void setupCarrier(Carrier carrier) {
         System.out.println("Setting up carrier");
+        carriers.add(carrier);
 
     }
 
     @Override
     public void modifyCarrier(int carrierId, FrequencyBand freq) {
         System.out.println("Modifying carrier");
-
+        carriers.forEach(carrier -> {
+            if (carrier.getCarrierId() == carrierId) {
+                //carrier.setFrequencyBand(freq);
+                return;
+            }
+        });
     }
 
     @Override
     public void removeCarrier(int carrierId) {
         System.out.println("Remove carrier");
+        carriers.forEach(carrier -> {
+            if (carrier.getCarrierId() == carrierId) {
+                //carriers.remove(carrier);
+                return;
+            }
+        });
 
     }
 
     @Override
     public void removeAllCarriers() {
         System.out.println("Remove all carriers");
-
+        carriers.clear();
     }
 
     @Override
