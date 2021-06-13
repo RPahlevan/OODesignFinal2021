@@ -35,8 +35,7 @@ public class UserInterface {
                         + "7.   List Radio Unit vendor\n"
                         + "8.   List RU alarm status level\n"
                         + "9.   List registered Radio Units\n"
-                        + "10.  List all Carriers\n"
-                        + "11.  Add Carrier to RU\n";
+                        + "10.  List all Carriers\n";
 
                 System.out.println(menu);
                 option = input.next();
@@ -141,10 +140,10 @@ public class UserInterface {
                         //10.List all created carriers.
                         mediator.printCreatedCarriers();
                         break;
-                    case "11":
+                    //case "11":
                         //11.Add carrier to RU.
                         //TODO Implement this.
-                        break;
+                    //    break;
                     default:
                         System.out.println("Unsupported option, please try again!");
                         break;
