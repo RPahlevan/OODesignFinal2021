@@ -7,6 +7,7 @@ import radiounit.ManagedRadioUnit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The ConcreteMediator class is responsible for handling control/communication
@@ -89,13 +90,17 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void printRatType(String name) {
+        AtomicBoolean flag = new AtomicBoolean(false);
         radioUnits.forEach(ru -> {
             if (ru.getRadioUnitName().equals(name)) {
+                flag.set(true);
                 System.out.println(ru.getRatType());
                 return;
             }
         });
-        System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        if (!flag.get()) {
+            System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        }
     }
 
     /**
@@ -105,13 +110,17 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void printVendor(String name) {
+        AtomicBoolean flag = new AtomicBoolean(false);
         radioUnits.forEach(ru -> {
             if (ru.getRadioUnitName().equals(name)) {
+                flag.set(true);
                 System.out.println(ru.getVendor());
                 return;
             }
         });
-        System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        if (!flag.get()) {
+            System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        }
     }
 
     /**
@@ -121,13 +130,17 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void printAlarmStatus(String name) {
+        AtomicBoolean flag = new AtomicBoolean(false);
         radioUnits.forEach(ru -> {
             if (ru.getRadioUnitName().equals(name)) {
+                flag.set(true);
                 System.out.println(ru.getAlarmStatus());
                 return;
             }
         });
-        System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        if (!flag.get()) {
+            System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+        }
     }
 
     /**
@@ -178,8 +191,10 @@ public class ConcreteMediator implements Mediator {
     @Override
     public void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                               Double transmittingPower, String name) {
+        AtomicBoolean flag = new AtomicBoolean(false);
         radioUnits.forEach(ru -> {
             if (ru.getRadioUnitName().equals(name)) {
+                flag.set(true);
                 switch(rfPorts.size()) {
                     case 2:
                         ru.setupCarrier(carrierManagement.createWcdmaCarrier(rfPorts, carrierFrequencies, transmittingPower));
@@ -194,8 +209,10 @@ public class ConcreteMediator implements Mediator {
                 }
             }
         });
-        System.out.printf(
-                "[ERROR] No RU with that name %s is registered with the system%n", name);
+        if (!flag.get()) {
+            System.out.printf(
+                    "[ERROR] No RU with that name %s is registered with the system%n", name);
+        }
     }
 
     /**
@@ -205,9 +222,23 @@ public class ConcreteMediator implements Mediator {
      */
     @Override
     public void displayCarrierOnRu(String name) {
-        radioUnits.forEach(ru -> ru.getCarriers().forEach(carrier -> carrier.toString()));
-        System.out.printf(
-                "[ERROR] No RU with the name %s have been registered with the system.%n", name);
+        AtomicBoolean flag = new AtomicBoolean(false);
+        radioUnits.forEach(ru -> {
+            if (ru.getRadioUnitName().equals(name)) {
+                flag.set(true);
+                if (ru.getCarriers().size() == 0) {
+                    System.out.printf(
+                            "[ERROR] The RU with the name %s has no carriers associated with it.%n", name);
+                } else {
+                    ru.getCarriers().forEach(carrier -> carrier.toString());
+                }
+                return;
+            }
+        });
+        if (!flag.get()) {
+            System.out.printf(
+                    "[ERROR] No RUs with the name %s have been registered with the system.%n", name);
+        }
     }
 
 }

@@ -47,7 +47,7 @@ public class UserInterface {
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
-                        if (ruName.toUpperCase().equals("BACK")) {
+                        if (ruName.equalsIgnoreCase("BACK")) {
                             break;
                         }
                         Vendor vendor = chooseVendor(input);
@@ -61,7 +61,7 @@ public class UserInterface {
                                 + "Please enter the Radio Unit name:\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
-                        if (ruName.toUpperCase().equals("BACK")) {
+                        if (ruName.equalsIgnoreCase("BACK")) {
                             break;
                         }
                         createCarrierOnRu(ruName, input);
@@ -73,7 +73,7 @@ public class UserInterface {
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
-                        if (ruName.toUpperCase().equals("BACK")) {
+                        if (ruName.equalsIgnoreCase("BACK")) {
                             break;
                         }
                         createCarrierAndRu(ruName, input);
@@ -84,7 +84,7 @@ public class UserInterface {
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
-                        if (ruName.toUpperCase().equals("BACK")) {
+                        if (ruName.equalsIgnoreCase("BACK")) {
                             break;
                         }
                         mediator.displayCarrierOnRu(ruName);
@@ -95,7 +95,7 @@ public class UserInterface {
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
-                        if (ruName.toUpperCase().equals("BACK")) {
+                        if (ruName.equalsIgnoreCase("BACK")) {
                             break;
                         }
                         mediator.printRatType(ruName);
@@ -106,7 +106,7 @@ public class UserInterface {
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
-                        if (ruName.toUpperCase().equals("BACK")) {
+                        if (ruName.equalsIgnoreCase("BACK")) {
                             break;
                         }
                         mediator.printVendor(ruName);
@@ -117,7 +117,7 @@ public class UserInterface {
                                 + "For example: LTE#1\n"
                                 + "Enter 'Back' to go back to the menu\n");
                         ruName = input.next();
-                        if (ruName.toUpperCase().equals("BACK")) {
+                        if (ruName.equalsIgnoreCase("BACK")) {
                             break;
                         }
                         mediator.printAlarmStatus(ruName);
