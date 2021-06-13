@@ -5,13 +5,14 @@ import common.FrequencyBand;
 import common.RfPort;
 
 import java.util.Stack;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
 
 /**
- * This singleton class is responsible to create LTE carrier and WCDMA carrier. 
+ * This singleton class is responsible to create LTE carrier and WCDMA carrier.
  * We can call this class director as it will direct the creation command from
  * client(CarrierManagementSystemClient) to Carrier builder class. This class
  * will also assign a random unique carrier ID (in range 1 - 1000) to each
@@ -23,6 +24,11 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     private final int WCDMA_MAXIMUM_CARRIER_ID = 500;
     private Stack<Integer> lteCarrierIdGenerator = new Stack<>();
     private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<>();
+
+	// For the future usage.
+	// This list will save all carrier object and carrierID so the object can be
+	// modified from radiounit.
+	// private ConcurrentHashMap<Integer,Carrier> carrierList;
 
     private CarrierManagementSystemDirector() {
         ArrayList<Integer> lteRandomizeCarrierId = new ArrayList<>();

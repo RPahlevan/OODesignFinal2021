@@ -5,6 +5,8 @@ import common.FrequencyBand;
 import common.RfPort;
 
 import java.util.List;
+import common.FrequencyBand;
+import common.RfPorts;
 
 /**
  * This class builds WCDMA carriers. The WCDMACarrierBuilder class uses this
