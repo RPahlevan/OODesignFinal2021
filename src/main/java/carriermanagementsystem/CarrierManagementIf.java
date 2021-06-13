@@ -5,9 +5,6 @@ import common.RfPort;
 
 import java.util.List;
 
-import common.FrequencyBand;
-import common.RfPorts;
-
 public interface CarrierManagementIf {
     /**
      * The below method is responsible for creating LTE carrier based on inputs.

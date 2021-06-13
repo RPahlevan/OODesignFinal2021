@@ -277,7 +277,7 @@ public class ConcreteMediator implements Mediator {
         if (carriers.size() == 0) {
             System.out.println("[ERROR] No Carriers have been added to the system.");
         } else {
-            carriers.forEach(carrier -> carrier.toString());
+            carriers.forEach(carrier -> System.out.println(carrier.toString()));
         }
     }
 
