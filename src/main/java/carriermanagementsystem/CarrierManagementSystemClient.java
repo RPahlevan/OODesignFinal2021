@@ -16,7 +16,7 @@ public class CarrierManagementSystemClient {
     public static void main(String[] args) {
         CarrierManagementSystemDirector director = CarrierManagementSystemDirector.getInstance();
 
-        /**
+        /*
          * The below code would show how to create LTE carrier with a carrier id, RF
          * ports, LTE band and transmission power.
          *
@@ -28,7 +28,7 @@ public class CarrierManagementSystemClient {
         double transmittingPower = 12.2;
         director.createLteCarrier(LteRfPorts, LteBand_3, transmittingPower);
 
-        /**
+        /*
          * Below lines of code would show how to create WCDMA carrier with carrier Id,
          * Rf ports, WCDMA band and transmission power.
          * 

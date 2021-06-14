@@ -1,13 +1,10 @@
-/**
- * 
- */
 package common;
 
 /**
  * This enum contains supported Carrier Frequencies
  */
 public enum FrequencyBand {
-	/**
+	/*
      * List of WCDMA bands.
      */
     WCDMA_BAND_1("WCDMA_BAND_1 = 2100 MHz"), WCDMA_BAND_2("WCDMA_BAND_2 = 1900 MHz"),
@@ -15,7 +12,7 @@ public enum FrequencyBand {
     WCDMA_BAND_5("WCDMA_BAND_5 = 850 MHz-for U.S"), WCDMA_BAND_6("WCDMA_BAND_6 = 850 MHz-for Japan"),
     WCDMA_BAND_7("WCDMA_BAND_7 = 2500 MHz"), WCDMA_BAND_8("WCDMA_BAND_8 = 900 MHz"),
 
-    /**
+    /*
      * List of LTE bands.
      */
     LTE_BAND_1("LTE_BAND_1 = 1920 MHz"), LTE_BAND_2("LTE_BAND_2 = 1850 MHz"), LTE_BAND_3("LTE_BAND_3 = 1710 MHz"),

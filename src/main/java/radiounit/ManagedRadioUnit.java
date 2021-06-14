@@ -1,6 +1,3 @@
-/**
- * 
- */
 package radiounit;
 
 import java.util.List;

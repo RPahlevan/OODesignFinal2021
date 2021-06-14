@@ -27,7 +27,7 @@ public interface Mediator {
     
     void printAlarmStatus(String name);
     
-    void printRegisteredRaidoUnits();
+    void printRegisteredRadioUnits();
 
     void printCreatedCarriers();
 

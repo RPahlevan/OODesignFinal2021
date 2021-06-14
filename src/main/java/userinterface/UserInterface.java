@@ -5,13 +5,18 @@ import common.RatType;
 import common.RfPort;
 import common.Vendor;
 import mediator.ConcreteMediator;
+import mediator.Mediator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The UserInterface class represents the current main access
+ * point for demo 1 of the Wireless Network Management System.
+ */
 public class UserInterface {
-    static ConcreteMediator mediator;
+    static Mediator mediator;
 
     public static void main(String[] args) {
         String option;
@@ -40,10 +45,8 @@ public class UserInterface {
                 System.out.println(menu);
                 option = input.next();
                 switch (option) {
-                    case "0":
-                        System.out.println("Goodbye!\n");
-                        break;
-                    case "1":
+                    case "0" -> System.out.println("Goodbye!\n");
+                    case "1" -> {
                         // 1.Create Radio Unit
                         // get vendor
                         System.out.println("Please enter a name for the Radio Unit:\n"
@@ -54,18 +57,18 @@ public class UserInterface {
                             break;
                         }
                         Vendor vendor = chooseVendor(input);
-                        RatType ratType = chooseRATtype(input);
+                        RatType ratType = chooseRatType(input);
                         mediator.createRu(ruName, vendor, ratType);
                         System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully created");
-                        break;
-                    case "2":
+                    }
+                    case "2" -> {
                         // 2.Create Carrier
                         // get vendor
                         System.out.println("Enter 'Back' to go back to the menu\n");
                         createCarrierOnRu(null, input);
                         System.out.println("Carrier has been successfully created");
-                        break;
-                    case "3":
+                    }
+                    case "3" -> {
                         // 3.Create Carrier on Radio Unit
                         System.out.println("To create a carrier on Radio Unit, you need to have a Radio Unit ready first\n"
                                 + "Please enter the Radio Unit name:\n"
@@ -76,8 +79,8 @@ public class UserInterface {
                         }
                         createCarrierOnRu(ruName, input);
                         System.out.println("Carrier has been successfully created on " + "Radio Unit " + "'" + ruName + "'");
-                        break;
-                    case "4":
+                    }
+                    case "4" -> {
                         //4.Create Carrier and Radio Unit
                         System.out.println("Please enter a new Radio Unit name\n"
                                 + "For example: LTE#1\n"
@@ -87,8 +90,8 @@ public class UserInterface {
                             break;
                         }
                         createCarrierAndRu(ruName, input);
-                        break;
-                    case "5":
+                    }
+                    case "5" -> {
                         //5.List carriers on RU
                         System.out.println("Please enter the name of the Radio Unit you want to list the carriers of:\n"
                                 + "For example: LTE#1\n"
@@ -98,8 +101,8 @@ public class UserInterface {
                             break;
                         }
                         mediator.displayCarrierOnRu(ruName);
-                        break;
-                    case "6":
+                    }
+                    case "6" -> {
                         //6.Display RU supported RAT types
                         System.out.println("Please enter the name of the Radio Unit you want to list the supported RAT type of:\n"
                                 + "For example: LTE#1\n"
@@ -109,8 +112,8 @@ public class UserInterface {
                             break;
                         }
                         mediator.printRatType(ruName);
-                        break;
-                    case "7":
+                    }
+                    case "7" -> {
                         //7.List Radio Unit vendor
                         System.out.println("Please enter the name of the Radio Unit you want to list the vendor of:\n"
                                 + "For example: LTE#1\n"
@@ -120,8 +123,8 @@ public class UserInterface {
                             break;
                         }
                         mediator.printVendor(ruName);
-                        break;
-                    case "8":
+                    }
+                    case "8" -> {
                         //8.List RU alarm status level
                         System.out.println("Please enter the name of the Radio Unit you want to list the alarm status level of:\n"
                                 + "For example: LTE#1\n"
@@ -131,23 +134,19 @@ public class UserInterface {
                             break;
                         }
                         mediator.printAlarmStatus(ruName);
-                        break;
-                    case "9":
-                        //9.List registered Radio Units
-                        mediator.printRegisteredRaidoUnits();
-                        break;
-                    case "10":
-                        //10.List all created carriers.
-                        mediator.printCreatedCarriers();
-                        break;
-                    //case "11":
-                        //11.Add carrier to RU.
-                        //TODO Implement this.
-                    //    break;
-                    default:
-                        System.out.println("Unsupported option, please try again!");
-                        break;
+                    }
+                    case "9" ->
+                            //9.List registered Radio Units
+                            mediator.printRegisteredRadioUnits();
+                    case "10" ->
+                            //10.List all created carriers.
+                            mediator.printCreatedCarriers();
 
+                    //case "11":
+                    //11.Add carrier to RU.
+                    //TODO Implement this.
+                    //    break;
+                    default -> System.out.println("Unsupported option, please try again!");
                 }
 
             } catch (Exception e) {
@@ -184,8 +183,9 @@ public class UserInterface {
      * The option also exists to create a stand-alone carrier that will
      * not be added to an RU on creation.
      *
-     * @param ruName   name of the radio unit to create carrier on
-     * @return void
+     * @param ruName The name of the radio unit to create carrier on.
+     *               Pass as null to create carrier that isn't associated
+     *               with an RU.
      */
 
     private static void createCarrierOnRu(String ruName, Scanner input) {
@@ -195,7 +195,7 @@ public class UserInterface {
         double transPower;
 
         // get RAT type
-        ratType = chooseRATtype(input);
+        ratType = chooseRatType(input);
 
         //get RF Ports
         rfPorts = chooseRfPorts(ratType, input);
@@ -215,13 +215,11 @@ public class UserInterface {
     }
 
 
-
     /**
      * Helper method that create a carrier on existing RU based on user-choose
      * RAT type, RF ports, frequency band and transmitting power.
      *
-     * @param ruName name of the radio unit to create carrier on
-     * @return void
+     * @param ruName The name of the radio unit to create carrier on.
      */
 
     private static void createCarrierAndRu(String ruName, Scanner input) {
@@ -235,7 +233,7 @@ public class UserInterface {
         vendor = chooseVendor(input);
 
         //get RAT type
-        ratType = chooseRATtype(input);
+        ratType = chooseRatType(input);
 
         //get RF Ports
         rfPorts = chooseRfPorts(ratType, input);
@@ -254,8 +252,8 @@ public class UserInterface {
      * Helper method that get the transmitting power for carrier from user
      * Returns the transmitting power user entered
      *
-     * @param input Scanner instance to get user input
-     * @return double   transmitting power
+     * @param input Scanner instance to get user input.
+     * @return The transmitting power, as a double.
      */
     private static double getTransPower(Scanner input) {
         double transPower;
@@ -266,7 +264,7 @@ public class UserInterface {
                 transPower = Double.parseDouble(transPowerText);
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("'" + transPowerText + "'" + " is not a valid number, Try agian!");
+                System.out.println("'" + transPowerText + "'" + " is not a valid number, Try again!");
             }
         } while (true);
         return transPower;
@@ -274,11 +272,11 @@ public class UserInterface {
 
 
     /**
-     * Helper method that get the vendor from user
-     * Returns the vendor user choose
+     * Helper method that get the vendor from user.
+     * Returns the vendor user selected.
      *
-     * @param input Scanner instance to get user input
-     * @return Vendor   vendor
+     * @param input Scanner instance to get user input.
+     * @return A vendor from the Vendor enum.
      */
     private static Vendor chooseVendor(Scanner input) {
         Vendor vendor = null;
@@ -291,10 +289,7 @@ public class UserInterface {
             switch (subOption) {
                 case "1" -> vendor = Vendor.ERICSSON;
                 case "2" -> vendor = Vendor.NOKIA;
-                default -> {
-                    System.out.println("Invalid input, please try again.");
-                    continue;
-                }
+                default -> System.out.println("Invalid input, please try again.");
             }
         } while (vendor == null);
 
@@ -303,12 +298,12 @@ public class UserInterface {
 
     /**
      * Helper method that get the RAT type from user.
-     * Returns the RAT type user choose.
+     * Returns the RAT type the user selected.
      *
-     * @param input Scanner instance to get user input
-     * @return RatType   the RAT type
+     * @param input Scanner instance to get user input.
+     * @return The RAT type selected by the user.
      */
-    private static RatType chooseRATtype(Scanner input) {
+    private static RatType chooseRatType(Scanner input) {
         RatType rat = null;
         System.out.println("\nPlease choose a RAT type:\n"
                 + "1.	LTE\n"
@@ -318,10 +313,7 @@ public class UserInterface {
             switch (subOption) {
                 case "1" -> rat = RatType.LTE;
                 case "2" -> rat = RatType.WCDMA;
-                default -> {
-                    System.out.println("Invalid input, please try again.");
-                    continue;
-                }
+                default ->  System.out.println("Invalid input, please try again.");
             }
         } while (rat == null);
 
@@ -333,8 +325,8 @@ public class UserInterface {
      * Helper method that get the RF Ports from user.
      * Returns a list of RF Ports.
      *
-     * @param input Scanner instance to get user input
-     * @return RfPorts[]   an array of RF ports
+     * @param input Scanner instance to get user input.
+     * @return The RfPorts that were selected by the user, as a List.
      */
     private static List<RfPort> chooseRfPorts(RatType ratType, Scanner input) {
         int noOfRfPorts;
@@ -403,11 +395,11 @@ public class UserInterface {
     }
 
     /**
-     * helper method that get the frequency band from user
-     * returns the frequency band user choose.
+     * Helper method that get the frequency band from user.
+     * Returns the frequency band user choose.
      *
-     * @param input Scanner instance to get user input
-     * @return CarrierFrequencies   Carrier frequency band
+     * @param input Scanner instance to get user input.
+     * @return The frequency band the user selected, as a FrequencyBand enum entry.
      */
     private static FrequencyBand chooseFreqBand(RatType ratType, Scanner input) {
         FrequencyBand freqBand = null;

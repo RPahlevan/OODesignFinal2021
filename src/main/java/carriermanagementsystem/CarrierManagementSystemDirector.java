@@ -27,7 +27,7 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
 
 	// For the future usage.
 	// This list will save all carrier object and carrierID so the object can be
-	// modified from radiounit.
+	// modified from radio unit.
 	// private ConcurrentHashMap<Integer,Carrier> carrierList;
 
     private CarrierManagementSystemDirector() {

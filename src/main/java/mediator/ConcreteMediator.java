@@ -80,7 +80,7 @@ public class ConcreteMediator implements Mediator {
      * Prints a formatted list of RUs currently registered with the mediator.
      */
     @Override
-    public void printRegisteredRaidoUnits() {
+    public void printRegisteredRadioUnits() {
         if (radioUnits.size() == 0) {
             System.out.println("[ERROR] No RUs have been registered with the system.");
         } else {
@@ -224,10 +224,13 @@ public class ConcreteMediator implements Mediator {
     }
 
     /**
+     * Creates a carrier that will then be registered with the system. This carrier does not need to be added
+     * to an RU upon creation, but will instead be available to be added to an RU at a later time.
+     * Note: The demo 1 implementation does not make use of this functionality.
      *
-     * @param rfPorts
-     * @param carrierFrequencies
-     * @param transmittingPower
+     * @param rfPorts A list of RF ports that will be used for this carrier.
+     * @param carrierFrequencies The frequency band that will be used with this carrier.
+     * @param transmittingPower The transmitting power for this carrier.
      */
     @Override
     public synchronized void createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies, Double transmittingPower) {
