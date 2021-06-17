@@ -1,7 +1,7 @@
 /**
  * 
  */
-package radiounit_executorandreceiver;
+package radiounit;
 
 /**
  * Is responsible for creating EricssonLteRadioUnitReceivers
@@ -9,7 +9,7 @@ package radiounit_executorandreceiver;
  * @author esiumat
  *
  */
-public class EricssonLteRadioUnitReceiverFactory extends RadioUnitReceiverFactory {
+public class EricssonLteRadioUnitReceiverFactory implements RadioUnitReceiverFactory {
 
 	@Override
 	public RadioUnitReceiver createRadioUnitRecevier() {

@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 /**
  * Responsible for the creation of NokiaWcdmaCommandExecutorFactory classes
@@ -6,7 +6,7 @@ package radiounit_executorandreceiver;
  * @author esiumat
  *
  */
-public class NokiaWcdmaComandExecutorFactory extends RadioCommandExecutorFactory {
+public class NokiaWcdmaCommandExecutorFactory implements RadioCommandExecutorFactory {
 
 	@Override
 	public RadioCommandExecutor createRadioCommandExecutor() {

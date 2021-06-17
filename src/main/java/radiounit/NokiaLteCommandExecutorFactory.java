@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 /**
  * Responsible for the creation of NokiaLteCommandExecutor classes
@@ -6,7 +6,7 @@ package radiounit_executorandreceiver;
  * @author esiumat
  *
  */
-public class NokiaLteCommandExecutorFactory extends RadioCommandExecutorFactory {
+public class NokiaLteCommandExecutorFactory implements RadioCommandExecutorFactory {
 
 	@Override
 	public RadioCommandExecutor createRadioCommandExecutor() {

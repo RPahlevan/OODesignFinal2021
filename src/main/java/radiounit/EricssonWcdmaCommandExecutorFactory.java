@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 /**
  * Responsible for the creation of EricssonWcdmaCommandExecutor classes
@@ -6,7 +6,7 @@ package radiounit_executorandreceiver;
  * @author esiumat
  *
  */
-public class EricssonWcdmaCommandExecutorFactory extends RadioCommandExecutorFactory {
+public class EricssonWcdmaCommandExecutorFactory implements RadioCommandExecutorFactory {
 
 	@Override
 	public RadioCommandExecutor createRadioCommandExecutor() {

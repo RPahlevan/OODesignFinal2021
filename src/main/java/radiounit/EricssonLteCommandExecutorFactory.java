@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 /**
  * Responsible for the creation of EricssonLteCommandExecutor classes
@@ -6,7 +6,7 @@ package radiounit_executorandreceiver;
  * @author esiumat
  *
  */
-public class EricssonLteCommandExecutorFactory extends RadioCommandExecutorFactory {
+public class EricssonLteCommandExecutorFactory implements RadioCommandExecutorFactory {
 
 	@Override
 	public RadioCommandExecutor createRadioCommandExecutor() {

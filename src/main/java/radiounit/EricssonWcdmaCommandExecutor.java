@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 import java.util.List;
 
@@ -6,65 +6,65 @@ import common.Carrier;
 import common.FrequencyBand;
 
 /**
- * Is responsible for executing the necessary Radio Comamnds for the Nokia WCDMA
- * radios
+ * Is responsible for executing the necessary Radio Comamnds for the Ericsson
+ * WCDMA radios
  * 
  * @author esiumat
  *
  */
-public class NokiaWcdmaCommandExecutor implements RadioCommandExecutor {
+public class EricssonWcdmaCommandExecutor implements RadioCommandExecutor {
 
-	private NokiaWcdmaRadioUnitReceiver receiver;
-	private NokiaWcdmaRadioUnitReceiverFactory receiverFactory;
+	private EricssonLteRadioUnitReceiver receiver;
+	private EricssonLteRadioUnitReceiverFactory receiverFactory;
 
 	@Override
 	public void setup() {
-		receiver.setupNokiaWcdma();
+		receiver.setupEricssonLte();
 	}
 
 	@Override
 	public void activate() {
-		receiver.activateNokiaWcdma();
+		receiver.activateEricssonLte();
 	}
 
 	@Override
 	public void deactivate() {
-		receiver.deactivateNokiaWcdma();
+		receiver.deactivateEricssonLte();
 	}
 
 	@Override
 	public void release() {
-		receiver.releaseNokiaWcdma();
+		receiver.releaseEricssonLte();
 	}
 
 	@Override
 	public void setupCarrier(Carrier carrrier) {
-		receiver.setupCarrierNokiaWcdma(carrrier);
+		receiver.setupCarrierEricssonLte(carrrier);
 	}
 
 	@Override
 	public void signalScaling() {
-		receiver.signalScalingNokiaWcdma();
+		receiver.signalScalingEricssonLte();
 	}
 
 	@Override
 	public void modifyCarrier(Integer carrierId, FrequencyBand frequencyBand) {
-		receiver.modifyCarrierNokiaWcdma(carrierId, frequencyBand);
+		receiver.modifyCarrierEricssonLte(carrierId, frequencyBand);
 	}
 
 	@Override
 	public void removeCarrier(Integer carrierId) {
-		receiver.removeCarrierNokiaWcdma(carrierId);
+		receiver.removeCarrierEricssonLte(carrierId);
 	}
 
 	@Override
 	public void selfDiagnostics() {
-		receiver.selfDiagnosticsNokiaWcdma();
+		receiver.selfDiagnosticsEricssonLte();
 	}
 
 	@Override
 	public void removeAllCharacters() {
-		receiver.removeAllCharactersNokiaWcdma();
+		receiver.removeAllCharactersEricssonLte();
 	}
 
 	@Override

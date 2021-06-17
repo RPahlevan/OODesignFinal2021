@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 /**
  * Is responsible for creating EricssonWcdmaRadioUnitReceivers
@@ -6,7 +6,7 @@ package radiounit_executorandreceiver;
  * @author esiumat
  *
  */
-public class EricssonWcdmaRadioUnitReceiverFactory extends RadioUnitReceiverFactory {
+public class EricssonWcdmaRadioUnitReceiverFactory implements RadioUnitReceiverFactory {
 
 	@Override
 	public RadioUnitReceiver createRadioUnitRecevier() {

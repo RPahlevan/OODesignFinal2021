@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 import common.Carrier;
 import common.FrequencyBand;

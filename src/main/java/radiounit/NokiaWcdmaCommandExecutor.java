@@ -1,4 +1,4 @@
-package radiounit_executorandreceiver;
+package radiounit;
 
 import java.util.List;
 
@@ -6,65 +6,65 @@ import common.Carrier;
 import common.FrequencyBand;
 
 /**
- * Is responsible for executing the necessary Radio Comamnds for the Nokia LTE
+ * Is responsible for executing the necessary Radio Comamnds for the Nokia WCDMA
  * radios
  * 
  * @author esiumat
  *
  */
-public class NokiaLteCommandExecutor implements RadioCommandExecutor {
+public class NokiaWcdmaCommandExecutor implements RadioCommandExecutor {
 
-	private NokiaLteRadioUnitReceiver receiver;
-	private NokiaLteRadioUnitReceiverFactory receiverFactory;
+	private NokiaWcdmaRadioUnitReceiver receiver;
+	private NokiaWcdmaRadioUnitReceiverFactory receiverFactory;
 
 	@Override
 	public void setup() {
-		receiver.setupNokiaLte();
+		receiver.setupNokiaWcdma();
 	}
 
 	@Override
 	public void activate() {
-		receiver.activateNokiaLte();
+		receiver.activateNokiaWcdma();
 	}
 
 	@Override
 	public void deactivate() {
-		receiver.deactivateNokiaLte();
+		receiver.deactivateNokiaWcdma();
 	}
 
 	@Override
 	public void release() {
-		receiver.releaseNokiaLte();
+		receiver.releaseNokiaWcdma();
 	}
 
 	@Override
 	public void setupCarrier(Carrier carrrier) {
-		receiver.setupCarrierNokiaLte(carrrier);
+		receiver.setupCarrierNokiaWcdma(carrrier);
 	}
 
 	@Override
 	public void signalScaling() {
-		receiver.signalScalingNokiaLte();
+		receiver.signalScalingNokiaWcdma();
 	}
 
 	@Override
 	public void modifyCarrier(Integer carrierId, FrequencyBand frequencyBand) {
-		receiver.modifyCarrierNokiaLte(carrierId, frequencyBand);
+		receiver.modifyCarrierNokiaWcdma(carrierId, frequencyBand);
 	}
 
 	@Override
 	public void removeCarrier(Integer carrierId) {
-		receiver.removeCarrierNokiaLte(carrierId);
+		receiver.removeCarrierNokiaWcdma(carrierId);
 	}
 
 	@Override
 	public void selfDiagnostics() {
-		receiver.selfDiagnosticsNokiaLte();
+		receiver.selfDiagnosticsNokiaWcdma();
 	}
 
 	@Override
 	public void removeAllCharacters() {
-		receiver.removeAllCharactersNokiaLte();
+		receiver.removeAllCharactersNokiaWcdma();
 	}
 
 	@Override
