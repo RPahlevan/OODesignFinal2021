@@ -1,10 +1,13 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.FrequencyBand;
+import common.LteFrequencyBand;
+import common.RfPort;
+import common.WcdmaFrequencyBand;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import common.FrequencyBand;
-import common.RfPorts;
 
 /**
  * Client class. This class would perform the unit tests for the carrier
@@ -15,26 +18,26 @@ public class CarrierManagementSystemClient {
     public static void main(String[] args) {
         CarrierManagementSystemDirector director = CarrierManagementSystemDirector.getInstance();
 
-        /**
+        /*
          * The below code would show how to create LTE carrier with a carrier id, RF
          * ports, LTE band and transmission power.
          *
          * Please note that a LTE carrier needs 4 RF ports.
          */
-        List<RfPorts> LteRfPorts = Stream.of(RfPorts.RF_3, RfPorts.RF_4, RfPorts.RF_5, RfPorts.RF_6)
+        List<RfPort> LteRfPorts = Stream.of(RfPort.RF_3, RfPort.RF_4, RfPort.RF_5, RfPort.RF_6)
                 .collect(Collectors.toList());
-        FrequencyBand LteBand_3 = FrequencyBand.LTE_BAND_3;
+        FrequencyBand LteBand_3 = LteFrequencyBand.LTE_BAND_3;
         double transmittingPower = 12.2;
         director.createLteCarrier(LteRfPorts, LteBand_3, transmittingPower);
 
-        /**
+        /*
          * Below lines of code would show how to create WCDMA carrier with carrier Id,
          * Rf ports, WCDMA band and transmission power.
          * 
          * Please note that WCDMA carrier needs 2 rf ports.
          */
-        List<RfPorts> WcdmaRfPorts = Stream.of(RfPorts.RF_1, RfPorts.RF_2).collect(Collectors.toList());
-        FrequencyBand WcdmaBand_5 = FrequencyBand.WCDMA_BAND_5;
+        List<RfPort> WcdmaRfPorts = Stream.of(RfPort.RF_1, RfPort.RF_2).collect(Collectors.toList());
+        FrequencyBand WcdmaBand_5 = WcdmaFrequencyBand.WCDMA_BAND_5;
         transmittingPower = 11.7;
         director.createWcdmaCarrier(WcdmaRfPorts, WcdmaBand_5, transmittingPower);
         

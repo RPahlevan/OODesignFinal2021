@@ -1,154 +1,172 @@
 package radiounit;
 
-import java.util.List;
-
-import common.AlarmStatusLevel;
-import common.Carrier;
-import common.FrequencyBand;
-import common.RatType;
+import common.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 
  * @author Matthew
- *
+ * <p>
  * This is currently just a temporary class for demo purposes
  */
 
 public class DemoOneRadioUnit implements ManagedRadioUnit {
 
-	List<Carrier> carriers = new ArrayList<Carrier>();
-	String ipAddress = "";
-	String name = "";
-	String vendor = "Ericsson";
-	RatType ruType;
-	AlarmStatusLevel alarm;
+    List<Carrier> carriers;
+    String ipAddress;
+    String name;
+    Vendor vendor;
+    RatType ruType;
+    AlarmStatusLevel alarm;
 
-	@Override
-	public void setup() {
-		System.out.println("Setting up radio unit");
+    public DemoOneRadioUnit(String ipAddress, String name, Vendor vendor, RatType ruType) {
+        this.carriers = new ArrayList<>();
+        this.ipAddress = ipAddress;
+        this.name = name;
+        this.vendor = vendor;
+        this.ruType = ruType;
+        this.alarm = AlarmStatusLevel.NO_ALARM;
 
-	}
+        System.out.println(String.format("[DEBUG] IP address for this RU: %s", ipAddress));
+    }
 
-	@Override
-	public void activate() {
-		System.out.println("Activating radio unit");
+    @Override
+    public void setup() {
+        System.out.println("[DEBUG] Setting up radio unit");
 
-	}
+    }
 
-	@Override
-	public void deactivate() {
-		System.out.println("Deactivating radio unit");
+    @Override
+    public void activate() {
+        System.out.println("[DEBUG] Activating radio unit");
 
-	}
+    }
 
-	@Override
-	public void release() {
-		System.out.println("Releasing");
+    @Override
+    public void deactivate() {
+        System.out.println("[DEBUG] Deactivating radio unit");
 
-	}
+    }
 
-	@Override
-	public void signalScaling() {
-		System.out.println("Signal scaling");
+    @Override
+    public void release() {
+        System.out.println("[DEBUG] Releasing");
 
-	}
+    }
 
-	@Override
-	public void postActivation() {
-		System.out.println("Post activation");
+    @Override
+    public void signalScaling() {
+        System.out.println("[DEBUG] Signal scaling");
 
-	}
+    }
 
-	@Override
-	public void performSelfDiagnostics() {
-		System.out.println("performSelfDiagnostics");
+    @Override
+    public void postActivation() {
+        System.out.println("[DEBUG] Post activation");
 
-	}
+    }
 
-	@Override
-	public void acknowledgeAlarm() {
-		System.out.println("Acknowledge alarm");
+    @Override
+    public void performSelfDiagnostics() {
+        System.out.println("[DEBUG] performSelfDiagnostics");
 
-	}
+    }
 
-	@Override
-	public void setupCarrier(Carrier carrier) {
-		System.out.println("Setting up carrier");
+    @Override
+    public void acknowledgeAlarm() {
+        System.out.println("[DEBUG] Acknowledge alarm");
 
-	}
+    }
 
-	@Override
-	public void modifyCarrier(int carrierId, FrequencyBand freq) {
-		System.out.println("Modifying carrier");
+    @Override
+    public void setupCarrier(Carrier carrier) {
+        System.out.println("[DEBUG] Setting up carrier");
+        carriers.add(carrier);
 
-	}
+    }
 
-	@Override
-	public void removeCarrier(int carrierId) {
-		System.out.println("Remove carrier");
+    @Override
+    public void modifyCarrier(int carrierId, FrequencyBand freq) {
+        System.out.println("[DEBUG] Modifying carrier");
+        carriers.forEach(carrier -> {
+            if (carrier.getCarrierId() == carrierId) {
+                carrier.setFrequencyBand(freq);
+                return;
+            }
+        });
+    }
 
-	}
+    @Override
+    public void removeCarrier(int carrierId) {
+        System.out.println("[DEBUG] Remove carrier");
+        carriers.forEach(carrier -> {
+            if (carrier.getCarrierId() == carrierId) {
+                carriers.remove(carrier);
+                return;
+            }
+        });
 
-	@Override
-	public void removeAllCarriers() {
-		System.out.println("Remove all carriers");
+    }
 
-	}
+    @Override
+    public void removeAllCarriers() {
+        System.out.println("[DEBUG] Remove all carriers");
+        carriers.clear();
+    }
 
-	@Override
-	public String getCurrentState() {
-		System.out.println("Get current state");
-		return null;
-	}
+    @Override
+    public String getCurrentState() {
+        System.out.println("[DEBUG] Get current state");
+        return null;
+    }
 
-	@Override
-	public String getIpAddress() {
-		System.out.println("Get IP address");
-		return ipAddress;
-	}
+    @Override
+    public String getIpAddress() {
+        System.out.println("[DEBUG] Get IP address");
+        return ipAddress;
+    }
 
-	@Override
-	public String getRadioUnitName() {
-		System.out.println("Get Radio Unit Name");
-		return name;
-	}
+    @Override
+    public String getRadioUnitName() {
+        System.out.println("[DEBUG] Get Radio Unit Name");
+        return name;
+    }
 
-	@Override
-	public String getVendor() {
-		System.out.println("Get Vendor");
-		return vendor;
-	}
+    @Override
+    public Vendor getVendor() {
+        System.out.println("[DEBUG] Get Vendor");
+        return vendor;
+    }
 
-	@Override
-	public RatType getRatType() {
-		System.out.println("Get Rat Type");
-		return ruType;
-	}
+    @Override
+    public RatType getRatType() {
+        System.out.println("[DEBUG] Get Rat Type");
+        return ruType;
+    }
 
-	@Override
-	public List<Carrier> getCarriers() {
-		System.out.println("Get Carriers");
-		return carriers;
-	}
+    @Override
+    public List<Carrier> getCarriers() {
+        System.out.println("[DEBUG] Get Carriers");
+        return carriers;
+    }
 
-	@Override
-	public AlarmStatusLevel getAlarmStatus() {
-		System.out.println("Get Alarm Status");
-		return alarm;
-	}
+    @Override
+    public AlarmStatusLevel getAlarmStatus() {
+        System.out.println("[DEBUG] Get Alarm Status");
+        return alarm;
+    }
 
-	@Override
-	public void setRadioUnitName(String name) {
-		System.out.println("Set Radio Unit Name");
-		this.name = name;
-	}
+    @Override
+    public void setRadioUnitName(String name) {
+        System.out.println("[DEBUG] Set Radio Unit Name");
+        this.name = name;
+    }
 
-	@Override
-	public void raiseAlarm(AlarmStatusLevel alarm) {
-		System.out.println("Raise Alarm");
-		this.alarm = alarm;
-	}
+    @Override
+    public void raiseAlarm(AlarmStatusLevel alarm) {
+        System.out.println("[DEBUG] Raise Alarm");
+        this.alarm = alarm;
+    }
 
 }

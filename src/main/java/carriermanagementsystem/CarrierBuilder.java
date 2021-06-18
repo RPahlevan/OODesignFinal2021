@@ -1,9 +1,10 @@
-package carrierManagementSystem;
+package carriermanagementsystem;
+
+import common.Carrier;
+import common.FrequencyBand;
+import common.RfPort;
 
 import java.util.List;
-
-import common.FrequencyBand;
-import common.RfPorts;
 
 /**
  * The CarrierBuilder interface defines all possible ways to configure a LTE and
@@ -27,7 +28,7 @@ public interface CarrierBuilder {
      * @param rfPorts The RF ports for the carrier.
      *                WCDMA needs 2 RF ports and LTE needs 4 RF ports.
      */
-    void setRfPorts(List<RfPorts> rfPorts);
+    void setRfPorts(List<RfPort> rfPorts);
 
     /**
      * Sets up the carrier frequency.
@@ -48,5 +49,5 @@ public interface CarrierBuilder {
      *
      * @return The built Carrier.
      */
-    public Carrier getCarrier();
+    Carrier getCarrier();
 }

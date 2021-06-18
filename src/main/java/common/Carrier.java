@@ -1,34 +1,31 @@
-/**
- * 
- */
 package common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This abstract class defines a Carrier that will have concrete implementations
  * for different RAT types.
  */
 public abstract class Carrier {
-	protected int carrierId;
-	protected List<RfPorts> rfPorts;
-	protected FrequencyBand carrierFreq;
-	protected double transmittingPower;
-	
-	public Carrier(int carrierId, List<RfPorts> rfPorts, FrequencyBand freq)
-	{
-		this.carrierId = carrierId;
-		this.carrierFreq = freq;
-		
-		if (rfPorts == null || rfPorts.isEmpty())
-		{
-			System.out.println("ERROR: attempting create carrier without RF ports");
-		}
-		
-		this.rfPorts = new ArrayList<>(rfPorts);
-	}
-	
+    protected final Integer carrierId;
+    protected final List<RfPort> rfPorts;
+    protected FrequencyBand frequencyBand;
+    protected final Double transmittingPower;
+
+    public Carrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower) {
+        this.carrierId = carrierId;
+        this.frequencyBand = freq;
+
+        if (rfPorts == null || rfPorts.isEmpty()) {
+            System.out.println("[ERROR] Attempted to create a carrier without RF ports.");
+        }
+
+        this.rfPorts = new ArrayList<>(Objects.requireNonNull(rfPorts));
+        this.transmittingPower = transmittingPower;
+    }
+
     /**
      * Returns the carrier id to the builder class.
      *
@@ -43,7 +40,7 @@ public abstract class Carrier {
      *
      * @return The RF ports, as a List.
      */
-    public List<RfPorts> getRfPorts() {
+    public List<RfPort> getRfPorts() {
         return rfPorts;
     }
 
@@ -53,7 +50,7 @@ public abstract class Carrier {
      * @return The carrier frequency, as a CarrierFrequencies object.
      */
     public FrequencyBand getCarrierFrequencies() {
-        return carrierFreq;
+        return frequencyBand;
     }
 
     /**
@@ -63,5 +60,14 @@ public abstract class Carrier {
      */
     public Double getTransmittingPower() {
         return transmittingPower;
+    }
+
+    /**
+     * Sets the frequency band for this carrier.
+     *
+     * @param freqBand The frequency band to be set on this carrier.
+     */
+    public void setFrequencyBand(FrequencyBand freqBand) {
+        this.frequencyBand = freqBand;
     }
 }

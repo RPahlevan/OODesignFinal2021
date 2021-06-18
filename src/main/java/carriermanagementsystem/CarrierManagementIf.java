@@ -1,8 +1,9 @@
-package carrierManagementSystem;
-import java.util.List;
-
+package carriermanagementsystem;
+import common.Carrier;
 import common.FrequencyBand;
-import common.RfPorts;
+import common.RfPort;
+
+import java.util.List;
 
 public interface CarrierManagementIf {
     /**
@@ -19,7 +20,7 @@ public interface CarrierManagementIf {
      * @return LTECarrier Returns the LTECarrier that was built by the
      *         LTECarrierBuilder
      */
-    public Carrier createLteCarrier(List<RfPorts> rfPorts, FrequencyBand frequencyBand,
+    Carrier createLteCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand,
             Double transmittingPower);
 
     /**
@@ -37,6 +38,6 @@ public interface CarrierManagementIf {
      * @return WCDMACarrier Returns the WCDMACarrier that was built by the
      *         WCDMACarrierBuilder
      */
-    public Carrier createWcdmaCarrier(List<RfPorts> rfPorts, FrequencyBand frequencyBand,
-            Double transmittingPower);
+    Carrier createWcdmaCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand,
+                               Double transmittingPower);
 }
