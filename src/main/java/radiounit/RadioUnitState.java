@@ -2,6 +2,7 @@ package radiounit;
 
 import common.Carrier;
 import common.FrequencyBand;
+import radiounit.radiostate.IllegalStateTransitionException;
 
 /**
  * @author edavleu
@@ -9,25 +10,25 @@ import common.FrequencyBand;
  */
 public interface RadioUnitState {
 	
-	public void setup();
+	public void setup() throws IllegalStateTransitionException;
 	
-	public void activate();
+	public void activate() throws IllegalStateTransitionException;
 	
-	public void deactivate();
+	public void deactivate() throws IllegalStateTransitionException;
 	
-	public void release();
+	public void release() throws IllegalStateTransitionException;
 	
-	public void setupCarrier(Carrier carrier);
+	public void setupCarrier(Carrier carrier) throws IllegalStateTransitionException;
 
-	public void signalScaling();
+	public void signalScaling() throws IllegalStateTransitionException;
 	
-	public void modifyCarrier(Integer carrierId, FrequencyBand band);
+	public void modifyCarrier(Integer carrierId, FrequencyBand band) throws IllegalStateTransitionException;
 	
-	public void removeCarrier(Integer carrierId);
+	public void removeCarrier(Integer carrierId) throws IllegalStateTransitionException;
 	
-	public void selfDiagnostics();
+	public void selfDiagnostics() throws IllegalStateTransitionException;
 	
-	public void removeAllCarriers(Integer carrierId);
+	public void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException;
 	
 	@Override
 	public String toString();
