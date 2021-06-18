@@ -8,7 +8,7 @@ public enum RatType {
 	LTE("LTE"),
 	WCDMA("WCDMA");
 	
-	private String label;
+	private final String label;
 	
 	RatType(String label)
 	{

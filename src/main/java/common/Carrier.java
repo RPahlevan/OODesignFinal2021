@@ -9,10 +9,10 @@ import java.util.Objects;
  * for different RAT types.
  */
 public abstract class Carrier {
-    protected Integer carrierId;
-    protected List<RfPort> rfPorts;
+    protected final Integer carrierId;
+    protected final List<RfPort> rfPorts;
     protected FrequencyBand frequencyBand;
-    protected Double transmittingPower;
+    protected final Double transmittingPower;
 
     public Carrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower) {
         this.carrierId = carrierId;
@@ -60,5 +60,14 @@ public abstract class Carrier {
      */
     public Double getTransmittingPower() {
         return transmittingPower;
+    }
+
+    /**
+     * Sets the frequency band for this carrier.
+     *
+     * @param freqBand The frequency band to be set on this carrier.
+     */
+    public void setFrequencyBand(FrequencyBand freqBand) {
+        this.frequencyBand = freqBand;
     }
 }

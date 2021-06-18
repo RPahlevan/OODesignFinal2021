@@ -20,13 +20,15 @@ public class DemoOneRadioUnit implements ManagedRadioUnit {
     RatType ruType;
     AlarmStatusLevel alarm;
 
-    public DemoOneRadioUnit(String name, Vendor vendor, RatType ruType) {
+    public DemoOneRadioUnit(String ipAddress, String name, Vendor vendor, RatType ruType) {
         this.carriers = new ArrayList<>();
-        this.ipAddress = "1.1.1.1";
+        this.ipAddress = ipAddress;
         this.name = name;
         this.vendor = vendor;
         this.ruType = ruType;
         this.alarm = AlarmStatusLevel.NO_ALARM;
+
+        System.out.println(String.format("[DEBUG] IP address for this RU: %s", ipAddress));
     }
 
     @Override
@@ -89,7 +91,7 @@ public class DemoOneRadioUnit implements ManagedRadioUnit {
         System.out.println("[DEBUG] Modifying carrier");
         carriers.forEach(carrier -> {
             if (carrier.getCarrierId() == carrierId) {
-                //carrier.setFrequencyBand(freq);
+                carrier.setFrequencyBand(freq);
                 return;
             }
         });
@@ -100,7 +102,7 @@ public class DemoOneRadioUnit implements ManagedRadioUnit {
         System.out.println("[DEBUG] Remove carrier");
         carriers.forEach(carrier -> {
             if (carrier.getCarrierId() == carrierId) {
-                //carriers.remove(carrier);
+                carriers.remove(carrier);
                 return;
             }
         });

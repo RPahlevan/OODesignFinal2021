@@ -10,7 +10,7 @@ public enum Vendor {
     ERICSSON("Ericsson"),
     NOKIA("Nokia");
 
-    private String label;
+    private final String label;
 
     Vendor(String label) {
         this.label = label;
