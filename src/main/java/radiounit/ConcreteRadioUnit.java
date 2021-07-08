@@ -25,71 +25,94 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	}
 
+	/**
+	 * Setup radio
+	 */
 	@Override
 	public void setup() {
 		cmdExecutor.setup();
 	}
 
+	/**
+	 * Activate radio
+	 */
 	@Override
 	public void activate() {
 		cmdExecutor.activate();
 	}
 
+	/**
+	 * Deactivate radio
+	 */
 	@Override
 	public void deactivate() {
 		cmdExecutor.deactivate();
 	}
 
+	/**
+	 * Release radio
+	 */
 	@Override
 	public void release() {
 		cmdExecutor.release();
 	}
 
+	/**
+	 * Scales signal for radio
+	 */
 	@Override
 	public void signalScaling() {
 		cmdExecutor.signalScaling();
 	}
 
+	/**
+	 * Setup carrier in radio
+	 */
 	@Override
 	public void setupCarrier(Carrier carrier) {
 		cmdExecutor.setupCarrier(carrier);
 	}
 
+	/**
+	 * Modify existing carrier in radio
+	 */
 	@Override
 	public void modifyCarrier(int carrierId, FrequencyBand freq) {
 		cmdExecutor.modifyCarrier(carrierId, freq);
 	}
 
+	/**
+	 * Remove carrier from radio
+	 */
 	@Override
 	public void removeCarrier(int carrierId) {
 		cmdExecutor.removeCarrier(carrierId);
 	}
 
+	/**
+	 * Performs self diagnostics
+	 */
 	@Override
 	public void performSelfDiagnostics() {
 		cmdExecutor.selfDiagnostics();
 	}
 
+	/**
+	 * Removes all carriers from radio
+	 */
 	@Override
 	public void removeAllCarriers() {
 		cmdExecutor.removeAllCharacters();
 	}
 
+	/**
+	 * Get list of all carriers in radio
+	 */
 	@Override
 	public List<Carrier> getCarriers() {
 		return cmdExecutor.getCarriers();
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public void postActivation() {
 		// TODO Auto-generated method stub
@@ -103,8 +126,20 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	}
 
 	@Override
-	public RadioUnitState getCurrentState() {
-		return state;
+	public void raiseAlarm(AlarmStatusLevel alarm) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public AlarmStatusLevel getAlarmStatus() {
+		return alarmStatus;
+	}
+
+	@Override
+	public void setAlarmStatus(AlarmStatusLevel status) {
+		this.alarmStatus = status;
+
 	}
 
 	@Override
@@ -128,30 +163,18 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	}
 
 	@Override
-	public AlarmStatusLevel getAlarmStatus() {
-		return alarmStatus;
-	}
-
-	@Override
 	public void setRadioUnitName(String name) {
 		this.name = name;
 	}
 
 	@Override
-	public void raiseAlarm(AlarmStatusLevel alarm) {
-		// TODO Auto-generated method stub
-
+	public RadioUnitState getCurrentState() {
+		return state;
 	}
 
 	@Override
 	public void setState(RadioUnitState state) {
 		this.state = state;
-	}
-
-	@Override
-	public void setAlarmStatus(AlarmStatusLevel status) {
-		this.alarmStatus = status;
-
 	}
 
 	@Override
