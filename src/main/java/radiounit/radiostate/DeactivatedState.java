@@ -87,7 +87,7 @@ public class DeactivatedState implements RadioUnitState {
 	public void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException {
 		System.out.println("Removing all carriers");
 		
-		this.radio.getCommandExecutor().removeAllCharacters();
+		this.radio.getCommandExecutor().removeAllCarriers();
 	}
 	
 	@Override

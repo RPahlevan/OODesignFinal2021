@@ -63,8 +63,8 @@ public class NokiaLteCommandExecutor implements RadioCommandExecutor {
 	}
 
 	@Override
-	public void removeAllCharacters() {
-		receiver.removeAllCharactersNokiaLte();
+	public void removeAllCarriers() {
+		receiver.removeAllCarriersNokiaLte();
 	}
 
 	@Override

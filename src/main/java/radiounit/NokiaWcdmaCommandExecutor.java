@@ -63,8 +63,8 @@ public class NokiaWcdmaCommandExecutor implements RadioCommandExecutor {
 	}
 
 	@Override
-	public void removeAllCharacters() {
-		receiver.removeAllCharactersNokiaWcdma();
+	public void removeAllCarriers() {
+		receiver.removeAllCarriersNokiaWcdma();
 	}
 
 	@Override
