@@ -35,7 +35,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	}
 
-	public void setupCarrierNokiaLte(Carrier carrrier) {
+	public void setupCarrierNokiaLte(Carrier carrier) {
 		// TODO Auto-generated method stub
 
 	}
@@ -60,7 +60,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	}
 
-	public void removeAllCharactersNokiaLte() {
+	public void removeAllCarriersNokiaLte() {
 		// TODO Auto-generated method stub
 
 	}

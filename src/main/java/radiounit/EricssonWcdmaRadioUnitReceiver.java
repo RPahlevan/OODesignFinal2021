@@ -35,7 +35,7 @@ public class EricssonWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	}
 
-	public void setupCarrierEricssonWcdma(Carrier carrrier) {
+	public void setupCarrierEricssonWcdma(Carrier carrier) {
 		// TODO Auto-generated method stub
 
 	}
@@ -60,7 +60,7 @@ public class EricssonWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	}
 
-	public void removeAllCharactersEricssonWcdma() {
+	public void removeAllCarriersEricssonWcdma() {
 		// TODO Auto-generated method stub
 
 	}
