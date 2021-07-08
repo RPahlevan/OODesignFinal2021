@@ -7,6 +7,7 @@ import common.Carrier;
 import common.FrequencyBand;
 import common.RatType;
 import common.Vendor;
+import radiounit.radiostate.*;
 
 /**
  * 
@@ -18,10 +19,15 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	/**
 	 * Constructor for class
 	 */
-	public ConcreteRadioUnit() {
-		// TODO: instantiate RadioCommandExecutorFactory
-
+	public ConcreteRadioUnit(String ipAddress, String name, Vendor vendor, RatType ratType) {
+		this.ipAddress = ipAddress;
+		this.name = name;
+		this.vendor = vendor;
+		this.ratType = ratType;
+		this.alarmStatus = AlarmStatusLevel.NO_ALARM;
+		this.state = new IdleState(this);
 		// TODO: instantiate a RadioCommandExecutor
+		// TODO: get RadioCommandExecutorFactory instance here.
 
 	}
 
@@ -116,19 +122,19 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	@Override
 	public void postActivation() {
 		// TODO Auto-generated method stub
-
+		System.out.println("Doing post activation");
 	}
 
 	@Override
 	public void acknowledgeAlarm() {
 		// TODO Auto-generated method stub
-
+		System.out.println("Acknowledge alarm");
 	}
 
 	@Override
 	public void raiseAlarm(AlarmStatusLevel alarm) {
 		// TODO Auto-generated method stub
-
+		System.out.println("Raise alarm");
 	}
 
 	@Override
