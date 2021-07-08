@@ -4,9 +4,19 @@ import common.*;
 import radiounit.RadioUnitState;
 
 public interface NetworkManagementSystem {
+    void commissionRu(String ip);
+
+    void decommissionRu(String ip);
+
     void addRadioUnit(String name, Vendor vendor, RatType ratType);
 
     void removeRadioUnit(String ip);
+
+    void setupRu(String ip);
+
+    void releaseRu(String ip);
+
+    void activateRu(String ip);
 
     void deactivateRU(String ip);
 
@@ -18,18 +28,20 @@ public interface NetworkManagementSystem {
 
     void signalScalingOnRU(String ip);
 
+    void signalScalingOnRu(String ip);
+
+    void postActivation(String ip);
+
+    void performSelfDiagnostics(String ip);
+
     void listNetworkInventory();
 
-    void listRUsByStandard(RatType ratType);
-
-    void listRUsByState(RadioUnitState ruState);
-
-    void listRUsByBand(FrequencyBand frequencyBand);
-
-    void listRadioUnitDetails(String ip);
+    void listRuByParam(Object obj);
 
     void setAlarmOnRU(String ip, AlarmStatusLevel alarm);
 
     void getNetworkAlarms();
+
+    void acknowledgeAlarm(String ip);
 
 }
