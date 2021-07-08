@@ -25,4 +25,9 @@ public class CommissionWcdmaRadioUnit extends CommissionRadioUnit{
     void performSelfDiagnotics(String ip) {
 
     }
+    
+    @Override
+    boolean isLTE() {
+    	return false;
+    }
 }

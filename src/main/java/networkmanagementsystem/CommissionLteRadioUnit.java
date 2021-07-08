@@ -1,9 +1,11 @@
 package networkmanagementsystem;
 
+
 public class CommissionLteRadioUnit extends CommissionRadioUnit{
+	
+	
     @Override
     void setupRU(String ip) {
-
     }
 
     @Override
@@ -24,5 +26,10 @@ public class CommissionLteRadioUnit extends CommissionRadioUnit{
     @Override
     void performSelfDiagnotics(String ip) {
 
+    }
+    
+    @Override
+    boolean isLTE() {
+    	return true;
     }
 }
