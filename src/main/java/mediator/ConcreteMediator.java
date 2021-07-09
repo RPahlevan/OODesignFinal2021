@@ -49,7 +49,7 @@ public class ConcreteMediator implements Mediator {
      *
      * @return The Singleton instance of the ConcreteMediator class.
      */
-    public static synchronized ConcreteMediator getInstance() {
+    public static ConcreteMediator getInstance() {
         return UNIQUE_INSTANCE;
     }
 

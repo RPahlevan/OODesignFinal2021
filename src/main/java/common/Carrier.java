@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public abstract class Carrier {
     protected final Integer carrierId;
-    protected List<RfPort> rfPorts = null;
+    protected List<RfPort> rfPorts;
     protected FrequencyBand frequencyBand;
     protected final Double transmittingPower;
 

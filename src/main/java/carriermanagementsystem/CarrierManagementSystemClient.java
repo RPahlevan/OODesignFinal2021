@@ -50,16 +50,16 @@ public class CarrierManagementSystemClient {
 //         */
 //        List<RfPorts> LteRfPorts_2 = Stream.of(RfPorts.RF_3, RfPorts.RF_4, RfPorts.RF_5, RfPorts.RF_6)
 //                .collect(Collectors.toList());
-//        FrequencyBand LteBand_4 = FrequencyBand.LTE_BAND_4;
+//        FrequencyBand LteBand_4 = FrequencyBand.LTE_BAND_3;
 //        director.createLteCarrier(LteRfPorts_2, LteBand_4, null);
 //        
 //        /**
 //         * case #1: result:
 //         * 
 //         * Final result: 
-//         * LTE Carrier ID: 138
-//         * LTE Carrier Frequency: LTE_BAND_4 = 1755 MHz
-//         * LTE RF Ports: RF_3 = D  RF_4 = E  RF_5 = F  RF_6 = G  
+//         * LTE Carrier ID: 15
+//         * LTE Carrier Frequency: 1710 MHz
+//         * LTE RF Ports: D  E  F  G  
 //         * LTE Transmission Power: Not configured
 //         */
 //        
@@ -68,27 +68,38 @@ public class CarrierManagementSystemClient {
 //         * case #2: pass null for the RfPorts 
 //         */
 //        
-//        FrequencyBand WcdmaBand_6 = FrequencyBand.WCDMA_BAND_6;
+//        FrequencyBand WcdmaBand_5 = FrequencyBand.WCDMA_BAND_5;
 //        transmittingPower = 11.7;
-//        director.createWcdmaCarrier(null, WcdmaBand_6, transmittingPower);
+//        director.createWcdmaCarrier(null, WcdmaBand_5, transmittingPower);
 //        
 //        /**
 //         * case #2:  Result:
 //         * 
-//         * Exception in thread "main" java.lang.NullPointerException: WCDMA RF Ports are not configured!
+//         * [ERROR] WCDMA RF Ports are not configured!
+//         * [ERROR] Attempted to create a carrier without RF ports.
+//         * Final result: 
+//         * WCDMA Carrier ID: 278
+//         * WCDMA Carrier Frequency: 850 MHz-for U.S
+//         * WCDMA RF Ports: Not configured
+//         * WCDMA Transmission Power: 11.7
 //         */
 //        
 //        /**
 //         * case #3: pass invalid number of RfPorts 
 //         */
-//        List<RfPorts> LteRfPorts_3 = Stream.of(RfPorts.RF_3, RfPorts.RF_4, RfPorts.RF_6)
+//        List<RfPorts> LteRfPorts = Stream.of(RfPorts.RF_3, RfPorts.RF_4, RfPorts.RF_6)
 //                .collect(Collectors.toList());
-//        FrequencyBand LteBand_6 = FrequencyBand.LTE_BAND_6;
-//        director.createLteCarrier(LteRfPorts_3, LteBand_6, null);
+//        FrequencyBand LteBand_3 = FrequencyBand.LTE_BAND_3;
+//        director.createLteCarrier(LteRfPorts_3, LteBand_3, null);
 //        
 //        /**
-//         * case #3: Result:
-//         * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Invalid value for the number of LTE ports. The number of RF Ports for LTE carrier has to be 4.
+//         * [ERROR] Invalid value for the number of LTE ports. The number of RF Ports for LTE carrier has to be 4. RF ports will not be configured.
+//         * [ERROR] Attempted to create a carrier without RF ports.
+//         * Final result: 
+//         * LTE Carrier ID: 177
+//         * LTE Carrier Frequency: 1710 MHz
+//         * LTE RF Ports: Not configured
+//         * LTE Transmission Power: 12.2
 //         */
     }
 

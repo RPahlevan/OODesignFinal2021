@@ -19,16 +19,12 @@ import java.util.List;
  * carrier it creates.
  */
 public class CarrierManagementSystemDirector implements CarrierManagementIf {
-    private static final CarrierManagementSystemDirector UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
+    private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
     private final int LTE_MAXIMUM_CARRIER_ID = 500;
     private final int WCDMA_MAXIMUM_CARRIER_ID = 500;
     private Stack<Integer> lteCarrierIdGenerator = new Stack<>();
     private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<>();
 
-    // For the future usage.
-    // This list will save all carrier object and carrierID so the object can be
-    // modified from radio unit.
-    // private ConcurrentHashMap<Integer,Carrier> carrierList;
 
     private CarrierManagementSystemDirector() {
         ArrayList<Integer> lteRandomizeCarrierId = new ArrayList<>();

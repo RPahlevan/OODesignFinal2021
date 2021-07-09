@@ -37,7 +37,7 @@ public class WcdmaCarrierBuilder implements CarrierBuilder {
     @Override
     public void setRfPorts(List<RfPort> rfPorts) {
         if (rfPorts == null) {
-            System.out.println("[ERROR] LTE RF Ports are not configured!");
+            System.out.println("[ERROR] WCDMA RF Ports are not configured!");
             return;
         }
 
