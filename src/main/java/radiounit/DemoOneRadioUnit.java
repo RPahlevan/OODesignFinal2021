@@ -116,7 +116,7 @@ public class DemoOneRadioUnit implements ManagedRadioUnit {
     }
 
     @Override
-    public String getCurrentState() {
+    public RadioUnitState getCurrentState() {
         System.out.println("[DEBUG] Get current state");
         return null;
     }
