@@ -9,7 +9,7 @@ package radiounit;
 public class NokiaWcdmaRadioUnitReceiverFactory implements RadioUnitReceiverFactory {
 
 	@Override
-	public RadioUnitReceiver createRadioUnitRecevier() {
+	public RadioUnitReceiver createRadioUnitReceiver() {
 		// TODO Auto-generated method stub
 		return null;
 	}

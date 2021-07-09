@@ -30,7 +30,7 @@ public interface RadioCommandExecutor {
 
 	public void selfDiagnostics();
 
-	public void removeAllCharacters();
+	public void removeAllCarriers();
 
 	public List<Carrier> getCarriers();
 
