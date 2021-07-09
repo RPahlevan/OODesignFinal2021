@@ -246,7 +246,7 @@ public class ConcreteMediator implements Mediator {
      * @param ratType            The RAT type of the radio unit that this carrier will be associated with.
      * @return The created Carrier based on the RAT type of the radio unit it will be associated with.
      */
-    private synchronized Carrier createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies, Double transmittingPower, RatType ratType) {
+    public synchronized Carrier createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies, Double transmittingPower, RatType ratType) {
         switch (ratType) {
             case WCDMA -> {
                 try {

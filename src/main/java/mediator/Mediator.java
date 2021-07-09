@@ -34,6 +34,8 @@ public interface Mediator {
 
     void createCarrierOnRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                        Double transmittingPower, String ruName);
+    
+    Carrier createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies, Double transmittingPower, RatType ratType);
 
     ManagedRadioUnit getRadioUnit(String name);
 }
