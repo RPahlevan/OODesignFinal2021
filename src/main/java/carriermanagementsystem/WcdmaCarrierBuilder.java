@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is a child class to CarrierBuilder. It builds WCDMACarrier objects.
+ * This class is a child class to CarrierBuilder. It builds WCDMACarrier
+ * objects.
  */
 public class WcdmaCarrierBuilder implements CarrierBuilder {
+    private static final int WCDMA_RF_PORTS_NUMBER = 2;
     private Integer carrierId;
     private List<RfPort> rfPorts;
     private FrequencyBand frequencyBand;
@@ -34,18 +36,16 @@ public class WcdmaCarrierBuilder implements CarrierBuilder {
      */
     @Override
     public void setRfPorts(List<RfPort> rfPorts) {
-        // Catch exception for null rfPorts.
         if (rfPorts == null) {
-            throw new NullPointerException("WCDMA RF Ports are not configured!");
+            System.out.println("[ERROR] LTE RF Ports are not configured!");
+            return;
         }
 
-        // Setup the RF ports for the WCDMA carrier and if the number of elements
-        // is less than 2 it will throw an exception.
-        if (rfPorts.size() == 2) {
+        if (rfPorts.size() == WCDMA_RF_PORTS_NUMBER) {
             this.rfPorts = new ArrayList<>(rfPorts);
         } else {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Invalid value for the number of WCDMA ports. Number of RF Ports for WCDMA carrier has to be 2.");
+            System.out.println(
+                    "[ERROR] Invalid value for the number of WCDMA ports. The number of RF Ports for WCDMA carrier has to be 2. RF ports will not be configured.");
         }
     }
 

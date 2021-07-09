@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public abstract class Carrier {
     protected final Integer carrierId;
-    protected final List<RfPort> rfPorts;
+    protected List<RfPort> rfPorts = null;
     protected FrequencyBand frequencyBand;
     protected final Double transmittingPower;
 
@@ -20,9 +20,9 @@ public abstract class Carrier {
 
         if (rfPorts == null || rfPorts.isEmpty()) {
             System.out.println("[ERROR] Attempted to create a carrier without RF ports.");
+        } else {
+            this.rfPorts = new ArrayList<>(Objects.requireNonNull(rfPorts));
         }
-
-        this.rfPorts = new ArrayList<>(Objects.requireNonNull(rfPorts));
         this.transmittingPower = transmittingPower;
     }
 

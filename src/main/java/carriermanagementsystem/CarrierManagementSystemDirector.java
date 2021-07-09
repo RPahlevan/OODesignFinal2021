@@ -19,48 +19,47 @@ import java.util.List;
  * carrier it creates.
  */
 public class CarrierManagementSystemDirector implements CarrierManagementIf {
-    private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
-    private final int LTE_MAXIMUM_CARRIER_ID = 500; 
+    private static final CarrierManagementSystemDirector UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
+    private final int LTE_MAXIMUM_CARRIER_ID = 500;
     private final int WCDMA_MAXIMUM_CARRIER_ID = 500;
     private Stack<Integer> lteCarrierIdGenerator = new Stack<>();
     private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<>();
 
-	// For the future usage.
-	// This list will save all carrier object and carrierID so the object can be
-	// modified from radio unit.
-	// private ConcurrentHashMap<Integer,Carrier> carrierList;
+    // For the future usage.
+    // This list will save all carrier object and carrierID so the object can be
+    // modified from radio unit.
+    // private ConcurrentHashMap<Integer,Carrier> carrierList;
 
     private CarrierManagementSystemDirector() {
         ArrayList<Integer> lteRandomizeCarrierId = new ArrayList<>();
         ArrayList<Integer> wcdmaRandomizeCarrierId = new ArrayList<>();
-        
-        //Generate random number for lte carrier ID.
+
+        // Generate random number for lte carrier ID.
         for (int i = 1; i < LTE_MAXIMUM_CARRIER_ID; i++) {
             lteRandomizeCarrierId.add(i);
         }
         Collections.shuffle(lteRandomizeCarrierId);
         lteCarrierIdGenerator.addAll(lteRandomizeCarrierId);
-        
-        //Generate random number for wcdma carrier ID.
+
+        // Generate random number for wcdma carrier ID.
         for (int i = 1; i < WCDMA_MAXIMUM_CARRIER_ID; i++) {
             wcdmaRandomizeCarrierId.add(i);
         }
         Collections.shuffle(wcdmaRandomizeCarrierId);
         wcdmaCarrierIdGenerator.addAll(wcdmaRandomizeCarrierId);
     }
-    
+
     /**
      * Get the unique CarrierManagementSystemDirector instance
      * 
      * @return CarrierManagementSystemDirector singleton instance
      */
-    public static CarrierManagementSystemDirector getInstance() {
+    public static synchronized CarrierManagementSystemDirector getInstance() {
         return UNIQUE_INSTANCE;
     }
 
     @Override
-    public Carrier createLteCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand,
-                                    Double transmittingPower) {
+    public Carrier createLteCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand, Double transmittingPower) {
         LteCarrierBuilder lteCarrier = new LteCarrierBuilder();
         try {
             lteCarrier.setCarrierId(lteCarrierIdGenerator.pop());
@@ -76,8 +75,7 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     }
 
     @Override
-    public Carrier createWcdmaCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand,
-                                      Double transmittingPower) {
+    public Carrier createWcdmaCarrier(List<RfPort> rfPorts, FrequencyBand frequencyBand, Double transmittingPower) {
         WcdmaCarrierBuilder wcdmaCarrier = new WcdmaCarrierBuilder();
         try {
             wcdmaCarrier.setCarrierId(wcdmaCarrierIdGenerator.pop());

@@ -11,6 +11,7 @@ import java.util.List;
  * This class is a child class to CarrierBuilder. It builds LTECarrier objects.
  */
 public class LteCarrierBuilder implements CarrierBuilder {
+    private static final int LTE_RF_PORTS_NUMBER = 4;
     private Integer carrierId;
     private List<RfPort> rfPorts;
     private FrequencyBand frequencyBand;
@@ -33,18 +34,16 @@ public class LteCarrierBuilder implements CarrierBuilder {
      */
     @Override
     public void setRfPorts(List<RfPort> rfPorts) {
-        // Catch exception for null rfPorts.
         if (rfPorts == null) {
-            throw new NullPointerException("LTE RF Ports are not configured!");
+            System.out.println("[ERROR] LTE RF Ports are not configured!");
+            return;
         }
 
-        // Setup the RF ports for the LTE carrier and if the number of elements
-        // is less than 4 it will throw an exception.
-        if (rfPorts.size() == 4) {
+        if (rfPorts.size() == LTE_RF_PORTS_NUMBER) {
             this.rfPorts = new ArrayList<>(rfPorts);
         } else {
-            throw new ArrayIndexOutOfBoundsException(
-                    "Invalid value for the number of LTE ports. The number of RF Ports for LTE carrier has to be 4.");
+            System.out.println(
+                    "[ERROR] Invalid value for the number of LTE ports. The number of RF Ports for LTE carrier has to be 4. RF ports will not be configured.");
         }
     }
 

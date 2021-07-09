@@ -49,7 +49,7 @@ public class ConcreteMediator implements Mediator {
      *
      * @return The Singleton instance of the ConcreteMediator class.
      */
-    public static ConcreteMediator getInstance() {
+    public static synchronized ConcreteMediator getInstance() {
         return UNIQUE_INSTANCE;
     }
 
@@ -290,8 +290,7 @@ public class ConcreteMediator implements Mediator {
             }
         });
         if (!flag.get()) {
-            System.out.printf(
-                    "[ERROR] No RUs with the name %s have been registered with the system.%n", name);
+            System.out.printf("[ERROR] No RUs with the name %s have been registered with the system.%n", name);
         }
     }
 

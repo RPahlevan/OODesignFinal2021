@@ -40,7 +40,7 @@ public class CarrierManagementSystemClient {
         FrequencyBand WcdmaBand_5 = WcdmaFrequencyBand.WCDMA_BAND_5;
         transmittingPower = 11.7;
         director.createWcdmaCarrier(WcdmaRfPorts, WcdmaBand_5, transmittingPower);
-        
+
 //        /**
 //         * error & not configured cases for demo purpose
 //         */

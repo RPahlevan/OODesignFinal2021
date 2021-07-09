@@ -17,6 +17,8 @@ import java.util.stream.Stream;
  */
 public class UserInterface {
     private static Mediator mediator;
+    private static final int LTE_RF_PORTS_NUMBER = 4;
+    private static final int WCDMA_RF_PORTS_NUMBER = 2;
 
     public static void main(String[] args) {
         String option;
@@ -144,25 +146,25 @@ public class UserInterface {
     } // main
 
 
-    /**
-     * This enum class contains values for number of RF Ports
-     * required for LTE and WCDMA.
-     */
-    enum RF_PORT_NUMBER {
-        LTE_RF_PORTS_NUMBER(4),
-        WCDMA_RF_PORTS_NUMBER(2);
-
-        private final int value;
-
-        RF_PORT_NUMBER(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-    }
+//    /**
+//     * This enum class contains values for number of RF Ports
+//     * required for LTE and WCDMA.
+//     */
+//    enum RF_PORT_NUMBER {
+//        LTE_RF_PORTS_NUMBER(4),
+//        WCDMA_RF_PORTS_NUMBER(2);
+//
+//        private final int value;
+//
+//        RF_PORT_NUMBER(int value) {
+//            this.value = value;
+//        }
+//
+//        public int getValue() {
+//            return value;
+//        }
+//
+//    }
 
     /**
      * Helper method that create a carrier on existing RU based on user-choose
@@ -319,9 +321,9 @@ public class UserInterface {
     private static List<RfPort> chooseRfPorts(RatType ratType, Scanner input) {
         int noOfRfPorts;
         if (ratType.equals(RatType.LTE)) {
-            noOfRfPorts = RF_PORT_NUMBER.LTE_RF_PORTS_NUMBER.getValue();
+            noOfRfPorts = LTE_RF_PORTS_NUMBER;//RF_PORT_NUMBER.LTE_RF_PORTS_NUMBER.getValue();
         } else {
-            noOfRfPorts = RF_PORT_NUMBER.WCDMA_RF_PORTS_NUMBER.getValue();
+            noOfRfPorts = WCDMA_RF_PORTS_NUMBER;//RF_PORT_NUMBER.WCDMA_RF_PORTS_NUMBER.getValue();
         }
         List<RfPort> ports = new ArrayList<>();
         int count = 0;
@@ -359,7 +361,7 @@ public class UserInterface {
         FrequencyBand freqBand = null;
         int i = 0;
         System.out.println("Please choose Carrier Frequency Band:");
-        if (ratType.equals(RatType.LTE)) {
+        if (!ratType.equals(RatType.LTE)) {
             for (WcdmaFrequencyBand currWcdmaFreq : WcdmaFrequencyBand.values()) {
                 System.out.println("	" + ++i + ".	" + currWcdmaFreq.toString());
             }
