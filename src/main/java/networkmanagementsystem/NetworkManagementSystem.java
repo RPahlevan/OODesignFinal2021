@@ -40,17 +40,13 @@ public interface NetworkManagementSystem {
     
     void postActivation(String ip);
     
-    void performSelfDiagnotics(String ip);
-
-    void signalScalingOnRu(String ip);
-
-    void postActivation(String ip);
-
     void performSelfDiagnostics(String ip);
 
     void listNetworkInventory();
 
     void listRuByParam(Object obj);
+    
+    void listRadioUnitDetails(String ip);
 
     void setAlarmOnRU(String ip, AlarmStatusLevel alarm);
 

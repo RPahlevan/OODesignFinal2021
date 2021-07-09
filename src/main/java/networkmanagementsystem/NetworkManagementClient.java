@@ -157,7 +157,7 @@ public class NetworkManagementClient {
                     case "14" -> {
                     	//14.Perform self diagnostics
                     	IP = getIpAddress(input);
-                    	networkManagementSys.performSelfDiagnotics(IP);
+                    	networkManagementSys.performSelfDiagnostics(IP);
                     }
                     case "15" -> {
                     	//15.List network Inventory

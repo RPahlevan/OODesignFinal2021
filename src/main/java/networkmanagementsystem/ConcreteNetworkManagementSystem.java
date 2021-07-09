@@ -102,7 +102,7 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
 	}
 	
     @Override
-    public void signalScalingOnRu(String ip) {
+    public void signalScalingOnRU(String ip) {
 
 	}
 
