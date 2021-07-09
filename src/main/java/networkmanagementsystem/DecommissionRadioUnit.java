@@ -2,13 +2,20 @@ package networkmanagementsystem;
 
 
 public abstract class DecommissionRadioUnit {
-	NetworkManagementSystem networkManagementSys;
+
 	public DecommissionRadioUnit(){
-		networkManagementSys = new ConcreteNetworkManagementSystem();
+
 	}
+
+    abstract void deactivateRU(String ip);
+
+    abstract void removeAllCarriersOnRU(String ip);
+
+    abstract void releaseRU(String ip);
+
     void decommissionRadioUnit(String ip) {
-    	networkManagementSys.deactivateRU(ip);
-    	networkManagementSys.removeAllCarrierOnRU(ip);
-    	networkManagementSys.removeRadioUnit(ip);
+        deactivateRU(ip);
+        removeAllCarriersOnRU(ip);
+        releaseRU(ip);
     }
 }

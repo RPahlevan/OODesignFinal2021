@@ -2,19 +2,31 @@ package networkmanagementsystem;
 
 
 public abstract class CommissionRadioUnit {
-	NetworkManagementSystem networkManagementSys;
-	public CommissionRadioUnit() {
-		networkManagementSys = new ConcreteNetworkManagementSystem();
-	}
-    abstract boolean isLTE();
-    void commissionRadioUnit(String ip) {
-    	networkManagementSys.setupRU(ip);
-    	networkManagementSys.activateRU(ip);
-    	networkManagementSys.postActivation(ip);
-    	if (isLTE()) {
-    		networkManagementSys.signalScalingOnRU(ip);
-    	}    	
-    	networkManagementSys.performSelfDiagnotics(ip);
+
+    CommissionRadioUnit() {
     }
-    
+
+    abstract void setupRU(String ip);
+
+    abstract void activateRU(String ip);
+
+    abstract void postActivation(String ip);
+
+    abstract void performSignalScaling(String ip);
+
+    abstract void performSelfDiagnotics(String ip);
+
+    abstract boolean isLTE();
+
+    final void commissionRadioUnit(String ip) {
+        setupRU(ip);
+        activateRU(ip);
+        postActivation(ip);
+        if (isLTE()) {
+            performSignalScaling(ip);
+        }
+        performSelfDiagnotics(ip);
+
+    }
+
 }

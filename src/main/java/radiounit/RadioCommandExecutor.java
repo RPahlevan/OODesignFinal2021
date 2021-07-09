@@ -20,7 +20,7 @@ public interface RadioCommandExecutor {
 
 	public void release();
 
-	public void setupCarrier(Carrier carrrier);
+	public void setupCarrier(Carrier carrier);
 
 	public void signalScaling();
 

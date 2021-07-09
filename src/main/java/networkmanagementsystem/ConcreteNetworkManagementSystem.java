@@ -3,68 +3,84 @@
  */
 package networkmanagementsystem;
 
-import common.AlarmStatusLevel;
-import common.Carrier;
-import common.FrequencyBand;
-import common.RatType;
-import common.Vendor;
+import common.*;
+import mediator.ConcreteMediator;
+import mediator.Mediator;
 import radiounit.RadioUnitState;
 
 /**
- * @author enuyhza
+ * The ConcreteNetworkManagementSystem is responsible for managing various
+ * network related functions. These mostly deal with radio units. However,
+ * the implementation currently in place allows for this class to manage
+ * radio units without explicitly knowing/referencing radio units.
  *
+ * @author ebreojh
+
  */
 public class ConcreteNetworkManagementSystem implements NetworkManagementSystem {
+    private Mediator mediator;
+    private CommissionRadioUnit commissionerLte;
+    private CommissionRadioUnit commissionerWcdma;
+    private DecommissionRadioUnit decommissionerLte;
+    private DecommissionRadioUnit decommissionerWcdma;
 
-	/**
-	 * 
-	 */
-	public ConcreteNetworkManagementSystem() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	@Override
-	public void commissionRu(String ip) {
-    	
+    public ConcreteNetworkManagementSystem() {
+        mediator = ConcreteMediator.getInstance();
     }
 	
-	@Override
+    @Override
+    public void commissionRu(String ip) {
+        if (mediator.getRadioUnit(ip).getRatType().equals(RatType.LTE)) {
+            commissionerLte.commissionRadioUnit(ip);
+        } else {
+            commissionerWcdma.commissionRadioUnit(ip);
+        }
+    }
+
+    @Override
     public void decommissionRu(String ip) {
-    	
+        if (mediator.getRadioUnit(ip).getRatType().equals(RatType.LTE)) {
+            decommissionerLte.decommissionRadioUnit(ip);
+        } else {
+            decommissionerWcdma.decommissionRadioUnit(ip);
+        }
     }
 
-	@Override
-	public void addRadioUnit(String name, Vendor vendor, RatType ratType) {
-		// TODO Auto-generated method stub
+    /**
+     * Create an radio unit. This radio unit is not initially activated.
+     *
+     * @param name The name the radio unit can be identified by.
+     * @param vendor The vendor of the radio unit.
+     * @param ratType The RAT type of the radio unit.
+     */
+    @Override
+    public void addRadioUnit(String name, Vendor vendor, RatType ratType) {
+        mediator.createRu(name, vendor, ratType);
 
-	}
+    }
 
 	@Override
 	public void removeRadioUnit(String ip) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setupRU(String ip) {
-		// TODO Auto-generated method stub
-
 	}
 	
-	@Override
-	public void releaseRU(String ip) {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void setupRu(String ip) {
 
-	@Override
-	public void activateRU(String ip) {
-		// TODO Auto-generated method stub
+    }
 
-	}
+    @Override
+    public void releaseRu(String ip) {
 
-	@Override
-	public void deactivateRU(String ip) {
-		// TODO Auto-generated method stub
+    }
+
+    @Override
+    public void activateRu(String ip) {
+
+    }
+
+    @Override
+    public void deactivateRU(String ip) {
 
 	}
 
@@ -74,52 +90,50 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
 
 	}
 
+
 	@Override
 	public void modifyCarrierOnRU(String ip, int id, FrequencyBand frequencyBand) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeCarrierOnRU(String ip, int id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void removeAllCarrierOnRU(String ip) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void signalScalingOnRU(String ip) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void postActivation(String ip) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void performSelfDiagnotics(String ip) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void listNetworkInventory() {
-		// TODO Auto-generated method stub
 
 	}
 	
 	@Override
-	public void listRuByParam(Object obj) {
-		
+	public void removeCarrierOnRU(String ip, int id) {
+
 	}
+	
+    @Override
+    public void signalScalingOnRu(String ip) {
+
+	}
+
+
+    @Override
+    public void postActivation(String ip) {
+
+	}
+
+    @Override
+    public void performSelfDiagnostics(String ip) {
+
+	}	
+
+
+	@Override
+	public void removeAllCarrierOnRU(String ip) {
+
+	}
+
+
+    @Override
+    public void listNetworkInventory() {
+        mediator.printRegisteredRadioUnits();
+    }
+
+    @Override
+    public void listRuByParam(Object obj) {
+        mediator.listRuByParam(obj);
+    }
+
 
 	@Override
 	public void listRadioUnitDetails(String ip) {
@@ -138,5 +152,10 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
 		// TODO Auto-generated method stub
 
 	}
+
+    @Override
+    public void acknowledgeAlarm(String ip) {
+
+    }
 
 }

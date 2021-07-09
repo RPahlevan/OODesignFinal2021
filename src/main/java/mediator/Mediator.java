@@ -29,6 +29,8 @@ public interface Mediator {
 
     void displayCarrierOnRu(String name);
 
+    <E> void listRuByParam(E obj);
+
     void createCarrierAndRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                             Double transmittingPower, String name, Vendor vendor, RatType ratType);
 

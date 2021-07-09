@@ -34,7 +34,7 @@ public interface ManagedRadioUnit {
 	
 	void removeAllCarriers();
 	
-	String getCurrentState();
+	RadioUnitState getCurrentState();
 	
 	String getIpAddress();
 	

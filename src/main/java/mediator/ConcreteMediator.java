@@ -2,8 +2,10 @@ package mediator;
 
 import carriermanagementsystem.CarrierManagementSystemDirector;
 import common.*;
+import radiounit.AbstractRadioUnit;
 import radiounit.DemoOneRadioUnit;
 import radiounit.ManagedRadioUnit;
+import radiounit.RadioUnitState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -295,4 +297,37 @@ public class ConcreteMediator implements Mediator {
         }
     }
 
+    @Override
+    public void listRuByParam(Object obj) {
+        // Most of this won't exist once the RadioUnitRegistry is complete.
+        if (obj instanceof RatType) {
+            RatType check = (RatType) obj;
+            radioUnits.forEach(ru -> {
+                if (ru.getRatType().equals(check)) {
+                    System.out.println(ru);
+                }
+            });
+        } else if (obj instanceof RadioUnitState) {
+            RadioUnitState check = (RadioUnitState) obj;
+            radioUnits.forEach(ru -> {
+                if (ru.getCurrentState().equals(check)) {
+                    System.out.println(ru);
+                }
+            });
+        } else if (obj instanceof FrequencyBand) {
+            FrequencyBand check = (FrequencyBand) obj;
+            radioUnits.forEach(ru -> ru.getCarriers().forEach(carr -> {
+                if (carr.getCarrierFrequencies().getBand().equals(check)) {
+                    System.out.println(ru);
+                }
+            }));
+        } else if (obj instanceof String) {
+            String check = (String) obj;
+            radioUnits.forEach(ru -> {
+                if (ru.getIpAddress().equals(check)) {
+                    System.out.println(ru);
+                }
+            });
+        }
+    }
 }
