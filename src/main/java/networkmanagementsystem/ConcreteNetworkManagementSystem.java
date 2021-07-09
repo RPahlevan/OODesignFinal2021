@@ -65,17 +65,17 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
 	}
 	
     @Override
-    public void setupRu(String ip) {
+    public void setupRU(String ip) {
 
     }
 
     @Override
-    public void releaseRu(String ip) {
+    public void releaseRU(String ip) {
 
     }
 
     @Override
-    public void activateRu(String ip) {
+    public void activateRU(String ip) {
 
     }
 
@@ -102,7 +102,7 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
 	}
 	
     @Override
-    public void signalScalingOnRu(String ip) {
+    public void signalScalingOnRU(String ip) {
 
 	}
 
@@ -157,5 +157,6 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
     public void acknowledgeAlarm(String ip) {
 
     }
+
 
 }

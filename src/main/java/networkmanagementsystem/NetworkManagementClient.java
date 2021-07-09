@@ -157,7 +157,7 @@ public class NetworkManagementClient {
                     case "14" -> {
                     	//14.Perform self diagnostics
                     	IP = getIpAddress(input);
-                    	networkManagementSys.performSelfDiagnotics(IP);
+                    	networkManagementSys.performSelfDiagnostics(IP);
                     }
                     case "15" -> {
                     	//15.List network Inventory
@@ -211,7 +211,6 @@ public class NetworkManagementClient {
         List<RfPort> rfPorts;
         FrequencyBand freqBand;
         double transPower;
-       //Yangrui: call mediator directly?
         System.out.println("createCarrierOnRu reached");
         ManagedRadioUnit ru = mediator.getRadioUnit(IP);//Todo: update getRadioUnit() in mediator
 
@@ -231,47 +230,12 @@ public class NetworkManagementClient {
 
     }
 
-
-    /**
-     * Helper method that create a carrier on existing RU based on user-choose
-     * RAT type, RF ports, frequency band and transmitting power.
-     *
-     * @param ruName The name of the radio unit to create carrier on.
-     * @param input  Scanner instance to get user input.
-     */
-
-    private static void createCarrierAndRu(String ruName, Scanner input) {
-        Vendor vendor;
-        RatType ratType;
-        List<RfPort> rfPorts;
-        FrequencyBand freqBand;
-        double transPower;
-
-        //get vendor for radio unit
-        vendor = chooseVendor(input);
-
-        //get RAT type
-        ratType = chooseRatType(input);
-
-        //get RF Ports
-        rfPorts = chooseRfPorts(ratType, input);
-
-        //get Frequency band
-        freqBand = chooseFreqBand(ratType, input);
-
-        //get transmitting power
-        transPower = getTransPower(input);
-
-        mediator.createCarrierAndRu(rfPorts, freqBand, transPower, ruName, vendor, ratType);
-
-    }
-
     /**
      * Helper method to get the Carrier ID from user
      * Returns the Carrier ID user entered
      *
      * @param input   Scanner instance to get user input.
-     * @return Carrier ID, as an int.
+     * @return Radio Unit State, as an String.
      */
     private static String chooseRuState(Scanner input) {
     	//Todo: suggest to create RU state enum
