@@ -6,8 +6,6 @@ package networkmanagementsystem;
 import common.*;
 import mediator.ConcreteMediator;
 import mediator.Mediator;
-import radiounit.RadioUnitState;
-
 /**
  * The ConcreteNetworkManagementSystem is responsible for managing various
  * network related functions. These mostly deal with radio units. However,
@@ -47,7 +45,7 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
     }
 
     /**
-     * Create an radio unit. This radio unit is not initially activated.
+     * Create a radio unit. This radio unit is not initially activated.
      *
      * @param name The name the radio unit can be identified by.
      * @param vendor The vendor of the radio unit.

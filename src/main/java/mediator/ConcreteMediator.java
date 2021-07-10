@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author ebreojh
  */
 public class ConcreteMediator implements Mediator {
-    private static final ConcreteMediator UNIQUE_INSTANCE = new ConcreteMediator();
+    private static volatile ConcreteMediator UNIQUE_INSTANCE;
 
     private final List<ManagedRadioUnit> radioUnits;
     private final CarrierManagementSystemDirector carrierManagement;
@@ -52,6 +52,13 @@ public class ConcreteMediator implements Mediator {
      * @return The Singleton instance of the ConcreteMediator class.
      */
     public static ConcreteMediator getInstance() {
+        if (UNIQUE_INSTANCE == null) {
+            synchronized (ConcreteMediator.class) {
+                if (UNIQUE_INSTANCE == null) {
+                    UNIQUE_INSTANCE = new ConcreteMediator();
+                }
+            }
+        }
         return UNIQUE_INSTANCE;
     }
 
