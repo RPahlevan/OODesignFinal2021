@@ -88,7 +88,7 @@ public class ConcreteMediator implements Mediator {
         if (radioUnits.size() == 0) {
             System.out.println("[ERROR] No RUs have been registered with the system.");
         } else {
-            radioUnits.forEach(ru -> System.out.println(ru.getRadioUnitName()));
+            radioUnits.forEach(ru -> System.out.println(ru.getIpAddress() + ":" + ru.getRadioUnitName()));
         }
     }
 
@@ -108,60 +108,60 @@ public class ConcreteMediator implements Mediator {
     /**
      * Print the RAT type for a RU associated with the specified name.
      *
-     * @param name The name associated with the targeted RU.
+     * @param ip The ip associated with the targeted RU.
      */
     @Override
-    public void printRatType(String name) {
+    public void printRatType(String ip) {
         AtomicBoolean flag = new AtomicBoolean(false);
         radioUnits.forEach(ru -> {
-            if (ru.getRadioUnitName().equals(name)) {
+            if (ru.getIpAddress().equals(ip)) {
                 flag.set(true);
                 System.out.println(ru.getRatType());
                 return;
             }
         });
         if (!flag.get()) {
-            System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+            System.out.printf("[ERROR] No RUs exist with the ip: %s%n", ip);
         }
     }
 
     /**
      * Print the vendor for a RU associated with the specified name.
      *
-     * @param name The name associated with the targeted RU.
+     * @param ip The ip associated with the targeted RU.
      */
     @Override
-    public void printVendor(String name) {
+    public void printVendor(String ip) {
         AtomicBoolean flag = new AtomicBoolean(false);
         radioUnits.forEach(ru -> {
-            if (ru.getRadioUnitName().equals(name)) {
+            if (ru.getIpAddress().equals(ip)) {
                 flag.set(true);
                 System.out.println(ru.getVendor());
                 return;
             }
         });
         if (!flag.get()) {
-            System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+            System.out.printf("[ERROR] No RUs exist with the ip: %s%n", ip);
         }
     }
 
     /**
      * Print the alarm for a RU associated with the specified name.
      *
-     * @param name The name associated with the targeted RU.
+     * @param ip The name associated with the targeted RU.
      */
     @Override
-    public void printAlarmStatus(String name) {
+    public void printAlarmStatus(String ip) {
         AtomicBoolean flag = new AtomicBoolean(false);
         radioUnits.forEach(ru -> {
-            if (ru.getRadioUnitName().equals(name)) {
+            if (ru.getIpAddress().equals(ip)) {
                 flag.set(true);
                 System.out.println(ru.getAlarmStatus());
                 return;
             }
         });
         if (!flag.get()) {
-            System.out.printf("[ERROR] No RUs exist with the name: %s%n", name);
+            System.out.printf("[ERROR] No RUs exist with the ip: %s%n", ip);
         }
     }
 
@@ -186,6 +186,17 @@ public class ConcreteMediator implements Mediator {
         Random r = new Random();
         this.register(new DemoOneRadioUnit(r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256), name, vendor, ratType) {
         });
+    }
+
+    /**
+     * Attempts to remove an radio unit from the radio unit registry.
+     *
+     * @param ip The IP associated with the radio unit that will be removed.
+     */
+    @Override
+    public void removeRu(String ip) {
+        // TODO Update this to point to the RU registry.
+        radioUnits.remove(ip);
     }
 
     /**
@@ -232,13 +243,13 @@ public class ConcreteMediator implements Mediator {
     /**
      * Return a radio name specified by a given name.
      *
-     * @param name The name of the RU, as a String.
+     * @param ip The IP of the RU, as a String.
      * @return The radio unit associated with that specific name
      */
     @Override
-    public ManagedRadioUnit getRadioUnit(String name) {
+    public ManagedRadioUnit getRadioUnit(String ip) {
         for (ManagedRadioUnit ru : radioUnits) {
-            if (ru.getRadioUnitName().equals(name)) {
+            if (ru.getIpAddress().equals(ip)) {
                 return ru;
             }
         }

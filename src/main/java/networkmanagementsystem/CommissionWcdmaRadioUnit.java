@@ -3,12 +3,12 @@ package networkmanagementsystem;
 
 public class CommissionWcdmaRadioUnit extends CommissionRadioUnit {
     @Override
-    public void setupRU(String ip) {
+    public void setupRu(String ip) {
 
     }
 
     @Override
-    public void activateRU(String ip) {
+    public void activateRu(String ip) {
 
     }
 

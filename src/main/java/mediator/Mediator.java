@@ -16,18 +16,20 @@ import java.util.List;
 public interface Mediator {
     
     void createRu(String name, Vendor vendor, RatType ratType);
+
+    void removeRu(String ip);
     
-    void printVendor(String name);
+    void printVendor(String ip);
     
-    void printRatType(String name);
+    void printRatType(String ip);
     
-    void printAlarmStatus(String name);
+    void printAlarmStatus(String ip);
     
     void printRegisteredRadioUnits();
 
     void printCreatedCarriers();
 
-    void displayCarrierOnRu(String name);
+    void displayCarrierOnRu(String ip);
 
     <E> void listRuByParam(E obj);
 
@@ -39,5 +41,5 @@ public interface Mediator {
     
     Carrier createCarrier(List<RfPort> rfPorts, FrequencyBand carrierFrequencies, Double transmittingPower, RatType ratType);
 
-    ManagedRadioUnit getRadioUnit(String name);
+    ManagedRadioUnit getRadioUnit(String ip);
 }

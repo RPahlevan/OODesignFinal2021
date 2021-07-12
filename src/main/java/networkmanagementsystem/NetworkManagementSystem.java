@@ -14,23 +14,23 @@ public interface NetworkManagementSystem {
 
     void removeRadioUnit(String ip);
     
-    void setupRU(String ip);
+    void setupRu(String ip);
     
-    void releaseRU(String ip);
+    void releaseRu(String ip);
     
-    void activateRU(String ip);
+    void activateRu(String ip);
 
-    void deactivateRU(String ip);
+    void deactivateRu(String ip);
 
-    void setupCarrierOnRU(String ip, Carrier carrier);
+    void setupCarrierOnRu(String ip, Carrier carrier);
 
-    void modifyCarrierOnRU(String ip, int id, FrequencyBand frequencyBand);
+    void modifyCarrierOnRu(String ip, int id, FrequencyBand frequencyBand);
 
-    void removeCarrierOnRU(String ip, int id);
+    void removeCarrierOnRu(String ip, int id);
     
-    void removeAllCarrierOnRU(String ip);
+    void removeAllCarrierOnRu(String ip);
 
-    void signalScalingOnRU(String ip);
+    void signalScalingOnRu(String ip);
     
     void postActivation(String ip);
     
@@ -42,7 +42,7 @@ public interface NetworkManagementSystem {
     
     void listRadioUnitDetails(String ip);
 
-    void setAlarmOnRU(String ip, AlarmStatusLevel alarm);
+    void setAlarmOnRu(String ip, AlarmStatusLevel alarm);
 
     void getNetworkAlarms();
 

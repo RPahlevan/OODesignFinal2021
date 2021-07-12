@@ -6,26 +6,26 @@ public class CommissionLteRadioUnit extends CommissionRadioUnit {
 
 
     @Override
-    void setupRU(String ip) {
+    public void setupRu(String ip) {
     }
 
     @Override
-    void activateRU(String ip) {
-
-    }
-
-    @Override
-    void postActivation(String ip) {
+    public void activateRu(String ip) {
 
     }
 
     @Override
-    void performSignalScaling(String ip) {
+    public void postActivation(String ip) {
 
     }
 
     @Override
-    void performSelfDiagnotics(String ip) {
+    public void performSignalScaling(String ip) {
+
+    }
+
+    @Override
+    public void performSelfDiagnotics(String ip) {
 
     }
 

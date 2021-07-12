@@ -23,24 +23,28 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
     private DecommissionRadioUnit decommissionerWcdma;
 
     public ConcreteNetworkManagementSystem() {
+        commissionerLte = new CommissionLteRadioUnit();
+        commissionerWcdma = new CommissionWcdmaRadioUnit();
+        decommissionerLte = new DecommissionLteRadioUnit();
+        decommissionerWcdma = new DecommissionWcdmaRadioUnit();
         mediator = ConcreteMediator.getInstance();
     }
 	
     @Override
     public void commissionRu(String ip) {
-        if (mediator.getRadioUnit(ip).getRatType().equals(RatType.LTE)) {
-            commissionerLte.commissionRadioUnit(ip);
-        } else {
-            commissionerWcdma.commissionRadioUnit(ip);
+        switch(mediator.getRadioUnit(ip).getRatType()) {
+            case LTE -> commissionerLte.commissionRadioUnit(ip);
+            case WCDMA -> commissionerWcdma.commissionRadioUnit(ip);
+            default -> System.out.println("[ERROR] Unexpected RAT type encountered.");
         }
     }
 
     @Override
     public void decommissionRu(String ip) {
-        if (mediator.getRadioUnit(ip).getRatType().equals(RatType.LTE)) {
-            decommissionerLte.decommissionRadioUnit(ip);
-        } else {
-            decommissionerWcdma.decommissionRadioUnit(ip);
+        switch(mediator.getRadioUnit(ip).getRatType()) {
+            case LTE -> decommissionerLte.decommissionRadioUnit(ip);
+            case WCDMA -> decommissionerWcdma.decommissionRadioUnit(ip);
+            default -> System.out.println("[ERROR] Unexpected RAT type encountered.");
         }
     }
 
@@ -54,53 +58,51 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
     @Override
     public void addRadioUnit(String name, Vendor vendor, RatType ratType) {
         mediator.createRu(name, vendor, ratType);
-
     }
 
 	@Override
 	public void removeRadioUnit(String ip) {
-		// TODO Auto-generated method stub
+		mediator.removeRu(ip);
 	}
 	
     @Override
-    public void setupRU(String ip) {
+    public void setupRu(String ip) {
+        commissionerLte.setupRu(ip);
+    }
+
+    @Override
+    public void releaseRu(String ip) {
+        decommissionerLte.releaseRu(ip);
+    }
+
+    @Override
+    public void activateRu(String ip) {
 
     }
 
     @Override
-    public void releaseRU(String ip) {
-
-    }
-
-    @Override
-    public void activateRU(String ip) {
-
-    }
-
-    @Override
-    public void deactivateRU(String ip) {
+    public void deactivateRu(String ip) {
 
 	}
 
 	@Override
-	public void setupCarrierOnRU(String ip, Carrier carrier) {
-		// TODO Auto-generated method stub
+	public void setupCarrierOnRu(String ip, Carrier carrier) {
 
 	}
 
 
 	@Override
-	public void modifyCarrierOnRU(String ip, int id, FrequencyBand frequencyBand) {
+	public void modifyCarrierOnRu(String ip, int id, FrequencyBand frequencyBand) {
 
 	}
 	
 	@Override
-	public void removeCarrierOnRU(String ip, int id) {
+	public void removeCarrierOnRu(String ip, int id) {
 
 	}
 	
     @Override
-    public void signalScalingOnRU(String ip) {
+    public void signalScalingOnRu(String ip) {
 
 	}
 
@@ -117,7 +119,7 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
 
 
 	@Override
-	public void removeAllCarrierOnRU(String ip) {
+	public void removeAllCarrierOnRu(String ip) {
 
 	}
 
@@ -135,19 +137,16 @@ public class ConcreteNetworkManagementSystem implements NetworkManagementSystem 
 
 	@Override
 	public void listRadioUnitDetails(String ip) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setAlarmOnRU(String ip, AlarmStatusLevel alarm) {
-		// TODO Auto-generated method stub
+	public void setAlarmOnRu(String ip, AlarmStatusLevel alarm) {
 
 	}
 
 	@Override
 	public void getNetworkAlarms() {
-		// TODO Auto-generated method stub
 
 	}
 

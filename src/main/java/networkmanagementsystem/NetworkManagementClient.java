@@ -97,22 +97,22 @@ public class NetworkManagementClient {
                     case "4" -> {
                     	//4.Setup Radio Unit
                     	IP = getIpAddress(input);
-                    	networkManagementSys.setupRU(IP);
+                    	networkManagementSys.setupRu(IP);
                     }
                     case "5" -> {
                     	//5.Release Radio Unit
                     	IP = getIpAddress(input);
-                    	networkManagementSys.releaseRU(IP);
+                    	networkManagementSys.releaseRu(IP);
                     }
                     case "6" -> {
                     	//6.Activate Radio Unit
                     	IP = getIpAddress(input);
-                    	networkManagementSys.activateRU(IP);;                    	
+                    	networkManagementSys.activateRu(IP);;
                     }
                     case "7" -> {
                     	//7.Deactivate Radio Unit
                     	IP = getIpAddress(input);
-                    	networkManagementSys.deactivateRU(IP);;                    	
+                    	networkManagementSys.deactivateRu(IP);;
                     }
                     case "8" -> {
                         // 8.Setup Carrier on Radio Unit
@@ -130,24 +130,24 @@ public class NetworkManagementClient {
                         ManagedRadioUnit ru = mediator.getRadioUnit(IP);//Todo: call mediator directly?
                         FrequencyBand freqBand = chooseFreqBand(ru.getRatType(), input);
                         
-                        networkManagementSys.modifyCarrierOnRU(IP, carrierId, freqBand);
+                        networkManagementSys.modifyCarrierOnRu(IP, carrierId, freqBand);
                         System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + IP + "'");
                     }
                     case "10" -> {
                         //10.Remove Carrier on Radio Unit
                         IP = getIpAddress(input);
                         carrierId = getCarrierId(input);
-                        networkManagementSys.removeCarrierOnRU(IP, carrierId);
+                        networkManagementSys.removeCarrierOnRu(IP, carrierId);
                     }
                     case "11" -> {
                     	//11.Remove all Carriers on Radio Unit
                     	IP = getIpAddress(input);
-                    	networkManagementSys.removeAllCarrierOnRU(IP);
+                    	networkManagementSys.removeAllCarrierOnRu(IP);
                     }
                     case "12" -> {
                     	//12.Signal scaling on Radio Unit
                     	IP = getIpAddress(input);
-                    	networkManagementSys.signalScalingOnRU(IP);
+                    	networkManagementSys.signalScalingOnRu(IP);
                     }
                     case "13" -> {
                     	//13.Post activation
@@ -226,7 +226,7 @@ public class NetworkManagementClient {
         //create carrier
         Carrier carrier = mediator.createCarrier(rfPorts, freqBand, transPower, ru.getRatType());
 
-        networkManagementSys.setupCarrierOnRU(IP, carrier);
+        networkManagementSys.setupCarrierOnRu(IP, carrier);
 
     }
 
