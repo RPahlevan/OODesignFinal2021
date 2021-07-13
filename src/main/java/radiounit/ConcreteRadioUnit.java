@@ -26,6 +26,8 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		this.ratType = ratType;
 		this.alarmStatus = AlarmStatusLevel.NO_ALARM;
 		this.state = new IdleState(this);
+		this.postActivationComplete = false;
+		this.signalScalingComplete = false;
 		// TODO: instantiate a RadioCommandExecutor
 		// TODO: get RadioCommandExecutorFactory instance here.
 
@@ -69,6 +71,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	@Override
 	public void signalScaling() {
 		cmdExecutor.signalScaling();
+		signalScalingComplete = true;
 	}
 
 	/**
@@ -121,8 +124,8 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public void postActivation() {
-		// TODO Auto-generated method stub
 		System.out.println("Doing post activation");
+		postActivationComplete = true;
 	}
 
 	@Override
@@ -133,8 +136,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public void raiseAlarm(AlarmStatusLevel alarm) {
-		// TODO Auto-generated method stub
-		System.out.println("Raise alarm");
+		alarmStatus = alarm;
 	}
 
 	@Override

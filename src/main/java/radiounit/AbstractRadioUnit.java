@@ -29,6 +29,10 @@ public abstract class AbstractRadioUnit implements ManagedRadioUnit {
 	protected RadioCommandExecutor cmdExecutor;
 
 	protected RadioCommandExecutorFactory executorFactory;
+	
+	protected boolean postActivationComplete;
+	
+	protected boolean signalScalingComplete;
 
 	public abstract void setState(RadioUnitState state);
 
