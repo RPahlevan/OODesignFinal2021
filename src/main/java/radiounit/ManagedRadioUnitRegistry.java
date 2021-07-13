@@ -20,9 +20,9 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 	}
 
 	@Override
-	public void addRadioUnit(String ipAddress, String name, Vendor vendor) {
+	public void addRadioUnit(String ipAddress, String name, Vendor vendor, RatType ratType) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -57,6 +57,12 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 
 	@Override
 	public List<ManagedRadioUnit> getByState(RadioUnitState state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ManagedRadioUnit> getSpecificRadio(String ipAddress, String name, Vendor vendor, RatType ratType) {
 		// TODO Auto-generated method stub
 		return null;
 	}
