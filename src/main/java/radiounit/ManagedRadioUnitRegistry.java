@@ -1,6 +1,8 @@
 package radiounit;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import common.AlarmStatusLevel;
 import common.RatType;
@@ -16,55 +18,72 @@ import common.Vendor;
 public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 
 	public ManagedRadioUnitRegistry() {
-
+		radioUnits = new ArrayList<ManagedRadioUnit>();
 	}
 
 	@Override
 	public void addRadioUnit(String ipAddress, String name, Vendor vendor, RatType ratType) {
-		// TODO Auto-generated method stub
+		// TODO need to add RadioUnit here
 
 	}
 
 	@Override
 	public List<ManagedRadioUnit> getByIpAddress(String ipAddress) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ManagedRadioUnit> radioUnitsFilteredByIpAddress = radioUnits.stream()
+				.filter(ru -> ru.getIpAddress().equals(ipAddress))
+				.collect(Collectors.toList());		
+		return radioUnitsFilteredByIpAddress;
 	}
 
 	@Override
 	public List<ManagedRadioUnit> getByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ManagedRadioUnit> radioUnitsFilteredByName = radioUnits.stream()
+				.filter(ru -> ru.getRadioUnitName().equals(name))
+				.collect(Collectors.toList());		
+		return radioUnitsFilteredByName;
 	}
 
 	@Override
 	public List<ManagedRadioUnit> getByVendor(Vendor vendor) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ManagedRadioUnit> radioUnitsFilteredByVendor = radioUnits.stream()
+				.filter(ru -> ru.getVendor().equals(vendor))
+				.collect(Collectors.toList());		
+		return radioUnitsFilteredByVendor;
 	}
 
 	@Override
 	public List<ManagedRadioUnit> getByRatType(RatType ratType) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ManagedRadioUnit> radioUnitsFilteredByRatType = radioUnits.stream()
+				.filter(ru -> ru.getRatType().equals(ratType))
+				.collect(Collectors.toList());		
+		return radioUnitsFilteredByRatType;
 	}
 
 	@Override
 	public List<ManagedRadioUnit> getByAlarmStatus(AlarmStatusLevel alarmStatus) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ManagedRadioUnit> radioUnitsFilteredByAlarmStatus = radioUnits.stream()
+				.filter(ru -> ru.getVendor().equals(alarmStatus))
+				.collect(Collectors.toList());		
+		return radioUnitsFilteredByAlarmStatus;
 	}
 
 	@Override
 	public List<ManagedRadioUnit> getByState(RadioUnitState state) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ManagedRadioUnit> radioUnitsFilteredByState = radioUnits.stream()
+				.filter(ru -> ru.getCurrentState().equals(state))
+				.collect(Collectors.toList());		
+		return radioUnitsFilteredByState;
 	}
 
 	@Override
 	public List<ManagedRadioUnit> getSpecificRadio(String ipAddress, String name, Vendor vendor, RatType ratType) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ManagedRadioUnit> radioUnitsFiltered = radioUnits.stream()
+				.filter(ru -> ru.getIpAddress().equals(ipAddress))
+				.filter(ru -> ru.getRadioUnitName().equals(name))
+				.filter(ru -> ru.getVendor().equals(vendor))
+				.filter(ru -> ru.getRatType().equals(ratType))
+				.collect(Collectors.toList());		
+		return radioUnitsFiltered;
 	}
 
 }
