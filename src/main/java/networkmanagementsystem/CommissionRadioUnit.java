@@ -1,14 +1,13 @@
 package networkmanagementsystem;
 
 
-import mediator.ConcreteMediator;
 import mediator.Mediator;
 
 public abstract class CommissionRadioUnit {
     protected Mediator mediator;
 
     CommissionRadioUnit() {
-        mediator = ConcreteMediator.getInstance();
+        mediator = Mediator.getInstance();
     }
 
     void setupRu(String ip) {
@@ -25,7 +24,7 @@ public abstract class CommissionRadioUnit {
 
     abstract boolean isLTE();
 
-    final void commissionRadioUnit(String ip) {
+    public final void commissionRadioUnit(String ip) {
         setupRu(ip);
         activateRu(ip);
         postActivation(ip);

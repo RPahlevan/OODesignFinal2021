@@ -1,15 +1,12 @@
 package userinterface;
 
 import common.*;
-import mediator.ConcreteMediator;
 import mediator.Mediator;
 import radiounit.ManagedRadioUnit;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * The UserInterface class represents the current main access
@@ -22,7 +19,7 @@ public class UserInterface {
         String option;
         String ruName;
 
-        mediator = ConcreteMediator.getInstance();
+        mediator = Mediator.getInstance();
 
         System.out.println("Welcome!");
         Scanner input = new Scanner(System.in);

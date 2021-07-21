@@ -3,6 +3,9 @@ package networkmanagementsystem;
 import common.*;
 import radiounit.RadioUnitState;
 
+import java.beans.PropertyChangeListener;
+import java.util.List;
+
 public interface NetworkManagementSystem {
 
 
@@ -22,7 +25,7 @@ public interface NetworkManagementSystem {
 
     void deactivateRu(String ip);
 
-    void setupCarrierOnRu(String ip, Carrier carrier);
+    void setupCarrierOnRu(String ip, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower, RatType ratType);
 
     void modifyCarrierOnRu(String ip, int id, FrequencyBand frequencyBand);
 
@@ -47,5 +50,7 @@ public interface NetworkManagementSystem {
     void getNetworkAlarms();
 
     void acknowledgeAlarm(String ip);
+
+    void addPropertyChangeListener(PropertyChangeListener pcl);
 
 }

@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import common.*;
-import mediator.ConcreteMediator;
 import mediator.Mediator;
 import radiounit.ManagedRadioUnit;
+
+import javax.print.attribute.standard.Media;
 import java.util.regex.Pattern;
 
 /**
@@ -18,8 +19,8 @@ import java.util.regex.Pattern;
  *
  */
 public class NetworkManagementClient {
-	private static Mediator mediator;
 	private static NetworkManagementSystem networkManagementSys;
+	private static Mediator mediator;
 	//define constants
     static final int LTE_RF_PORTS_NUMBER = 4;
     static final int WCDMA_RF_PORTS_NUMBER = 2;
@@ -33,11 +34,12 @@ public class NetworkManagementClient {
 	 * @param args
 	 */
     public static void main(String[] args) {
-    	networkManagementSys = new ConcreteNetworkManagementSystem();
-    	mediator = ConcreteMediator.getInstance();
+        mediator = Mediator.getInstance();
+    	networkManagementSys = ConcreteNetworkManagementSystem.getInstance();
+        networkManagementSys.addPropertyChangeListener(mediator);
         String option;
         String ruName;
-        String IP;
+        String ip;
         int carrierId;
 
         System.out.println("Welcome!");
@@ -61,7 +63,7 @@ public class NetworkManagementClient {
                         + "12.	Signal scaling on Radio Unit\n"
                         + "13.	Post activation\n"
                         + "14.	Perform self diagnostics\n"
-                        + "15.	List newwork Inventory\n"
+                        + "15.	List network Inventory\n"
                         + "16.	List RUs by standard(RAT type)\n"
                         + "17.	List RUs by state\n"
                         + "18.	List RUs by Band\n"
@@ -72,12 +74,12 @@ public class NetworkManagementClient {
                 switch (option) {
                     case "0" -> System.out.println("Goodbye!\n");
                     case "1" -> {
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.commissionRu(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.commissionRu(ip);
                     }
                     case "2" -> {
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.decommissionRu(IP);                    	
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.decommissionRu(ip);
                     }
                     case "3" -> {
                         // 3.Add(create) Radio Unit
@@ -96,68 +98,68 @@ public class NetworkManagementClient {
                     }
                     case "4" -> {
                     	//4.Setup Radio Unit
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.setupRu(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.setupRu(ip);
                     }
                     case "5" -> {
                     	//5.Release Radio Unit
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.releaseRu(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.releaseRu(ip);
                     }
                     case "6" -> {
                     	//6.Activate Radio Unit
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.activateRu(IP);;
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.activateRu(ip);;
                     }
                     case "7" -> {
                     	//7.Deactivate Radio Unit
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.deactivateRu(IP);;
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.deactivateRu(ip);;
                     }
                     case "8" -> {
                         // 8.Setup Carrier on Radio Unit
                     	//Todo: option 8 is broken for the moment, need to update getRadioUnit() method in mediator
                         System.out.println("To setup a carrier on Radio Unit, you need to have a Radio Unit ready first");
-                        IP = getIpAddress(input);
-                        createCarrierOnRu(IP, input);
-                        System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + IP + "'");
+                        ip = getIpAddress(input);
+                        createCarrierOnRu(ip, input);
+                        System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + ip + "'");
                     }
                     case "9" -> {
                         // 9.Modify Carrier on Radio Unit
-                        IP = getIpAddress(input);
+                        ip = getIpAddress(input);
                         carrierId = getCarrierId(input);
                       //Todo: option 9 is broken for the moment, need to update getRadioUnit() method in mediator
-                        ManagedRadioUnit ru = mediator.getRadioUnit(IP);//Todo: call mediator directly?
+                        ManagedRadioUnit ru = mediator.getRadioUnit(ip);//Todo: call mediator directly?
                         FrequencyBand freqBand = chooseFreqBand(ru.getRatType(), input);
                         
-                        networkManagementSys.modifyCarrierOnRu(IP, carrierId, freqBand);
-                        System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + IP + "'");
+                        networkManagementSys.modifyCarrierOnRu(ip, carrierId, freqBand);
+                        System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + ip + "'");
                     }
                     case "10" -> {
                         //10.Remove Carrier on Radio Unit
-                        IP = getIpAddress(input);
+                        ip = getIpAddress(input);
                         carrierId = getCarrierId(input);
-                        networkManagementSys.removeCarrierOnRu(IP, carrierId);
+                        networkManagementSys.removeCarrierOnRu(ip, carrierId);
                     }
                     case "11" -> {
                     	//11.Remove all Carriers on Radio Unit
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.removeAllCarrierOnRu(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.removeAllCarrierOnRu(ip);
                     }
                     case "12" -> {
                     	//12.Signal scaling on Radio Unit
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.signalScalingOnRu(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.signalScalingOnRu(ip);
                     }
                     case "13" -> {
                     	//13.Post activation
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.postActivation(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.postActivation(ip);
                     }
                     case "14" -> {
                     	//14.Perform self diagnostics
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.performSelfDiagnostics(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.performSelfDiagnostics(ip);
                     }
                     case "15" -> {
                     	//15.List network Inventory
@@ -181,8 +183,8 @@ public class NetworkManagementClient {
                     }
                     case "19" -> {
                     	//19.List Radio Unit details
-                    	IP = getIpAddress(input);
-                    	networkManagementSys.listRadioUnitDetails(IP);
+                    	ip = getIpAddress(input);
+                    	networkManagementSys.listRadioUnitDetails(ip);
                     }
                     default -> System.out.println("Unsupported option, please try again!");
                 }
@@ -201,18 +203,18 @@ public class NetworkManagementClient {
      * The option also exists to create a stand-alone carrier that will
      * not be added to an RU on creation.
      *
-     * @param ruName The name of the radio unit to create carrier on.
+     * @param ip The name of the radio unit to create carrier on.
      *               Pass as null to create carrier that isn't associated
      *               with an RU.
      * @param input  Scanner instance to get user input.
      */
 
-    private static void createCarrierOnRu(String IP, Scanner input) {
+    private static void createCarrierOnRu(String ip, Scanner input) {
         List<RfPort> rfPorts;
         FrequencyBand freqBand;
         double transPower;
         System.out.println("createCarrierOnRu reached");
-        ManagedRadioUnit ru = mediator.getRadioUnit(IP);//Todo: update getRadioUnit() in mediator
+        ManagedRadioUnit ru = mediator.getRadioUnit(ip);//Todo: update getRadioUnit() in mediator
 
         //get RF Ports
         rfPorts = chooseRfPorts(ru.getRatType(), input);
@@ -226,7 +228,7 @@ public class NetworkManagementClient {
         //create carrier
         Carrier carrier = mediator.createCarrier(rfPorts, freqBand, transPower, ru.getRatType());
 
-        networkManagementSys.setupCarrierOnRu(IP, carrier);
+        networkManagementSys.setupCarrierOnRu(ip, rfPorts, freqBand, transPower, ru.getRatType());
 
     }
 

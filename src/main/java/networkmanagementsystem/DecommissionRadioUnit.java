@@ -1,14 +1,13 @@
 package networkmanagementsystem;
 
 
-import mediator.ConcreteMediator;
 import mediator.Mediator;
 
 public abstract class DecommissionRadioUnit {
     protected Mediator mediator;
 
 	public DecommissionRadioUnit(){
-        mediator = ConcreteMediator.getInstance();
+        mediator = Mediator.getInstance();
 	}
 
     abstract void deactivateRu(String ip);
