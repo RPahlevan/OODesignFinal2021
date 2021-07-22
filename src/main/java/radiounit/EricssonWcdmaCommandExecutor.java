@@ -63,8 +63,8 @@ public class EricssonWcdmaCommandExecutor implements RadioCommandExecutor {
 	}
 
 	@Override
-	public void removeAllCharacters() {
-		receiver.removeAllCharactersEricssonLte();
+	public void removeAllCarriers() {
+		receiver.removeAllCarriersEricssonLte();
 	}
 
 	@Override

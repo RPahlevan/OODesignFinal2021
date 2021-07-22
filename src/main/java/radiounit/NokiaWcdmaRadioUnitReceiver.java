@@ -35,7 +35,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	}
 
-	public void setupCarrierNokiaWcdma(Carrier carrrier) {
+	public void setupCarrierNokiaWcdma(Carrier carrier) {
 		// TODO Auto-generated method stub
 
 	}
@@ -60,7 +60,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	}
 
-	public void removeAllCharactersNokiaWcdma() {
+	public void removeAllCarriersNokiaWcdma() {
 		// TODO Auto-generated method stub
 
 	}

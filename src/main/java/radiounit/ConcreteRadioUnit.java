@@ -108,7 +108,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void removeAllCarriers() {
-		cmdExecutor.removeAllCharacters();
+		cmdExecutor.removeAllCarriers();
 	}
 
 	/**
