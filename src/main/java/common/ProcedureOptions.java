@@ -1,7 +1,11 @@
 package common;
 
 /**
- * Enum used to simplify event passing.
+ * Enum to specify procedure options used in event passing.
+ * The values are meant to provide a specific insight into
+ * the procedure that is currently taking place.
+ *
+ * @author ebreojh
  */
 public enum ProcedureOptions {
     FULL,
@@ -16,6 +20,6 @@ public enum ProcedureOptions {
     SCALING,
     POST,
     DIAGNOSTIC,
-    RAT_TYPE;
+    RAT_TYPE
 }
 

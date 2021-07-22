@@ -1,10 +1,6 @@
 package mediator;
 
-import common.*;
-import radiounit.ManagedRadioUnit;
-
 import java.beans.PropertyChangeListener;
-import java.util.List;
 
 /**
  * The Mediator interface serves as the communication gateway

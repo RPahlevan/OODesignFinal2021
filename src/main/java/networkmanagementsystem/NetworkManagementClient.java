@@ -1,19 +1,14 @@
-/**
- * 
- */
 package networkmanagementsystem;
+
+import common.*;
+import mediator.Mediator;
+import mediator.MediatorIf;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-import common.*;
-import mediator.Mediator;
-import mediator.MediatorIf;
-import radiounit.ManagedRadioUnit;
-
 import java.util.regex.Pattern;
 
 /**
@@ -21,20 +16,21 @@ import java.util.regex.Pattern;
  *
  */
 public class NetworkManagementClient {
-	private static NetworkManagementSystemIf networkManagementSys;
-	private static MediatorIf mediator;
-	//define constants
+    private static NetworkManagementSystemIf networkManagementSys;
+    //define constants
     static final int LTE_RF_PORTS_NUMBER = 4;
     static final int WCDMA_RF_PORTS_NUMBER = 2;
-    
+
     static final Pattern IpPattern = Pattern.compile("^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
-    												+ "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
-    												+ "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
-    												+ "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$");
-    
-	/**
-	 * @param args
-	 */
+            + "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
+            + "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
+            + "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$");
+
+    /**
+     * Entry-point into the application.
+     *
+     * @param args The command-line arguments passed during initialization.
+     */
     public static void main(String[] args) {
         setupObserverRelations();
 
@@ -50,37 +46,41 @@ public class NetworkManagementClient {
             try {
                 String menu = "\nPlease enter the number corresponding to the option you would like to choose:\n"
                         + "0.	Exit Program\n"
-                		+ "1.	Commission Radio Unit\n"
+                        + "1.	Commission Radio Unit\n"
                         + "2.	Decommission Radio Unit\n"
-                		+ "3.	Add Radio Unit\n"
-                        + "4.	Setup Radio Unit\n"
-                        + "5.	Release Radio Unit\n"
-                        + "6.	Activate Radio Unit\n"
-                        + "7.	Deactivate Radio Unit\n"
-                        + "8.	Setup Carrier on Radio Unit\n"
-                        + "9.	Modify Carrier on Radio Unit\n"
-                        + "10.	Remove Carrier on Radio Unit\n"
-                        + "11.	Remove all Carriers on Radio Unit\n"
-                        + "12.	Signal scaling on Radio Unit\n"
-                        + "13.	Post activation\n"
-                        + "14.	Perform self diagnostics\n"
-                        + "15.	List network Inventory\n"
-                        + "16.	List RUs by standard(RAT type)\n"
-                        + "17.	List RUs by state\n"
-                        + "18.	List RUs by Band\n"
-                        + "19.	List Radio Unit details";
+                        + "3.	Add Radio Unit\n"
+                        + "4.	Remove Radio Unit\n"
+                        + "5.	Setup Radio Unit\n"
+                        + "6.	Release Radio Unit\n"
+                        + "7.	Activate Radio Unit\n"
+                        + "8.	Deactivate Radio Unit\n"
+                        + "9.	Setup Carrier on Radio Unit\n"
+                        + "10.	Modify Carrier on Radio Unit\n"
+                        + "11.	Remove Carrier on Radio Unit\n"
+                        + "12.	Remove all Carriers on Radio Unit\n"
+                        + "13.	Signal scaling on Radio Unit\n"
+                        + "14.	Post activation\n"
+                        + "15.	Perform self diagnostics\n"
+                        + "16.	List network Inventory\n"
+                        + "17.	List RUs by standard(RAT type)\n"
+                        + "18.	List RUs by state\n"
+                        + "19.	List RUs by Band\n"
+                        + "20.	Set alarm on Radio Unit\n"
+                        + "21.	List all network alarms\n"
+                        + "22.	Acknowledge alarm on Radio Unit\n"
+                        + "23.	List Radio Unit details";
 
                 System.out.println(menu);
                 option = input.next();
                 switch (option) {
                     case "0" -> System.out.println("Goodbye!\n");
                     case "1" -> {
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.commissionRu(ip);
+                        ip = getIpAddress(input);
+                        networkManagementSys.commissionRu(ip);
                     }
                     case "2" -> {
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.decommissionRu(ip);
+                        ip = getIpAddress(input);
+                        networkManagementSys.decommissionRu(ip);
                     }
                     case "3" -> {
                         // 3.Add(create) Radio Unit
@@ -98,94 +98,106 @@ public class NetworkManagementClient {
                         System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully added");
                     }
                     case "4" -> {
-                    	//4.Setup Radio Unit
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.setupRu(ip);
+                        // 4.Remove(delete) Radio Unit
+                        ip = getIpAddress(input);
+                        networkManagementSys.removeRadioUnit(ip);
                     }
                     case "5" -> {
-                    	//5.Release Radio Unit
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.releaseRu(ip);
+                        //5.Setup Radio Unit
+                        ip = getIpAddress(input);
+                        networkManagementSys.setupRu(ip);
                     }
                     case "6" -> {
-                    	//6.Activate Radio Unit
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.activateRu(ip);;
+                        //6.Release Radio Unit
+                        ip = getIpAddress(input);
+                        networkManagementSys.releaseRu(ip);
                     }
                     case "7" -> {
-                    	//7.Deactivate Radio Unit
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.deactivateRu(ip);;
+                        //7.Activate Radio Unit
+                        ip = getIpAddress(input);
+                        networkManagementSys.activateRu(ip);
                     }
                     case "8" -> {
-                        // 8.Setup Carrier on Radio Unit
-                    	//Todo: option 8 is broken for the moment, need to update getRadioUnit() method in mediator
+                        //8.Deactivate Radio Unit
+                        ip = getIpAddress(input);
+                        networkManagementSys.deactivateRu(ip);
+                    }
+                    case "9" -> {
+                        // 9.Setup Carrier on Radio Unit
                         System.out.println("To setup a carrier on Radio Unit, you need to have a Radio Unit ready first");
                         ip = getIpAddress(input);
                         createCarrierOnRu(ip, input);
                         System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + ip + "'");
                     }
-                    case "9" -> {
-                        // 9.Modify Carrier on Radio Unit
+                    case "10" -> {
+                        // 10.Modify Carrier on Radio Unit
                         ip = getIpAddress(input);
                         carrierId = getCarrierId(input);
-                      //Todo: option 9 is broken for the moment, need to update getRadioUnit() method in mediator
-                        ManagedRadioUnit ru = mediator.getRadioUnit(ip);//Todo: call mediator directly?
-                        FrequencyBand freqBand = chooseFreqBand(ru.getRatType(), input);
-                        
+                        FrequencyBand freqBand = chooseFreqBand(networkManagementSys.getRuRatType(ip), input);
                         networkManagementSys.modifyCarrierOnRu(ip, carrierId, freqBand);
                         System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + ip + "'");
                     }
-                    case "10" -> {
-                        //10.Remove Carrier on Radio Unit
+                    case "11" -> {
+                        //11.Remove Carrier on Radio Unit
                         ip = getIpAddress(input);
                         carrierId = getCarrierId(input);
                         networkManagementSys.removeCarrierOnRu(ip, carrierId);
                     }
-                    case "11" -> {
-                    	//11.Remove all Carriers on Radio Unit
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.removeAllCarrierOnRu(ip);
-                    }
                     case "12" -> {
-                    	//12.Signal scaling on Radio Unit
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.signalScalingOnRu(ip);
+                        //12.Remove all Carriers on Radio Unit
+                        ip = getIpAddress(input);
+                        networkManagementSys.removeAllCarrierOnRu(ip);
                     }
                     case "13" -> {
-                    	//13.Post activation
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.postActivation(ip);
+                        //13.Signal scaling on Radio Unit
+                        ip = getIpAddress(input);
+                        networkManagementSys.signalScalingOnRu(ip);
                     }
                     case "14" -> {
-                    	//14.Perform self diagnostics
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.performSelfDiagnostics(ip);
+                        //14.Post activation
+                        ip = getIpAddress(input);
+                        networkManagementSys.postActivation(ip);
                     }
                     case "15" -> {
-                    	//15.List network Inventory
-                    	networkManagementSys.listNetworkInventory();
+                        //15.Perform self diagnostics
+                        ip = getIpAddress(input);
+                        networkManagementSys.performSelfDiagnostics(ip);
                     }
-                    case "16" -> {
-                    	//16.List RUs by standard
-                    	RatType ratType = chooseRatType(input);
-                    	networkManagementSys.listRuByParam(ratType);
-                    }
+                    case "16" -> //16.List network Inventory
+                            networkManagementSys.listNetworkInventory();
                     case "17" -> {
-                    	//17.List RUs by state
-                    	String state = chooseRuState(input);
-                    	networkManagementSys.listRuByParam(state);                    	
+                        //17.List RUs by standard
+                        RatType ratType = chooseRatType(input);
+                        networkManagementSys.listRuByParam(ratType);
                     }
                     case "18" -> {
-                    	//18.List RUs by Band
-                    	RatType ratType = chooseRatType(input);
-                    	FrequencyBand freqBand = chooseFreqBand(ratType, input);
-                    	networkManagementSys.listRuByParam(freqBand);                    	
+                        //18.List RUs by state
+                        String state = chooseRuState(input);
+                        networkManagementSys.listRuByParam(state);
                     }
                     case "19" -> {
-                    	//19.List Radio Unit details
-                    	ip = getIpAddress(input);
-                    	networkManagementSys.listRadioUnitDetails(ip);
+                        //19.List RUs by Band
+                        RatType ratType = chooseRatType(input);
+                        FrequencyBand freqBand = chooseFreqBand(ratType, input);
+                        networkManagementSys.listRuByParam(freqBand);
+                    }
+                    case "20" -> {
+                        //20.List Radio Unit details
+                        ip = getIpAddress(input);
+                        networkManagementSys.listRadioUnitDetails(ip);
+                    }
+                    case "21" -> {
+                        //21.Set Alarm on RU
+                        ip = getIpAddress(input);
+                        AlarmStatusLevel alarm = chooseAlarmStatusLevel(input);
+                        networkManagementSys.setAlarmOnRu(ip, alarm);
+                    }
+                    case "22" -> //22.List all Network Alarms
+                            networkManagementSys.getNetworkAlarms();
+                    case "23" -> {
+                        //23.Acknowledge alarm on RU
+                        ip = getIpAddress(input);
+                        networkManagementSys.acknowledgeAlarm(ip);
                     }
                     default -> System.out.println("Unsupported option, please try again!");
                 }
@@ -198,11 +210,47 @@ public class NetworkManagementClient {
     } // main
 
     /**
+     * Helper method that get the alarm from user.
+     * Returns the alarm user selected.
      *
+     * @param input Scanner instance to get user input.
+     * @return A alarm from the AlarmStatusLevel enum.
+     */
+    private static AlarmStatusLevel chooseAlarmStatusLevel(Scanner input) {
+        AlarmStatusLevel alarm = null;
+        int i = 0;
+        System.out.println("Please choose an Alarm for Radio Unit:");
+        for (AlarmStatusLevel currAlarm : AlarmStatusLevel.values()) {
+            System.out.println("	" + ++i + ".	" + currAlarm.toString());
+            if (i == 3) {
+                break;
+            }
+        }
+
+        do {
+            String subOption = input.next();
+            try {
+                if (i < 4) {
+                    alarm = AlarmStatusLevel.values()[Integer.parseInt(subOption) - 1];
+                } else {
+                    throw new NumberFormatException();
+                }
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
+                System.out.println("Invalid input, please try again.");
+            }
+        } while (alarm == null);
+
+        return alarm;
+    }
+
+    /**
+     * Prepare Observer relations between classes.
+     * Currently these includes the Commission/Decommission classes, the
+     * NetworkManagementSystem, the Mediator, and the NetworkManagementClient.
      */
     private static void setupObserverRelations() {
         // Setup Observer relations
-        mediator = Mediator.getInstance();
+        MediatorIf mediator = Mediator.getInstance();
         networkManagementSys = NetworkManagementSystem.getInstance();
         networkManagementSys.addPropertyChangeListener((PropertyChangeListener) mediator);
         mediator.addPropertyChangeListener((PropertyChangeListener) networkManagementSys);
@@ -232,19 +280,17 @@ public class NetworkManagementClient {
         FrequencyBand freqBand;
         double transPower;
         System.out.println("createCarrierOnRu reached");
-        ManagedRadioUnit ru = mediator.getRadioUnit(ip);//Todo: update getRadioUnit() in mediator
+        // Get the RatType of the RU we are currently looking at.
+        RatType currRatType = networkManagementSys.getRuRatType(ip);
 
         //get RF Ports
-        rfPorts = chooseRfPorts(ru.getRatType(), input);
+        rfPorts = chooseRfPorts(currRatType, input);
 
         //get Frequency band
-        freqBand = chooseFreqBand(ru.getRatType(), input);
+        freqBand = chooseFreqBand(currRatType, input);
 
         //get transmitting power
         transPower = getTransPower(input);
-        
-        //create carrier
-        Carrier carrier = mediator.createCarrier(rfPorts, freqBand, transPower, ru.getRatType());
 
         networkManagementSys.setupCarrierOnRu(ip, rfPorts, freqBand, transPower);
 
@@ -258,27 +304,27 @@ public class NetworkManagementClient {
      * @return Radio Unit State, as an String.
      */
     private static String chooseRuState(Scanner input) {
-    	//Todo: suggest to create RU state enum
-    	String option;
-    	String state = null;
-    	System.out.println("Please choose Radio Unit State:\n"
-    			+ "1. Activated\n"
-    			+ "2. Deactivated\n"
-    			+ "3. Idle\n");  
-    	do {      	
-        	option = input.next();
-        	switch (option) {
-        		case ("1") -> state = "ACTIVATED";
-        		case ("2") -> state = "DEACTIVATED";
-        		case ("3") -> state = "IDLE";
-        		default -> System.out.println("Unsupported option, please try again!");
-        	}
+        //Todo: suggest to create RU state enum
+        String option;
+        String state = null;
+        System.out.println("Please choose Radio Unit State:\n"
+                + "1. Activated\n"
+                + "2. Deactivated\n"
+                + "3. Idle\n");
+        do {
+            option = input.next();
+            switch (option) {
+                case ("1") -> state = "ACTIVATED";
+                case ("2") -> state = "DEACTIVATED";
+                case ("3") -> state = "IDLE";
+                default -> System.out.println("Unsupported option, please try again!");
+            }
 
-    	} while (state == null);
+        } while (state == null);
 
         return state;
     }
-        
+
     /**
      * Helper method to get the Carrier ID from user
      * Returns the Carrier ID user entered
@@ -287,42 +333,43 @@ public class NetworkManagementClient {
      * @return Carrier ID, as an int.
      */
     private static int getCarrierId(Scanner input) {
-    	int ID;
-    	do {
-        	System.out.println("Please enter the Carrier ID:");
-        	String id = input.next();
+        int ID;
+        do {
+            System.out.println("Please enter the Carrier ID:");
+            String id = input.next();
             try {
                 ID = Integer.parseInt(id);
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("'" + id + "'" + " is not a valid number, Try again!");
             }
-    	} while (true);
+        } while (true);
 
         return ID;
     }
-    
-    
+
+
     /**
      * Helper method to get the IP address of the radio unit from user
      * Returns the IP address user entered
      *
      * @param input   Scanner instance to get user input.
      * @return IP address, as a String.
-     */        
+     */
     private static String getIpAddress(Scanner input) {
-    	String IP;
-    	do {
-        	System.out.println("Please enter the IP address of the Radio Unit you want to operate on:");
+        String IP;
+        do {
+            System.out.println("Please enter the IP address of the Radio Unit you want to operate on:");
             IP = input.next();
             if (IpPattern.matcher(IP).matches()) {
-            	break;
+                break;
             }
             System.out.println("Invalid IP address format, please try again.");
-    	} while (true);
+        } while (true);
 
         return IP;
     }
+
     /**
      * Helper method that get the transmitting power for carrier from user
      * Returns the transmitting power user entered
@@ -364,7 +411,7 @@ public class NetworkManagementClient {
         do {
             String subOption = input.next();
             try {
-                vendor = Vendor.values()[Integer.parseInt(subOption)  - 1];
+                vendor = Vendor.values()[Integer.parseInt(subOption) - 1];
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
                 System.out.println("Invalid input, please try again.");
             }
@@ -475,5 +522,4 @@ public class NetworkManagementClient {
 
         return freqBand;
     }
-
 }
