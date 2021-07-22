@@ -1,30 +1,42 @@
 package networkmanagementsystem;
 
 
-import mediator.Mediator;
+import common.Procedure;
+import common.ProcedureOptions;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public abstract class CommissionRadioUnit {
-    protected Mediator mediator;
+    protected final PropertyChangeSupport support;
 
     CommissionRadioUnit() {
-        mediator = Mediator.getInstance();
+        support = new PropertyChangeSupport(this);
     }
 
     void setupRu(String ip) {
-        mediator.getRadioUnit(ip).setup();
+        support.firePropertyChange(Procedure.COMMISSION.getDesc(), ProcedureOptions.SETUP, ip);
     }
 
-    abstract void activateRu(String ip);
+    void activateRu(String ip) {
+        support.firePropertyChange(Procedure.COMMISSION.getDesc(), ProcedureOptions.ACTIVATE, ip);
+    }
 
-    abstract void postActivation(String ip);
+    void postActivation(String ip) {
+        support.firePropertyChange(Procedure.COMMISSION.getDesc(), ProcedureOptions.POST, ip);
+    }
 
-    abstract void performSignalScaling(String ip);
+    void performSignalScaling(String ip) {
+        support.firePropertyChange(Procedure.COMMISSION.getDesc(), ProcedureOptions.SCALING, ip);
+    }
 
-    abstract void performSelfDiagnotics(String ip);
+    void performSelfDiagnotics(String ip) {
+        support.firePropertyChange(Procedure.COMMISSION.getDesc(), ProcedureOptions.DIAGNOSTIC, ip);
+    }
 
     abstract boolean isLTE();
 
-    public final void commissionRadioUnit(String ip) {
+    final void commissionRadioUnit(String ip) {
         setupRu(ip);
         activateRu(ip);
         postActivation(ip);
@@ -32,7 +44,14 @@ public abstract class CommissionRadioUnit {
             performSignalScaling(ip);
         }
         performSelfDiagnotics(ip);
-
     }
 
+    /**
+     * Adds listeners to this class.
+     *
+     * @param pcl a property change listener
+     */
+    void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
 }

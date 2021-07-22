@@ -1,19 +1,7 @@
 package networkmanagementsystem;
 
+import common.Procedure;
+import common.ProcedureOptions;
+
 public class DecommissionWcdmaRadioUnit extends DecommissionRadioUnit {
-
-    @Override
-    void deactivateRu(String ip) {
-
-    }
-
-    @Override
-    void removeAllCarriersOnRu(String ip) {
-
-    }
-
-    @Override
-    void releaseRu(String ip) {
-
-    }
 }

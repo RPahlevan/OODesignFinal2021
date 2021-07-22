@@ -9,12 +9,11 @@ import radiounit.RadioUnitState;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.beans.PropertyChangeSupport;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static common.ProcedureOptions.RELEASE;
 import static common.RatType.LTE;
 import static common.RatType.WCDMA;
 
@@ -39,27 +38,17 @@ import static common.RatType.WCDMA;
  */
 public class Mediator implements PropertyChangeListener, MediatorIf {
     private static volatile Mediator UNIQUE_INSTANCE;
-
+    private final PropertyChangeSupport support;
     private final List<ManagedRadioUnit> radioUnits;
     private final CarrierManagementSystemDirector carrierManagement;
-
-    private CommissionRadioUnit commissionerLte;
-    private CommissionRadioUnit commissionerWcdma;
-    private DecommissionRadioUnit decommissionerLte;
-    private DecommissionRadioUnit decommissionerWcdma;
 
     /**
      * Constructor for the Mediator class.
      * Required to be private to ensure the Singleton Pattern is followed.
      */
     private Mediator() {
+        support = new PropertyChangeSupport(this);
         radioUnits = new ArrayList<>();
-
-        commissionerLte = new CommissionLteRadioUnit();
-        commissionerWcdma = new CommissionWcdmaRadioUnit();
-        decommissionerLte = new DecommissionLteRadioUnit();
-        decommissionerWcdma = new DecommissionWcdmaRadioUnit();
-
         carrierManagement = CarrierManagementSystemDirector.getInstance();
     }
 
@@ -215,30 +204,30 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      * @param rfPorts            The RF Ports that will be used with this carrier.
      * @param carrierFrequencies The frequencies that will be used with this carrier.
      * @param transmittingPower  The transmitting power of the carrier.
-     * @param name               The name of the RU this carrier will be added to.
+     * @param ip                 The IP address of the RU this carrier will be added to.
      * @param vendor             The vendor for the newly created RU.
      * @param ratType            The RAT type for the newly created RU.
      */
     @Override
     public synchronized void createCarrierAndRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
-                                                Double transmittingPower, String name, Vendor vendor, RatType ratType) {
-        createRu(name, vendor, ratType);
-        createCarrierOnRu(rfPorts, carrierFrequencies, transmittingPower, name);
+                                                Double transmittingPower, String ip, Vendor vendor, RatType ratType) {
+        createRu(ip, vendor, ratType);
+        createCarrierOnRu(ip, rfPorts, carrierFrequencies, transmittingPower);
     }
 
     /**
      * Creates a Carrier and add it to an existing RU.
      *
+     * @param ip                 The IP address of the RU this carrier will be added to.
      * @param rfPorts            The RF Ports that will be used with this carrier.
      * @param carrierFrequencies The frequencies that will be used with this carrier.
      * @param transmittingPower  The transmitting power of the carrier.
-     * @param name               The name of the RU this carrier will be added to.
      */
     @Override
-    public synchronized void createCarrierOnRu(List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
-                                               Double transmittingPower, String name) {
+    public synchronized void createCarrierOnRu(String ip, List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
+                                               Double transmittingPower) {
         for (ManagedRadioUnit ru : radioUnits) {
-            if (ru.getRadioUnitName().equals(name)) {
+            if (ru.getIpAddress().equals(ip)) {
                 try {
                     ru.setupCarrier(createCarrier(rfPorts, carrierFrequencies, transmittingPower, ru.getRatType()));
                     return;
@@ -247,14 +236,14 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
                 }
             }
         }
-        System.out.printf("[ERROR] No RU with that name %s is registered with the system%n", name);
+        System.out.printf("[ERROR] No RU with the IP %s is registered with the system%n", ip;
     }
 
     /**
      * Return a radio name specified by a given name.
      *
      * @param ip The IP of the RU, as a String.
-     * @return The radio unit associated with that specific name
+     * @return The radio unit associated with that specific ip
      */
     @Override
     public ManagedRadioUnit getRadioUnit(String ip) {
@@ -358,11 +347,32 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
         }
     }
 
+    /**
+     *
+     * @param ip
+     */
     private void commissionRu(String ip) {
         switch(getRadioUnit(ip).getRatType()) {
             case LTE -> commissionerLte.commissionRadioUnit(ip);
             case WCDMA -> commissionerWcdma.commissionRadioUnit(ip);
             default -> System.out.println("[ERROR] Unexpected RAT type encountered.");
+        }
+    }
+
+    /**
+     *
+     * @param ip
+     */
+    private void decommissionRu(String ip, ProcedureOptions procedure) {
+        switch(procedure) {
+            case FULL -> {
+                switch (getRadioUnit(ip).getRatType()) {
+                    case LTE -> decommissionerLte.decommissionRadioUnit(ip);
+                    case WCDMA -> decommissionerWcdma.decommissionRadioUnit(ip);
+                    default -> System.out.println("[ERROR] Unexpected RAT type encountered.");
+                }
+            }
+            case RELEASE -> getRadioUnit(ip).release();
         }
     }
 
@@ -384,27 +394,36 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
         switch (Objects.requireNonNull(procedure)) {
             case COMMISSION -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {
-                    case FULL -> {
-                        commissionRu((String) evt.getNewValue());
+                    case RAT_TYPE -> {
+                        List<Object> params = ((ArrayList<Object>) evt.getNewValue());
+                        List<Object> newParams = new ArrayList<>(Arrays.asList(params.get(0), getRadioUnit((String) params.get(0)).getRatType()));
+                        support.firePropertyChange(evt.getPropertyName(), newParams, params.get(1));
                     }
-                    case SETUP -> {}
-                    case ACTIVATE -> {}
-                    case SCALING -> {}
-                    case POST -> {}
-                    case DIAGNOSTIC -> {}
+                    case SETUP -> getRadioUnit((String) evt.getNewValue()).setup();
+                    case ACTIVATE -> getRadioUnit((String) evt.getNewValue()).activate();
+                    case SCALING -> getRadioUnit((String) evt.getNewValue()).signalScaling();
+                    case POST -> getRadioUnit((String) evt.getNewValue()).postActivation();
+                    case DIAGNOSTIC -> getRadioUnit((String) evt.getNewValue()).performSelfDiagnostics();
                 }
             }
             case DECOMMISSION -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {
-                    case FULL -> {}
-                    case RELEASE -> {}
-                    case DEACTIVATE -> {}
-                    case CARRIER -> {}
+                    case RAT_TYPE -> {
+                        List<Object> params = ((ArrayList<Object>) evt.getNewValue());
+                        List<Object> newParams = new ArrayList<>(Arrays.asList(params.get(0), getRadioUnit((String) params.get(0)).getRatType()));
+                        support.firePropertyChange(evt.getPropertyName(), newParams, params.get(1));
+                    }
+                    case RELEASE -> getRadioUnit((String) evt.getNewValue()).release();
+                    case DEACTIVATE -> getRadioUnit((String) evt.getNewValue()).deactivate();
+                    case CARRIER -> getRadioUnit((String) evt.getNewValue()).removeAllCarriers();
                 }
             }
             case CREATE -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {
-                    case CARRIER -> {}
+                    case CARRIER -> {
+                        List<Object> params = ((ArrayList<Object>) evt.getNewValue());
+                        createCarrierOnRu((String) params.get(0), (List<RfPort>) params.get(1), (FrequencyBand) params.get(2), (Double) params.get(3));
+                    }
                     case RU -> {}
                     case ALARM -> {}
                 }
@@ -434,5 +453,14 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
                 }
             }
         }
+    }
+
+    /**
+     * Adds listeners to this class.
+     *
+     * @param pcl A property change listener
+     */
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
     }
 }

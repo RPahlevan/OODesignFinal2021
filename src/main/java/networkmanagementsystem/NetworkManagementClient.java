@@ -3,15 +3,17 @@
  */
 package networkmanagementsystem;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import common.*;
 import mediator.Mediator;
+import mediator.MediatorIf;
 import radiounit.ManagedRadioUnit;
 
-import javax.print.attribute.standard.Media;
 import java.util.regex.Pattern;
 
 /**
@@ -19,8 +21,8 @@ import java.util.regex.Pattern;
  *
  */
 public class NetworkManagementClient {
-	private static NetworkManagementSystem networkManagementSys;
-	private static Mediator mediator;
+	private static NetworkManagementSystemIf networkManagementSys;
+	private static MediatorIf mediator;
 	//define constants
     static final int LTE_RF_PORTS_NUMBER = 4;
     static final int WCDMA_RF_PORTS_NUMBER = 2;
@@ -34,9 +36,8 @@ public class NetworkManagementClient {
 	 * @param args
 	 */
     public static void main(String[] args) {
-        mediator = Mediator.getInstance();
-    	networkManagementSys = ConcreteNetworkManagementSystem.getInstance();
-        networkManagementSys.addPropertyChangeListener(mediator);
+        setupObserverRelations();
+
         String option;
         String ruName;
         String ip;
@@ -196,6 +197,23 @@ public class NetworkManagementClient {
         } while (!option.equals("0"));
     } // main
 
+    /**
+     *
+     */
+    private static void setupObserverRelations() {
+        // Setup Observer relations
+        mediator = Mediator.getInstance();
+        networkManagementSys = NetworkManagementSystem.getInstance();
+        networkManagementSys.addPropertyChangeListener((PropertyChangeListener) mediator);
+        mediator.addPropertyChangeListener((PropertyChangeListener) networkManagementSys);
+        for (Map.Entry<RatType, CommissionRadioUnit> entry : networkManagementSys.getCommissioners().entrySet()) {
+            entry.getValue().addPropertyChangeListener((PropertyChangeListener) mediator);
+        }
+        for (Map.Entry<RatType, DecommissionRadioUnit> entry : networkManagementSys.getDecommissioners().entrySet()) {
+            entry.getValue().addPropertyChangeListener((PropertyChangeListener) mediator);
+        }
+    }
+
 
     /**
      * Helper method that create a carrier on existing RU based on user-choose
@@ -228,7 +246,7 @@ public class NetworkManagementClient {
         //create carrier
         Carrier carrier = mediator.createCarrier(rfPorts, freqBand, transPower, ru.getRatType());
 
-        networkManagementSys.setupCarrierOnRu(ip, rfPorts, freqBand, transPower, ru.getRatType());
+        networkManagementSys.setupCarrierOnRu(ip, rfPorts, freqBand, transPower);
 
     }
 

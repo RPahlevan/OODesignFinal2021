@@ -1,26 +1,42 @@
 package networkmanagementsystem;
 
+import common.Procedure;
+import common.ProcedureOptions;
 
-import mediator.Mediator;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public abstract class DecommissionRadioUnit {
-    protected Mediator mediator;
+    protected final PropertyChangeSupport support;
 
-	public DecommissionRadioUnit(){
-        mediator = Mediator.getInstance();
-	}
-
-    abstract void deactivateRu(String ip);
-
-    abstract void removeAllCarriersOnRu(String ip);
-
-    void releaseRu(String ip) {
-        mediator.getRadioUnit(ip).release();
+    public DecommissionRadioUnit() {
+        support = new PropertyChangeSupport(this);
     }
 
-    void decommissionRadioUnit(String ip) {
+    void deactivateRu(String ip) {
+        support.firePropertyChange(Procedure.DECOMMISSION.getDesc(), ProcedureOptions.DEACTIVATE, ip);
+    }
+
+    void removeAllCarriersOnRu(String ip) {
+        support.firePropertyChange(Procedure.DECOMMISSION.getDesc(), ProcedureOptions.CARRIER, ip);
+    }
+
+    void releaseRu(String ip) {
+        support.firePropertyChange(Procedure.DECOMMISSION.getDesc(), ProcedureOptions.RELEASE, ip);
+    }
+
+    final void decommissionRadioUnit(String ip) {
         deactivateRu(ip);
         removeAllCarriersOnRu(ip);
         releaseRu(ip);
+    }
+
+    /**
+     * Adds listeners to this class.
+     *
+     * @param pcl a property change listener
+     */
+    void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
     }
 }

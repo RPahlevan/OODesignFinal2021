@@ -15,6 +15,7 @@ public enum ProcedureOptions {
     CARRIER,
     SCALING,
     POST,
-    DIAGNOSTIC;
+    DIAGNOSTIC,
+    RAT_TYPE;
 }
 
