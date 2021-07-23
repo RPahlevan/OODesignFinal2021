@@ -65,10 +65,7 @@ public class NetworkManagementClient {
                         + "17.	List RUs by standard(RAT type)\n"
                         + "18.	List RUs by state\n"
                         + "19.	List RUs by Band\n"
-                        + "20.	Set alarm on Radio Unit\n"
-                        + "21.	List all network alarms\n"
-                        + "22.	Acknowledge alarm on Radio Unit\n"
-                        + "23.	List Radio Unit details";
+                        + "20.	List Radio Unit details";
 
                 System.out.println(menu);
                 option = input.next();
@@ -186,19 +183,19 @@ public class NetworkManagementClient {
                         ip = getIpAddress(input);
                         networkManagementSys.listRadioUnitDetails(ip);
                     }
-                    case "21" -> {
-                        //21.Set Alarm on RU
-                        ip = getIpAddress(input);
-                        AlarmStatusLevel alarm = chooseAlarmStatusLevel(input);
-                        networkManagementSys.setAlarmOnRu(ip, alarm);
-                    }
-                    case "22" -> //22.List all Network Alarms
-                            networkManagementSys.getNetworkAlarms();
-                    case "23" -> {
-                        //23.Acknowledge alarm on RU
-                        ip = getIpAddress(input);
-                        networkManagementSys.acknowledgeAlarm(ip);
-                    }
+//                    case "21" -> {
+//                        //21.Set Alarm on RU
+//                        ip = getIpAddress(input);
+//                        AlarmStatusLevel alarm = chooseAlarmStatusLevel(input);
+//                        networkManagementSys.setAlarmOnRu(ip, alarm);
+//                    }
+//                    case "22" -> //22.List all Network Alarms
+//                            networkManagementSys.getNetworkAlarms();
+//                    case "23" -> {
+//                        //23.Acknowledge alarm on RU
+//                        ip = getIpAddress(input);
+//                        networkManagementSys.acknowledgeAlarm(ip);
+//                    }
                     default -> System.out.println("Unsupported option, please try again!");
                 }
 

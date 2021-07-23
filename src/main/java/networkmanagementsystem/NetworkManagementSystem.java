@@ -98,7 +98,7 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
      */
     @Override
     public void addRadioUnit(String name, Vendor vendor, RatType ratType) {
-        List<Object> params = new ArrayList<Object>(Arrays.asList(name, vendor, ratType));
+        List<Object> params = new ArrayList<>(Arrays.asList(name, vendor, ratType));
         support.firePropertyChange(Procedure.CREATE.getDesc(), ProcedureOptions.RU, params);
     }
 

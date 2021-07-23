@@ -61,7 +61,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     }
 
     /**
-     * Registers an RU with the mediator. Only RUs that are registered can
+     * Register an RU with the mediator. Only RUs that are registered can
      * be interacted with via other classes.
      *
      * @param radioUnit The RU that will be registered with the mediator.
@@ -107,7 +107,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     }
 
     /**
-     * Attempts to remove an radio unit from the radio unit registry.
+     * Attempt to remove an radio unit from the radio unit registry.
      *
      * @param ip The IP associated with the radio unit that will be removed.
      */
@@ -117,7 +117,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     }
 
     /**
-     * Creates a Carrier and add it to an existing RU.
+     * Create a Carrier and add it to an existing RU.
      *
      * @param ip                 The IP address of the RU this carrier will be added to.
      * @param rfPorts            The RF Ports that will be used with this carrier.
@@ -155,7 +155,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     }
 
     /**
-     * Creates a carrier that will then be registered with the system. The carrier will have its type
+     * Create a carrier that will then be registered with the system. The carrier will have its type
      * determined based on the RAT type of the radio unit the carrier is being added to.
      *
      * @param rfPorts            A list of RF ports that will be used for this carrier.
@@ -336,7 +336,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     }
 
     /**
-     * Adds listeners to this class.
+     * Add listeners to this class.
      *
      * @param pcl A property change listener
      */
