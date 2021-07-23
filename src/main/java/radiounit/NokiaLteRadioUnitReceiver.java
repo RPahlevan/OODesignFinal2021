@@ -2,6 +2,8 @@ package radiounit;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import common.Carrier;
 import common.FrequencyBand;
@@ -15,8 +17,6 @@ import common.LteFrequencyBand;
  */
 public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 
-	private static final int CARRIER_NOT_FOUND_INDEX = -1;
-
 	/*
 	 * The list of carriers is an important part of the radio
 	 * 
@@ -26,10 +26,10 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 	 * The three "-Internal" methods below are all synchronized and have exclusive
 	 * access to this resource.
 	 */
-	private volatile List<Carrier> carriers;
+	private volatile Map<Integer, Carrier> carriers;
 
 	public NokiaLteRadioUnitReceiver() {
-		this.carriers = new ArrayList<Carrier>();
+		this.carriers = new HashMap<Integer, Carrier>();
 	}
 
 	public void setupNokiaLte() {
@@ -53,8 +53,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 
 		// check if carrier is a LTE carrier
 		boolean isLte = false;
-		FrequencyBand band = carrier.getCarrierFrequencies();
-
+		FrequencyBand band = carrier.getFrequencyBand();
 		for (LteFrequencyBand lteFreq : LteFrequencyBand.values()) {
 			if (band == lteFreq) {
 				isLte = true;
@@ -67,7 +66,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 			return;
 		}
 
-		if (getCarrierById(carrier.getCarrierId()) != null) {
+		if (carriers.get(carrier.getCarrierId()) != null) {
 			System.err.println("Carrier with ID [" + carrier.getCarrierId() + "] already exists!");
 			return;
 		}
@@ -83,33 +82,24 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 		System.out.println(
 				"[NokiaLteRadioUnitReceiver] modifyCarrierNokiaLte: " + carrierId + ", " + frequencyBand.getBand());
 
-		int index = getCarrierIndexById(carrierId);
-
-		// check that carrier exists
-		if (index == CARRIER_NOT_FOUND_INDEX) {
-			System.err.println("Carrier with ID [" + "] does not exist!");
+		Carrier existingCarrier = carriers.get(carrierId);
+		if (existingCarrier == null) {
+			System.err.println("Carrier with ID [" + carrierId + "] does not exist!");
 			return;
 		}
 
-		Carrier existingCarrier = getCarrierById(carrierId);
-
-		removeCarrierInternal(index);
+		removeCarrierInternal(carrierId);
 		existingCarrier.setFrequencyBand(frequencyBand);
 		addCarrierInternal(existingCarrier);
 	}
 
 	public void removeCarrierNokiaLte(Integer carrierId) {
 		System.out.println("[NokiaLteRadioUnitReceiver] removeCarrierNokiaLte: " + carrierId);
-
-		int index = getCarrierIndexById(carrierId);
-
-		// check that carrier exists
-		if (index == CARRIER_NOT_FOUND_INDEX) {
-			System.err.println("Carrier with ID [" + "] does not exist!");
-			return;
+		if (carriers.get(carrierId) == null) {
+			System.err.println("EricssonLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
+		} else {
+			carriers.remove(carrierId);
 		}
-
-		removeCarrierInternal(index);
 	}
 
 	public void selfDiagnosticsNokiaLte() {
@@ -118,15 +108,12 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	public void removeAllCarriersNokiaLte() {
 		System.out.println("[NokiaLteRadioUnitReceiver] removeAllCarriersNokiaLte");
-
-		for (int i = 0; i < getAllCarriersInternal().size(); ++i) {
-			removeCarrierInternal(i);
-		}
+		carriers.clear();
 	}
 
 	public List<Carrier> getCarriers() {
 
-		List<Carrier> carrierList = getAllCarriersInternal();
+		List<Carrier> carrierList = new ArrayList<Carrier>(carriers.values());
 
 		for (Carrier c : carrierList) {
 			System.out.println("Carrier: " + c);
@@ -135,45 +122,13 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 		return carrierList;
 	}
 
-	private Carrier getCarrierById(int id) {
-		int index = getCarrierIndexById(id);
-
-		if (index == CARRIER_NOT_FOUND_INDEX) {
-			return null;
-		}
-
-		return getAllCarriersInternal().get(index);
-	}
-
-	private int getCarrierIndexById(int id) {
-		for (int i = 0; i < getAllCarriersInternal().size(); ++i) {
-			Carrier c = getAllCarriersInternal().get(i);
-
-			if (c.getCarrierId() == id) {
-				return i;
-			}
-		}
-
-		return CARRIER_NOT_FOUND_INDEX;
-	}
-
-	/**
-	 * Private, internal method with exclusive "getter" access to the carriers list.
-	 * 
-	 * @param idx Index of the carrier to be retrieved
-	 * @return Carrier at the specified index
-	 */
-	private synchronized List<Carrier> getAllCarriersInternal() {
-		return this.carriers;
-	}
-
 	/**
 	 * Private, internal method with exclusive "setter" access to the carriers list.
 	 * 
 	 * @param carrier Carrier to add to the list
 	 */
 	private synchronized void addCarrierInternal(Carrier carrier) {
-		this.carriers.add(carrier);
+		this.carriers.put(carrier.getCarrierId(), carrier);
 	}
 
 	/**
@@ -181,11 +136,11 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 	 * 
 	 * @param index Index of the carrier to be removed
 	 */
-	private synchronized void removeCarrierInternal(int index) {
-		try {
-			this.carriers.remove(index);
-		} catch (IndexOutOfBoundsException e) {
-			System.err.println("EricssonLteRadioUnitReceiver[] Invalid index - cannot remove carrier");
+	private synchronized void removeCarrierInternal(int carrierId) {
+		if (carriers.get(carrierId) == null) {
+			System.err.println("EricssonLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
+		} else {
+			carriers.remove(carrierId);
 		}
 	}
 }

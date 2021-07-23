@@ -51,7 +51,7 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 		System.out.println("[EricssonLteRadioUnitReceiver] setupCarrierEricssonLte: " + carrier);
 		
 		// Validate carrier
-		FrequencyBand band = carrier.getCarrierFrequencies();
+		FrequencyBand band = carrier.getFrequencyBand();
 		boolean isLte = false;
 		
 		for (LteFrequencyBand lteFreq : LteFrequencyBand.values())
