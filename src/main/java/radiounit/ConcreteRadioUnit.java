@@ -28,9 +28,27 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		this.state = new IdleState(this);
 		this.postActivationComplete = false;
 		this.signalScalingComplete = false;
-		// TODO: instantiate a RadioCommandExecutor
-		// TODO: get RadioCommandExecutorFactory instance here.
 
+		switch (this.vendor) {
+		case ERICSSON:
+			switch (this.ratType) {
+			case LTE:
+				cmdExecutor = EricssonLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			case WCDMA:
+//				cmdExecutor = EricssonWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			}
+		case NOKIA:
+			switch (this.ratType) {
+			case LTE:
+//				cmdExecutor = NokiaLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			case WCDMA:
+//				cmdExecutor = NokiaWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			}
+		}
 	}
 
 	/**
@@ -190,4 +208,9 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		return cmdExecutor;
 	}
 
+	@Override
+	public String toString() {
+		return "Radio Unit Name: " + name + "\n" + "IP Address: " + ipAddress + "\n" + "Vendor and RAT type: " + vendor
+				+ " " + ratType;
+	}
 }
