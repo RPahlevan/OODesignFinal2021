@@ -13,6 +13,7 @@ public abstract class Carrier {
     protected List<RfPort> rfPorts;
     protected FrequencyBand frequencyBand;
     protected final Double transmittingPower;
+    protected RatType ratType;
 
     public Carrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower) {
         this.carrierId = carrierId;
@@ -47,9 +48,9 @@ public abstract class Carrier {
     /**
      * Returns the carrier frequency band to the builder class.
      *
-     * @return The carrier frequency, as a CarrierFrequencies object.
+     * @return The carrier frequency, as a FrequencyBand object.
      */
-    public FrequencyBand getCarrierFrequencies() {
+    public FrequencyBand getFrequencyBand() {
         return frequencyBand;
     }
 
@@ -62,6 +63,15 @@ public abstract class Carrier {
         return transmittingPower;
     }
 
+    /**
+     * Returns the RAT type.
+     *
+     * @return The RAT type, as a RatType enum.
+     */
+    public RatType getRatType() {
+        return ratType;
+    }
+    
     /**
      * Sets the frequency band for this carrier.
      *

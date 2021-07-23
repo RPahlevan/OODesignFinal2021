@@ -17,7 +17,7 @@ public interface CarrierManagementIf {
      *                          selected from RFPorts enum class.
      * @param frequencyBand     LTE carrier needs specific band to operate. List of
      *                          LTE carrier frequency are available in
-     *                          CarrierFrequencies enum class.
+     *                          FrequencyBand enum class.
      * @param transmittingPower LTE carrier need transmitting power to be created.
      * @return LTECarrier Returns the LTECarrier that was built by the
      *         LTECarrierBuilder
@@ -34,7 +34,7 @@ public interface CarrierManagementIf {
      *                          selected from RFPorts enum class.
      * @param frequencyBand     WCDMA carrier needs specific band to operate. List
      *                          of WCDMA carrier frequency are available in
-     *                          CarrierFrequencies enum class.
+     *                          FrequencyBand enum class.
      * @param transmittingPower WCDMA carrier need transmitting power to be created.
      * @return WCDMACarrier Returns the WCDMACarrier that was built by the
      *         WCDMACarrierBuilder

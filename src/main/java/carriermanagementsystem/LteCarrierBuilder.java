@@ -3,6 +3,7 @@ package carriermanagementsystem;
 import common.Carrier;
 import common.FrequencyBand;
 import common.RfPort;
+import common.LteFrequencyBand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,11 @@ public class LteCarrierBuilder implements CarrierBuilder {
      */
     @Override
     public void setFrequencyBand(FrequencyBand frequencyBand) {
-        this.frequencyBand = frequencyBand;
+        if (frequencyBand instanceof LteFrequencyBand) {
+            this.frequencyBand = frequencyBand;
+        } else {
+            System.out.println("[ERROR] Invalid value for the LTE frequency band.");
+        }
     }
 
     /**

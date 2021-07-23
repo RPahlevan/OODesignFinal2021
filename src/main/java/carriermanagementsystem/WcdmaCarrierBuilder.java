@@ -2,6 +2,7 @@ package carriermanagementsystem;
 
 import common.Carrier;
 import common.FrequencyBand;
+import common.WcdmaFrequencyBand;
 import common.RfPort;
 
 import java.util.ArrayList;
@@ -56,8 +57,11 @@ public class WcdmaCarrierBuilder implements CarrierBuilder {
      */
     @Override
     public void setFrequencyBand(FrequencyBand frequencyBand) {
-        this.frequencyBand = frequencyBand;
-
+        if (frequencyBand instanceof WcdmaFrequencyBand) {
+            this.frequencyBand = frequencyBand;
+        } else {
+            System.out.println("[ERROR] Invalid value for the WCDMA frequency band.");
+        }
     }
 
     /**

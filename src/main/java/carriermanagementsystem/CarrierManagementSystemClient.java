@@ -4,6 +4,7 @@ import common.FrequencyBand;
 import common.LteFrequencyBand;
 import common.RfPort;
 import common.WcdmaFrequencyBand;
+import common.Carrier;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +29,8 @@ public class CarrierManagementSystemClient {
                 .collect(Collectors.toList());
         FrequencyBand LteBand_3 = LteFrequencyBand.LTE_BAND_3;
         double transmittingPower = 12.2;
-        director.createLteCarrier(LteRfPorts, LteBand_3, transmittingPower);
+        Carrier lte = director.createLteCarrier(LteRfPorts, LteBand_3, transmittingPower);
+        System.out.println(lte.getRatType());
 
         /*
          * Below lines of code would show how to create WCDMA carrier with carrier Id,
@@ -39,7 +41,8 @@ public class CarrierManagementSystemClient {
         List<RfPort> WcdmaRfPorts = Stream.of(RfPort.RF_1, RfPort.RF_2).collect(Collectors.toList());
         FrequencyBand WcdmaBand_5 = WcdmaFrequencyBand.WCDMA_BAND_5;
         transmittingPower = 11.7;
-        director.createWcdmaCarrier(WcdmaRfPorts, WcdmaBand_5, transmittingPower);
+        Carrier wcdma = director.createWcdmaCarrier(WcdmaRfPorts, WcdmaBand_5, transmittingPower);
+        System.out.println(wcdma.getRatType());
 
 //        /**
 //         * error & not configured cases for demo purpose
@@ -56,10 +59,10 @@ public class CarrierManagementSystemClient {
 //        /**
 //         * case #1: result:
 //         * 
-//         * Final result: 
+//         * Final result:
 //         * LTE Carrier ID: 15
 //         * LTE Carrier Frequency: 1710 MHz
-//         * LTE RF Ports: D  E  F  G  
+//         * LTE RF Ports: D  E  F  G
 //         * LTE Transmission Power: Not configured
 //         */
 //        
@@ -77,7 +80,7 @@ public class CarrierManagementSystemClient {
 //         * 
 //         * [ERROR] WCDMA RF Ports are not configured!
 //         * [ERROR] Attempted to create a carrier without RF ports.
-//         * Final result: 
+//         * Final result:
 //         * WCDMA Carrier ID: 278
 //         * WCDMA Carrier Frequency: 850 MHz-for U.S
 //         * WCDMA RF Ports: Not configured
@@ -95,7 +98,7 @@ public class CarrierManagementSystemClient {
 //        /**
 //         * [ERROR] Invalid value for the number of LTE ports. The number of RF Ports for LTE carrier has to be 4. RF ports will not be configured.
 //         * [ERROR] Attempted to create a carrier without RF ports.
-//         * Final result: 
+//         * Final result:
 //         * LTE Carrier ID: 177
 //         * LTE Carrier Frequency: 1710 MHz
 //         * LTE RF Ports: Not configured
