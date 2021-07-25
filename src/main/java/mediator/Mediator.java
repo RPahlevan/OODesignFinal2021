@@ -161,7 +161,6 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      *            include a RatType, a RadioUnitState, a FrequencyBand, or a String name.
      */
     private void listRuByParam(Object obj) {
-        // Most of this won't exist once the RadioUnitRegistry is complete.
         if (obj instanceof RatType) {
             List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByRatType((RatType) obj);
             radioUnits.forEach(System.out::println);
