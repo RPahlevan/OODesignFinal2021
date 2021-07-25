@@ -31,8 +31,8 @@ import java.util.*;
 public class Mediator implements PropertyChangeListener, MediatorIf {
     private static volatile Mediator UNIQUE_INSTANCE;
     private final PropertyChangeSupport support;
-    private final List<ManagedRadioUnit> radioUnits;
     private final CarrierManagementSystemDirector carrierManagement;
+    private final AbstractManagedRadioUnitRegistry radioUnitRegistry;
 
     /**
      * Constructor for the Mediator class.
@@ -40,8 +40,8 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      */
     private Mediator() {
         support = new PropertyChangeSupport(this);
-        radioUnits = new ArrayList<>();
         carrierManagement = CarrierManagementSystemDirector.getInstance();
+        radioUnitRegistry = new ManagedRadioUnitRegistry();
     }
 
     /**
@@ -61,49 +61,31 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     }
 
     /**
-     * Register an RU with the mediator. Only RUs that are registered can
-     * be interacted with via other classes.
-     *
-     * @param radioUnit The RU that will be registered with the mediator.
-     */
-    private synchronized void register(ManagedRadioUnit radioUnit) {
-        // TODO Remove this when the ManagedRadioUnitRegistry is merged.
-        if (!radioUnits.contains(radioUnit)) {
-            radioUnits.forEach(ru -> {
-                if (radioUnit.getIpAddress().equals(ru.getIpAddress())) {
-                    System.out.println("[ERROR] A radio unit with that IP address has already been registered with the system.");
-                    return;
-                }
-            });
-            radioUnits.add(radioUnit);
-        }
-    }
-
-    /**
      * Prints a formatted list of RUs currently registered with the mediator.
      */
     private void printRegisteredRadioUnits() {
+        List<ManagedRadioUnit> radioUnits = ManagedRadioUnit.getAllRadios();
+        radioUnits.forEach(System.out::println);
         if (radioUnits.size() == 0) {
             System.out.println("[ERROR] No RUs have been registered with the system.");
         } else {
-            radioUnits.forEach(ru -> System.out.println(ru.toString()));
+            radioUnits.forEach(System.out::println);
         }
     }
 
     /**
-     * Create a bare bones RU. In the future this method will handle the
-     * control logic associated with which RU is to be created. For now,
-     * We just create a generic RU with the passed parameters.
+     * Create a radio unit that will be used in the system. This radio
+     * unit will be stored and managed by the RadioUnitRegistry class.
      *
      * @param name    The name of the RU.
      * @param vendor  The vendor for the RU.
      * @param ratType The RAT type for the RU.
      */
     private synchronized void createRu(String name, Vendor vendor, RatType ratType) {
-        // TODO Update to new creation method once RadioUnit code is merged.
         Random r = new Random();
-        this.register(new DemoOneRadioUnit(r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256), name, vendor, ratType) {
-        });
+        StringBuffer ip = new StringBuffer();
+        ip.append(r.nextInt(256)).append(".").append(r.nextInt(256)).append(".").append(r.nextInt(256)).append(".").append(r.nextInt(256));
+        radioUnitRegistry.addRadioUnit(ip.toString(), name, vendor, ratType);
     }
 
     /**
@@ -112,8 +94,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      * @param ip The IP associated with the radio unit that will be removed.
      */
     private void removeRu(String ip) {
-        // TODO Update this to point to the ManagedRadioUnitRegistry once it is merged.
-        //radioUnitRegistry.remove(id);
+        radioUnitRegistry.removeRadioUnit(ip);
     }
 
     /**
@@ -126,32 +107,18 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      */
     private synchronized void createCarrierOnRu(String ip, List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                                                 Double transmittingPower) {
-        for (ManagedRadioUnit ru : radioUnits) {
-            if (ru.getIpAddress().equals(ip)) {
-                try {
-                    ru.setupCarrier(createCarrier(rfPorts, carrierFrequencies, transmittingPower, ru.getRatType()));
-                    return;
-                } catch (NullPointerException ex) {
-                    return;
-                }
-            }
-        }
-        System.out.printf("[ERROR] No RU with the IP %s is registered with the system%n", ip);
+        ManagedRadioUnit ru = radioUnitRegistry.getByIpAddress(ip);
+        ru.setupCarrier(createCarrier(rfPorts, carrierFrequencies, transmittingPower, ru.getRatType()));
     }
 
     /**
-     * Return a radio name specified by a given name.
+     * Return a radio unit specified by a given IP address.
      *
      * @param ip The IP of the RU, as a String.
      * @return The radio unit associated with that specific ip
      */
     private ManagedRadioUnit getRadioUnit(String ip) {
-        for (ManagedRadioUnit ru : radioUnits) {
-            if (ru.getIpAddress().equals(ip)) {
-                return ru;
-            }
-        }
-        return null;
+        return radioUnitRegistry.getByIpAddress(ip);
     }
 
     /**
@@ -196,33 +163,17 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     private void listRuByParam(Object obj) {
         // Most of this won't exist once the RadioUnitRegistry is complete.
         if (obj instanceof RatType) {
-            RatType check = (RatType) obj;
-            radioUnits.forEach(ru -> {
-                if (ru.getRatType().equals(check)) {
-                    System.out.println(ru);
-                }
-            });
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByRatType((RatType) obj);
+            radioUnits.forEach(System.out::println);
         } else if (obj instanceof RadioUnitState) {
-            RadioUnitState check = (RadioUnitState) obj;
-            radioUnits.forEach(ru -> {
-                if (ru.getCurrentState().equals(check)) {
-                    System.out.println(ru);
-                }
-            });
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByState((RadioUnitState) obj);
+            radioUnits.forEach(System.out::println);
         } else if (obj instanceof FrequencyBand) {
-            FrequencyBand check = (FrequencyBand) obj;
-            radioUnits.forEach(ru -> ru.getCarriers().forEach(carr -> {
-                if (carr.getCarrierFrequencies().getBand().equals(check.getBand())) {
-                    System.out.println(ru);
-                }
-            }));
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByBand((FrequencyBand) obj);
+            radioUnits.forEach(System.out::println);
         } else if (obj instanceof String) {
-            String check = (String) obj;
-            radioUnits.forEach(ru -> {
-                if (ru.getRadioUnitName().equals(check)) {
-                    System.out.println(ru);
-                }
-            });
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByName((String) obj);
+            radioUnits.forEach(System.out::println);
         }
     }
 
@@ -242,6 +193,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      */
     private void printNetworkAlarms() {
         Set<AlarmStatusLevel> alarms = new HashSet<>();
+        List<ManagedRadioUnit> radioUnits = ManagedRadioUnit.getAllRadios();
         radioUnits.forEach(ru -> alarms.add(ru.getAlarmStatus()));
         alarms.forEach(System.out::println);
     }
