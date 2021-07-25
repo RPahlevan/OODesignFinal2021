@@ -19,7 +19,7 @@ public abstract class AbstractManagedRadioUnitRegistry {
 
 	public abstract void addRadioUnit(String ipAddress, String name, Vendor vendor, RatType ratType);
 
-	public abstract List<ManagedRadioUnit> getByIpAddress(String ipAddress);
+	public abstract ManagedRadioUnit getByIpAddress(String ipAddress);
 
 	public abstract List<ManagedRadioUnit> getByName(String name);
 
@@ -31,7 +31,10 @@ public abstract class AbstractManagedRadioUnitRegistry {
 
 	public abstract List<ManagedRadioUnit> getByState(RadioUnitState state);
 
+	public abstract List<ManagedRadioUnit> getByBand(FrequencyBand band);
+
 	public abstract List<ManagedRadioUnit> getSpecificRadio(String ipAddress, String name, Vendor vendor, RatType ratType);
 
+	public abstract void removeRadioUnit(String ip);
 	
 }

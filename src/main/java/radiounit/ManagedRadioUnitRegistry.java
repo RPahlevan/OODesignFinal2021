@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import common.AlarmStatusLevel;
+import common.FrequencyBand;
 import common.RatType;
 import common.Vendor;
 
@@ -18,13 +19,13 @@ import common.Vendor;
 public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 
 	public ManagedRadioUnitRegistry() {
-		radioUnits = new ArrayList<ManagedRadioUnit>();
+		radioUnits = new ArrayList<>();
 	}
 
 	@Override
 	public void addRadioUnit(String ipAddress, String name, Vendor vendor, RatType ratType) {
 		// check that radio hasn't already been added
-		if (getByIpAddress(ipAddress).isEmpty()) {
+		if (getByIpAddress(ipAddress) == null) {
 			System.err.println("A radio with this IP address has already been added");
 			return;
 		}
@@ -33,10 +34,14 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 	}
 
 	@Override
-	public List<ManagedRadioUnit> getByIpAddress(String ipAddress) {
+	public ManagedRadioUnit getByIpAddress(String ipAddress) {
 		List<ManagedRadioUnit> radioUnitsFilteredByIpAddress = radioUnits.stream()
 				.filter(ru -> ru.getIpAddress().equals(ipAddress)).collect(Collectors.toList());
-		return radioUnitsFilteredByIpAddress;
+		try {
+			return radioUnitsFilteredByIpAddress.get(0);
+		} catch (IndexOutOfBoundsException ignored) {
+			return null;
+		}
 	}
 
 	@Override
@@ -75,12 +80,22 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 	}
 
 	@Override
+	public List<ManagedRadioUnit> getByBand(FrequencyBand band) {
+		return null;
+	}
+
+	@Override
 	public List<ManagedRadioUnit> getSpecificRadio(String ipAddress, String name, Vendor vendor, RatType ratType) {
 		List<ManagedRadioUnit> radioUnitsFiltered = radioUnits.stream()
 				.filter(ru -> ru.getIpAddress().equals(ipAddress)).filter(ru -> ru.getRadioUnitName().equals(name))
 				.filter(ru -> ru.getVendor().equals(vendor)).filter(ru -> ru.getRatType().equals(ratType))
 				.collect(Collectors.toList());
 		return radioUnitsFiltered;
+	}
+
+	@Override
+	public void removeRadioUnit(String ip) {
+		radioUnits.removeIf(ru -> (ru.getIpAddress().equals(ip)));
 	}
 
 }
