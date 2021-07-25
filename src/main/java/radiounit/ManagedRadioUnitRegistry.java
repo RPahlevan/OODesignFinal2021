@@ -100,6 +100,11 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 	}
 
 	@Override
+	public List<ManagedRadioUnit> getAllRadios() {
+		return radioUnits;
+	}
+
+	@Override
 	public void removeRadioUnit(String ip) {
 		radioUnits.removeIf(ru -> (ru.getIpAddress().equals(ip)));
 	}

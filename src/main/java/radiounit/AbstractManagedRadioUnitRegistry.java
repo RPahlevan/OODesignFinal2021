@@ -35,6 +35,8 @@ public abstract class AbstractManagedRadioUnitRegistry {
 
 	public abstract List<ManagedRadioUnit> getSpecificRadio(String ipAddress, String name, Vendor vendor, RatType ratType);
 
+	public abstract List<ManagedRadioUnit> getAllRadios();
+
 	public abstract void removeRadioUnit(String ip);
 	
 }
