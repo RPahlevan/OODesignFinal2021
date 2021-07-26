@@ -2,6 +2,7 @@ package carriermanagementsystem;
 
 import common.Carrier;
 import common.FrequencyBand;
+import common.RatType;
 import common.RfPort;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class WcdmaCarrier extends Carrier {
     public WcdmaCarrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand frequencyBand,
                         Double transmittingPower) {
         super(carrierId, rfPorts, frequencyBand, transmittingPower);
+        ratType = RatType.WCDMA;
     }
 
     /**
