@@ -20,7 +20,7 @@ public class NetworkManagementClient {
     static final int LTE_RF_PORTS_NUMBER = 4;
     static final int WCDMA_RF_PORTS_NUMBER = 2;
 
-    static final Pattern IpPattern = Pattern.compile("^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
+    static final Pattern IP_PATTERN = Pattern.compile("^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
             + "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
             + "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
             + "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$");
@@ -357,7 +357,7 @@ public class NetworkManagementClient {
         do {
             System.out.println("Please enter the IP address of the Radio Unit you want to operate on:");
             IP = input.next();
-            if (IpPattern.matcher(IP).matches()) {
+            if (IP_PATTERN.matcher(IP).matches()) {
                 break;
             }
             System.out.println("Invalid IP address format, please try again.");
