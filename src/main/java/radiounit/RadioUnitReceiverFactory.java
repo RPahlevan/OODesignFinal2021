@@ -8,5 +8,5 @@ package radiounit;
  */
 public interface RadioUnitReceiverFactory {
 
-	public RadioUnitReceiver createRadioUnitReceiver();
+	RadioUnitReceiver createRadioUnitReceiver();
 }

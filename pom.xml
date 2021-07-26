@@ -44,7 +44,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>userinterface.UserInterface</mainClass>
+                            <mainClass>networkmanagementsystem.NetworkManagementClient</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

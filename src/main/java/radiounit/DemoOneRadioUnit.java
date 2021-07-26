@@ -13,11 +13,11 @@ import java.util.List;
 
 public class DemoOneRadioUnit implements ManagedRadioUnit {
 
-    List<Carrier> carriers;
-    String ipAddress;
+    final List<Carrier> carriers;
+    final String ipAddress;
     String name;
-    Vendor vendor;
-    RatType ruType;
+    final Vendor vendor;
+    final RatType ruType;
     AlarmStatusLevel alarm;
 
     public DemoOneRadioUnit(String ipAddress, String name, Vendor vendor, RatType ruType) {
@@ -28,7 +28,7 @@ public class DemoOneRadioUnit implements ManagedRadioUnit {
         this.ruType = ruType;
         this.alarm = AlarmStatusLevel.NO_ALARM;
 
-        System.out.println(String.format("[DEBUG] IP address for this RU: %s", ipAddress));
+        System.out.printf("[DEBUG] IP address for this RU: %s%n", ipAddress);
     }
 
     @Override

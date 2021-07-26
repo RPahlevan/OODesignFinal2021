@@ -28,7 +28,7 @@ public abstract class DecommissionRadioUnit {
     /**
      * Notify any listeners that a radio unit is in need of deactivation.
      *
-     * @param ip
+     * @param ip The IP address of the radio unit that will be deactivated.
      */
     final void deactivateRu(String ip) {
         support.firePropertyChange(Procedure.DECOMMISSION.getDesc(), ProcedureOptions.DEACTIVATE, ip);

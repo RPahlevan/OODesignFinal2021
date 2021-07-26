@@ -10,27 +10,27 @@ import radiounit.radiostate.IllegalStateTransitionException;
  */
 public interface RadioUnitState {
 	
-	public void setup() throws IllegalStateTransitionException;
+	void setup() throws IllegalStateTransitionException;
 	
-	public void activate() throws IllegalStateTransitionException;
+	void activate() throws IllegalStateTransitionException;
 	
-	public void deactivate() throws IllegalStateTransitionException;
+	void deactivate() throws IllegalStateTransitionException;
 	
-	public void release() throws IllegalStateTransitionException;
+	void release() throws IllegalStateTransitionException;
 	
-	public void setupCarrier(Carrier carrier) throws IllegalStateTransitionException;
+	void setupCarrier(Carrier carrier) throws IllegalStateTransitionException;
 
-	public void signalScaling() throws IllegalStateTransitionException;
+	void signalScaling() throws IllegalStateTransitionException;
 	
-	public void modifyCarrier(Integer carrierId, FrequencyBand band) throws IllegalStateTransitionException;
+	void modifyCarrier(Integer carrierId, FrequencyBand band) throws IllegalStateTransitionException;
 	
-	public void removeCarrier(Integer carrierId) throws IllegalStateTransitionException;
+	void removeCarrier(Integer carrierId) throws IllegalStateTransitionException;
 	
-	public void selfDiagnostics() throws IllegalStateTransitionException;
+	void selfDiagnostics() throws IllegalStateTransitionException;
 	
-	public void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException;
+	void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException;
 	
 	@Override
-	public String toString();
+	String toString();
 	
 }

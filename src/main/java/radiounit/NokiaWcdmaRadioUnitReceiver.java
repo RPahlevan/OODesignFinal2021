@@ -29,7 +29,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 	private volatile Map<Integer, Carrier> carriers;
 
 	public NokiaWcdmaRadioUnitReceiver() {
-		this.carriers = new HashMap<Integer, Carrier>();
+		this.carriers = new HashMap<>();
 	}
 
 	public void setupNokiaWcdma() {
@@ -113,7 +113,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	public List<Carrier> getCarriers() {
 
-		List<Carrier> carrierList = new ArrayList<Carrier>(carriers.values());
+		List<Carrier> carrierList = new ArrayList<>(carriers.values());
 
 		for (Carrier c : carrierList) {
 			System.out.println("Carrier: " + c);
@@ -134,7 +134,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 	/**
 	 * Private, internal method with exclusive removal access to the carriers list.
 	 * 
-	 * @param index Index of the carrier to be removed
+	 * @param carrierId Index of the carrier to be removed
 	 */
 	private synchronized void removeCarrierInternal(int carrierId) {
 		if (carriers.get(carrierId) == null) {

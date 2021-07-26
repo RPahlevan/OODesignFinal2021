@@ -11,11 +11,11 @@ import radiounit.RadioUnitState;
  */
 public class ActivatedState implements RadioUnitState {
 	
-	private AbstractRadioUnit radio;
+	private final AbstractRadioUnit radio;
 	private final String name = "ACTIVATED";
 
 	/**
-	 * @param radio
+	 * @param radio The radio that will be assigned to this ActivatedState
 	 */
 	public ActivatedState(AbstractRadioUnit radio) {
 		this.radio = radio;
@@ -29,7 +29,7 @@ public class ActivatedState implements RadioUnitState {
 
 	@Override
 	public void activate() throws IllegalStateTransitionException {
-		System.out.println(String.format("Radio Unit is already in the %s state.", this.name));
+		System.out.printf("Radio Unit is already in the %s state.%n", this.name);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class ActivatedState implements RadioUnitState {
 
 	@Override
 	public void setupCarrier(Carrier carrier) throws IllegalStateTransitionException {
-		System.out.println(String.format("Setting up carrier (%s) on Radio Unit.", carrier));
+		System.out.printf("Setting up carrier (%s) on Radio Unit.%n", carrier);
 		
 		this.radio.getCommandExecutor().setupCarrier(carrier);
 	}
@@ -65,7 +65,7 @@ public class ActivatedState implements RadioUnitState {
 
 	@Override
 	public void modifyCarrier(Integer carrierId, FrequencyBand band) throws IllegalStateTransitionException {
-		System.out.println(String.format("Modifying carrier (id=%d, freq=%s) on Radio Unit.", carrierId, band));
+		System.out.printf("Modifying carrier (id=%d, freq=%s) on Radio Unit.%n", carrierId, band);
 		
 		this.radio.getCommandExecutor().modifyCarrier(carrierId, band);
 	}

@@ -363,20 +363,20 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
         switch (Objects.requireNonNull(procedure)) {
             case COMMISSION -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {
-                    case FULL -> commissioners.get(params.get(1)).commissionRadioUnit((String) params.get(0));
-                    case SETUP -> commissioners.get(params.get(1)).setupRu((String) params.get(0));
-                    case ACTIVATE -> commissioners.get(params.get(1)).activateRu((String) params.get(0));
-                    case SCALING -> commissioners.get(params.get(1)).performSignalScaling((String) params.get(0));
-                    case POST -> commissioners.get(params.get(1)).postActivation((String) params.get(0));
-                    case DIAGNOSTIC -> commissioners.get(params.get(1)).performSelfDiagnotics((String) params.get(0));
+                    case FULL -> commissioners.get((RatType) params.get(1)).commissionRadioUnit((String) params.get(0));
+                    case SETUP -> commissioners.get((RatType) params.get(1)).setupRu((String) params.get(0));
+                    case ACTIVATE -> commissioners.get((RatType) params.get(1)).activateRu((String) params.get(0));
+                    case SCALING -> commissioners.get((RatType) params.get(1)).performSignalScaling((String) params.get(0));
+                    case POST -> commissioners.get((RatType) params.get(1)).postActivation((String) params.get(0));
+                    case DIAGNOSTIC -> commissioners.get((RatType) params.get(1)).performSelfDiagnotics((String) params.get(0));
                 }
             }
             case DECOMMISSION -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {
-                    case FULL -> decommissioners.get(params.get(1)).decommissionRadioUnit((String) params.get(0));
-                    case RELEASE -> decommissioners.get(params.get(1)).releaseRu((String) params.get(0));
-                    case DEACTIVATE -> decommissioners.get(params.get(1)).deactivateRu((String) params.get(0));
-                    case CARRIER -> decommissioners.get(params.get(1)).removeAllCarriersOnRu((String) params.get(0));
+                    case FULL -> decommissioners.get((RatType) params.get(1)).decommissionRadioUnit((String) params.get(0));
+                    case RELEASE -> decommissioners.get((RatType) params.get(1)).releaseRu((String) params.get(0));
+                    case DEACTIVATE -> decommissioners.get((RatType) params.get(1)).deactivateRu((String) params.get(0));
+                    case CARRIER -> decommissioners.get((RatType) params.get(1)).removeAllCarriersOnRu((String) params.get(0));
                 }
             }
             case GET -> currRatType = (RatType) evt.getNewValue();

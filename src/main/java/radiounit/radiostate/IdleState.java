@@ -11,7 +11,7 @@ import radiounit.RadioUnitState;
  */
 public class IdleState implements RadioUnitState {
 	
-	private AbstractRadioUnit radio;
+	private final AbstractRadioUnit radio;
 	private final String name = "IDLE";
 	
 	public IdleState(AbstractRadioUnit radio)
@@ -43,7 +43,7 @@ public class IdleState implements RadioUnitState {
 
 	@Override
 	public void release() throws IllegalStateTransitionException {
-		System.out.println(String.format("Radio Unit is already in the %s state.", this.name));
+		System.out.printf("Radio Unit is already in the %s state.%n", this.name);
 	}
 
 	@Override
