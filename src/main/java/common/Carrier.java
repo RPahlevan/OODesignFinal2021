@@ -47,9 +47,9 @@ public abstract class Carrier {
     /**
      * Returns the carrier frequency band to the builder class.
      *
-     * @return The carrier frequency, as a CarrierFrequencies object.
+     * @return The carrier frequency, as a FrequencyBand object.
      */
-    public FrequencyBand getCarrierFrequencies() {
+    public FrequencyBand getFrequencyBand() {
         return frequencyBand;
     }
 
