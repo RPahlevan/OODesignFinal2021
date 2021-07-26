@@ -83,7 +83,7 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 	public List<ManagedRadioUnit> getByBand(FrequencyBand band) {
 		List<ManagedRadioUnit> radioUnitsFilteredByBand = new ArrayList<>();
 		radioUnits.forEach(ru -> ru.getCarriers().forEach(carrier -> {
-			if (carrier.getCarrierFrequencies() == band) {
+			if (carrier.getFrequencyBand() == band) {
 				radioUnitsFilteredByBand.add(ru);
 			}
 		}));
