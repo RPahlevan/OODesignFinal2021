@@ -19,7 +19,7 @@ public class EricssonLteCommandExecutor implements RadioCommandExecutor {
 	 * 
 	 * Since the receiver provides it's own protection mechanisms for critical resources, we don't need to provide any here.
 	 */
-	private EricssonLteRadioUnitReceiver receiver;
+	private final EricssonLteRadioUnitReceiver receiver;
 	
 	public EricssonLteCommandExecutor()
 	{

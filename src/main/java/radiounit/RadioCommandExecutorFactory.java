@@ -7,6 +7,6 @@ package radiounit;
  */
 public interface RadioCommandExecutorFactory {
 
-	public RadioCommandExecutor createRadioCommandExecutor();
+	RadioCommandExecutor createRadioCommandExecutor();
 	
 }

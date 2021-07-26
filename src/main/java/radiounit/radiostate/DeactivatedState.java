@@ -12,11 +12,11 @@ import radiounit.RadioUnitState;
  */
 public class DeactivatedState implements RadioUnitState {
 	
-	private AbstractRadioUnit radio;
+	private final AbstractRadioUnit radio;
 	private final RadioUnitStateE name = RadioUnitStateE.DEACTIVATED;
 
 	/**
-	 * @param radio
+	 * @param radio The radio that will be assigned to this DeactivatedState
 	 */
 	public DeactivatedState(AbstractRadioUnit radio) {
 		this.radio = radio;
@@ -40,7 +40,7 @@ public class DeactivatedState implements RadioUnitState {
 
 	@Override
 	public void deactivate() throws IllegalStateTransitionException {
-		System.out.println(String.format("Radio is already in the %s stated.", this.name));
+		System.out.printf("Radio is already in the %s stated.%n", this.name);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class DeactivatedState implements RadioUnitState {
 
 	@Override
 	public void removeCarrier(Integer carrierId) throws IllegalStateTransitionException {
-		System.out.println(String.format("Removing carrier (id=%d)", carrierId));
+		System.out.printf("Removing carrier (id=%d)%n", carrierId);
 		
 		this.radio.getCommandExecutor().removeCarrier(carrierId);
 	}

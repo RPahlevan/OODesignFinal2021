@@ -3,6 +3,7 @@ package carriermanagementsystem;
 import common.Carrier;
 import common.FrequencyBand;
 import common.RfPort;
+import common.RatType;
 
 import java.util.List;
 
@@ -12,10 +13,11 @@ import java.util.List;
  * method which helps the builder class to build its object by using them.
  */
 public class LteCarrier extends Carrier {
-
+    
     public LteCarrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand frequencyBand,
                       Double transmittingPower) {
         super(carrierId, rfPorts, frequencyBand, transmittingPower);
+        ratType = RatType.LTE;
     }
 
     /**

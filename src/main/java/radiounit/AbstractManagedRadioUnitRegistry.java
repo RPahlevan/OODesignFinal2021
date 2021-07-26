@@ -2,7 +2,6 @@ package radiounit;
 
 import java.util.List;
 import common.AlarmStatusLevel;
-import common.Carrier;
 import common.FrequencyBand;
 import common.RatType;
 import common.Vendor;

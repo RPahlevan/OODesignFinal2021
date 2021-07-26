@@ -2,6 +2,7 @@ package radiounit;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import common.Carrier;
 import common.FrequencyBand;
@@ -28,7 +29,7 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 	
 	public EricssonLteRadioUnitReceiver()
 	{
-		this.carriers = new ArrayList<Carrier>();
+		this.carriers = new ArrayList<>();
 	}
 
 	public void setupEricssonLte() {
@@ -97,7 +98,7 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 		
 		removeCarrierInternal(idx);
 		
-		existingCarrier.setFrequencyBand(frequencyBand);
+		Objects.requireNonNull(existingCarrier).setFrequencyBand(frequencyBand);
 		
 		addCarrierInternal(existingCarrier);
 	}
@@ -172,7 +173,7 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	/**
 	 * Private, internal method with exclusive "getter" access to the carriers list.
-	 * @param idx Index of the carrier to be retrieved
+	 *
 	 * @return Carrier at the specified index
 	 */
 	private synchronized List<Carrier> getAllCarriersInternal()

@@ -14,7 +14,7 @@ public enum AlarmStatusLevel {
 	MAJOR_ACKNOWLEDGED("MAJOR ACKNOWLEDGED"),
 	MINOR_ACKNOWLEDGED("MINOR ACKNOWLEDGED");
 	
-	private String alarmLabel;
+	private final String alarmLabel;
 	
 	AlarmStatusLevel(String label)
 	{

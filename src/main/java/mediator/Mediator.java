@@ -84,9 +84,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      */
     private synchronized void createRu(String name, Vendor vendor, RatType ratType) {
         Random r = new Random();
-        StringBuffer ip = new StringBuffer();
-        ip.append(r.nextInt(256)).append(".").append(r.nextInt(256)).append(".").append(r.nextInt(256)).append(".").append(r.nextInt(256));
-        radioUnitRegistry.addRadioUnit(ip.toString(), name, vendor, ratType);
+        radioUnitRegistry.addRadioUnit(r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256), name, vendor, ratType);
     }
 
     /**
