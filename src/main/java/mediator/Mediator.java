@@ -4,6 +4,8 @@ import carriermanagementsystem.CarrierManagementSystemDirector;
 import common.*;
 import radiounit.ManagedRadioUnit;
 import radiounit.RadioUnitState;
+import radiounit.AbstractManagedRadioUnitRegistry;
+import radiounit.ManagedRadioUnitRegistry;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -63,7 +65,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      * Prints a formatted list of RUs currently registered with the mediator.
      */
     private void printRegisteredRadioUnits() {
-        List<ManagedRadioUnit> radioUnits = ManagedRadioUnit.getAllRadios();
+        List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getAllRadios();
         radioUnits.forEach(System.out::println);
         if (radioUnits.size() == 0) {
             System.out.println("[ERROR] No RUs have been registered with the system.");
@@ -191,7 +193,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      */
     private void printNetworkAlarms() {
         Set<AlarmStatusLevel> alarms = new HashSet<>();
-        List<ManagedRadioUnit> radioUnits = ManagedRadioUnit.getAllRadios();
+        List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getAllRadios();
         radioUnits.forEach(ru -> alarms.add(ru.getAlarmStatus()));
         alarms.forEach(System.out::println);
     }
