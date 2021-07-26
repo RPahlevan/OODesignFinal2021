@@ -26,9 +26,29 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		this.ratType = ratType;
 		this.alarmStatus = AlarmStatusLevel.NO_ALARM;
 		this.state = new IdleState(this);
-		// TODO: instantiate a RadioCommandExecutor
-		// TODO: get RadioCommandExecutorFactory instance here.
+		this.postActivationComplete = false;
+		this.signalScalingComplete = false;
 
+		switch (this.vendor) {
+		case ERICSSON:
+			switch (this.ratType) {
+			case LTE:
+				cmdExecutor = EricssonLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			case WCDMA:
+//				cmdExecutor = EricssonWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			}
+		case NOKIA:
+			switch (this.ratType) {
+			case LTE:
+//				cmdExecutor = NokiaLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			case WCDMA:
+//				cmdExecutor = NokiaWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				break;
+			}
+		}
 	}
 
 	/**
@@ -69,6 +89,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	@Override
 	public void signalScaling() {
 		cmdExecutor.signalScaling();
+		signalScalingComplete = true;
 	}
 
 	/**
@@ -121,8 +142,8 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public void postActivation() {
-		// TODO Auto-generated method stub
 		System.out.println("Doing post activation");
+		postActivationComplete = true;
 	}
 
 	@Override
@@ -133,8 +154,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public void raiseAlarm(AlarmStatusLevel alarm) {
-		// TODO Auto-generated method stub
-		System.out.println("Raise alarm");
+		alarmStatus = alarm;
 	}
 
 	@Override
@@ -188,4 +208,9 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		return cmdExecutor;
 	}
 
+	@Override
+	public String toString() {
+		return "Radio Unit Name: " + name + "\n" + "IP Address: " + ipAddress + "\n" + "Vendor and RAT type: " + vendor
+				+ " " + ratType;
+	}
 }
