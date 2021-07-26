@@ -6,6 +6,7 @@ import common.Carrier;
 import common.FrequencyBand;
 import common.RatType;
 import common.Vendor;
+import common.RadioUnitStateE;
 
 /**
  * Abstract class for ManagedRadioUnitRegistry
@@ -29,7 +30,7 @@ public abstract class AbstractManagedRadioUnitRegistry {
 
 	public abstract List<ManagedRadioUnit> getByAlarmStatus(AlarmStatusLevel alarmStatus);
 
-	public abstract List<ManagedRadioUnit> getByState(RadioUnitState state);
+	public abstract List<ManagedRadioUnit> getByState(RadioUnitStateE state);
 
 	public abstract List<ManagedRadioUnit> getByBand(FrequencyBand band);
 

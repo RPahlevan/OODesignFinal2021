@@ -2,6 +2,7 @@ package radiounit.radiostate;
 
 import common.Carrier;
 import common.FrequencyBand;
+import common.RadioUnitStateE;
 import radiounit.AbstractRadioUnit;
 import radiounit.RadioUnitState;
 
@@ -12,7 +13,7 @@ import radiounit.RadioUnitState;
 public class DeactivatedState implements RadioUnitState {
 	
 	private AbstractRadioUnit radio;
-	private final String name = "DEACTIVATED";
+	private final RadioUnitStateE name = RadioUnitStateE.DEACTIVATED;
 
 	/**
 	 * @param radio
@@ -91,9 +92,14 @@ public class DeactivatedState implements RadioUnitState {
 	}
 	
 	@Override
+	public RadioUnitStateE getRuStateE() {
+		return name;
+	}
+	
+	@Override
 	public String toString()
 	{
-		return String.format("%s state", this.name);
+		return String.format("%s state", this.name.getRuState());
 	}
 
 }

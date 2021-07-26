@@ -168,7 +168,7 @@ public class NetworkManagementClient {
                     }
                     case "18" -> {
                         //18.List RUs by state
-                        String state = chooseRuState(input);
+                    	RadioUnitStateE state = chooseRuState(input);
                         networkManagementSys.listRuByParam(state);
                     }
                     case "19" -> {
@@ -297,25 +297,23 @@ public class NetworkManagementClient {
      * Returns the Carrier ID user entered
      *
      * @param input Scanner instance to get user input.
-     * @return Radio Unit State, as an String.
+     * @return Radio Unit State Enum.
      */
-    private static String chooseRuState(Scanner input) {
-        //Todo: suggest to create RU state enum
-        String option;
-        String state = null;
-        System.out.println("Please choose Radio Unit State:\n"
-                + "1. Activated\n"
-                + "2. Deactivated\n"
-                + "3. Idle\n");
-        do {
-            option = input.next();
-            switch (option) {
-                case ("1") -> state = "ACTIVATED";
-                case ("2") -> state = "DEACTIVATED";
-                case ("3") -> state = "IDLE";
-                default -> System.out.println("Unsupported option, please try again!");
-            }
+    private static RadioUnitStateE chooseRuState(Scanner input) {
+        RadioUnitStateE state = null;
+        int i = 0;
+        System.out.println("Please choose Radio Unit State:");
+        for (RadioUnitStateE ruState : RadioUnitStateE.values()) {
+        	System.out.println("	" + ++i + ".	" + ruState.getRuState());
+        }
 
+        do {
+            String subOption = input.next();
+            try {
+                state = RadioUnitStateE.values()[Integer.parseInt(subOption) - 1];
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
+                System.out.println("Invalid input, please try again.");
+            }
         } while (state == null);
 
         return state;

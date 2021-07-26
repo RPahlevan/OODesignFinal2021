@@ -2,6 +2,7 @@ package radiounit;
 
 import common.Carrier;
 import common.FrequencyBand;
+import common.RadioUnitStateE;
 import radiounit.radiostate.IllegalStateTransitionException;
 
 /**
@@ -29,6 +30,8 @@ public interface RadioUnitState {
 	public void selfDiagnostics() throws IllegalStateTransitionException;
 	
 	public void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException;
+	
+	public RadioUnitStateE getRuStateE();
 	
 	@Override
 	public String toString();
