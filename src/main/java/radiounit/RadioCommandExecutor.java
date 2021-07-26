@@ -12,26 +12,26 @@ import java.util.List;
  */
 public interface RadioCommandExecutor {
 
-	public void setup();
+	void setup();
 
-	public void activate();
+	void activate();
 
-	public void deactivate();
+	void deactivate();
 
-	public void release();
+	void release();
 
-	public void setupCarrier(Carrier carrier);
+	void setupCarrier(Carrier carrier);
 
-	public void signalScaling();
+	void signalScaling();
 
-	public void modifyCarrier(Integer carrierId, FrequencyBand frequencyBand);
+	void modifyCarrier(Integer carrierId, FrequencyBand frequencyBand);
 
-	public void removeCarrier(Integer carrierId);
+	void removeCarrier(Integer carrierId);
 
-	public void selfDiagnostics();
+	void selfDiagnostics();
 
-	public void removeAllCarriers();
+	void removeAllCarriers();
 
-	public List<Carrier> getCarriers();
+	List<Carrier> getCarriers();
 
 }

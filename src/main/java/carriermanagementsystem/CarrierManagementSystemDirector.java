@@ -22,8 +22,8 @@ public class CarrierManagementSystemDirector implements CarrierManagementIf {
     private static volatile CarrierManagementSystemDirector UNIQUE_INSTANCE = new CarrierManagementSystemDirector();
     private final int LTE_MAXIMUM_CARRIER_ID = 500; 
     private final int WCDMA_MAXIMUM_CARRIER_ID = 500;
-    private Stack<Integer> lteCarrierIdGenerator = new Stack<>();
-    private Stack<Integer> wcdmaCarrierIdGenerator = new Stack<>();
+    private final Stack<Integer> lteCarrierIdGenerator = new Stack<>();
+    private final Stack<Integer> wcdmaCarrierIdGenerator = new Stack<>();
 
 	// For the future usage.
 	// This list will save all carrier object and carrierID so the object can be

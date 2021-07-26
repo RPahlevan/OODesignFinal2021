@@ -14,7 +14,7 @@ import common.FrequencyBand;
  */
 public class NokiaWcdmaCommandExecutor implements RadioCommandExecutor {
 
-	private NokiaWcdmaRadioUnitReceiver receiver;
+	private final NokiaWcdmaRadioUnitReceiver receiver;
 
 	public NokiaWcdmaCommandExecutor() {
 		receiver = (NokiaWcdmaRadioUnitReceiver) NokiaWcdmaRadioUnitReceiverFactory.getInstance().createRadioUnitReceiver();

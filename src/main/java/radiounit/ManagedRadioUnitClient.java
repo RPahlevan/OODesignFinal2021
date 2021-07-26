@@ -1,9 +1,5 @@
-/**
- * 
- */
 package radiounit;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,7 +14,7 @@ import carriermanagementsystem.*;
 public class ManagedRadioUnitClient {
 
 	/**
-	 * @param args
+	 * @param args The command-line arguments passed during initialization
 	 */
 	public static void main(String[] args) {
 

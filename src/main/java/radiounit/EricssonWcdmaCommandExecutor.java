@@ -14,7 +14,7 @@ import common.FrequencyBand;
  */
 public class EricssonWcdmaCommandExecutor implements RadioCommandExecutor {
 
-	private EricssonWcdmaRadioUnitReceiver receiver;
+	private final EricssonWcdmaRadioUnitReceiver receiver;
 
 	public EricssonWcdmaCommandExecutor() {
 		receiver = (EricssonWcdmaRadioUnitReceiver) EricssonWcdmaRadioUnitReceiverFactory.getInstance().createRadioUnitReceiver();

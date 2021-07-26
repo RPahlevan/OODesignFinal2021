@@ -14,7 +14,7 @@ import common.FrequencyBand;
  */
 public class NokiaLteCommandExecutor implements RadioCommandExecutor {
 
-	private NokiaLteRadioUnitReceiver receiver;
+	private final NokiaLteRadioUnitReceiver receiver;
 
 	public NokiaLteCommandExecutor() {
 		receiver = (NokiaLteRadioUnitReceiver) NokiaLteRadioUnitReceiverFactory.getInstance().createRadioUnitReceiver();

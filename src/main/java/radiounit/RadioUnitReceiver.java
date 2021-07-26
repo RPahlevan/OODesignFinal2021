@@ -1,6 +1,3 @@
-/**
- * 
- */
 package radiounit;
 
 import common.Carrier;
@@ -14,6 +11,6 @@ import java.util.List;
  */
 public interface RadioUnitReceiver {
 
-	public List<Carrier> getCarriers();
+	List<Carrier> getCarriers();
 
 }
