@@ -5,8 +5,9 @@ package common;
  *
  */
 public enum RatType {
-	LTE("LTE"),
-	WCDMA("WCDMA");
+	
+    LTE("Long-Term Evolution"),
+	WCDMA("Wideband Code Division Multiple Access");
 	
 	private final String label;
 	
@@ -17,7 +18,7 @@ public enum RatType {
 	
 	public String getLabel()
 	{
-		return label;
-	}
+        return label;
+    }
 
 }

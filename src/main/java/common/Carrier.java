@@ -10,9 +10,10 @@ import java.util.Objects;
  */
 public abstract class Carrier {
     protected final Integer carrierId;
-    protected final List<RfPort> rfPorts;
+    protected List<RfPort> rfPorts;
     protected FrequencyBand frequencyBand;
     protected final Double transmittingPower;
+    protected RatType ratType;
 
     public Carrier(Integer carrierId, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower) {
         this.carrierId = carrierId;
@@ -20,9 +21,9 @@ public abstract class Carrier {
 
         if (rfPorts == null || rfPorts.isEmpty()) {
             System.out.println("[ERROR] Attempted to create a carrier without RF ports.");
+        } else {
+            this.rfPorts = new ArrayList<>(Objects.requireNonNull(rfPorts));
         }
-
-        this.rfPorts = new ArrayList<>(Objects.requireNonNull(rfPorts));
         this.transmittingPower = transmittingPower;
     }
 
@@ -62,6 +63,15 @@ public abstract class Carrier {
         return transmittingPower;
     }
 
+    /**
+     * Returns the RAT type.
+     *
+     * @return The RAT type, as a RatType enum.
+     */
+    public RatType getRatType() {
+        return ratType;
+    }
+    
     /**
      * Sets the frequency band for this carrier.
      *
