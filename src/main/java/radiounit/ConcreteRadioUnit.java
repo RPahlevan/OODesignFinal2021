@@ -36,16 +36,16 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 				cmdExecutor = EricssonLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
 				break;
 			case WCDMA:
-//				cmdExecutor = EricssonWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				cmdExecutor = EricssonWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
 				break;
 			}
 		case NOKIA:
 			switch (this.ratType) {
 			case LTE:
-//				cmdExecutor = NokiaLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				cmdExecutor = NokiaLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
 				break;
 			case WCDMA:
-//				cmdExecutor = NokiaWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				cmdExecutor = NokiaWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
 				break;
 			}
 		}
