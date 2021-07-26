@@ -1,8 +1,10 @@
 package radiounit;
 
+
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import common.Carrier;
 import common.FrequencyBand;
@@ -16,7 +18,6 @@ import common.LteFrequencyBand;
  */
 public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 
-	private static final int CARRIER_NOT_FOUND_IDX = -1;
 	/*
 	 * This is the critical resource of a radio.
 	 * 
@@ -25,11 +26,11 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 	 * 
 	 * The three "-Internal" methods below are all synchronized and have exclusive access to this resource. 
 	 */
-	private volatile List<Carrier> carriers;
+	private volatile ConcurrentHashMap<Integer, Carrier> carriers;
 	
 	public EricssonLteRadioUnitReceiver()
 	{
-		this.carriers = new ArrayList<>();
+		this.carriers = new ConcurrentHashMap<>();
 	}
 
 	public void setupEricssonLte() {
@@ -70,13 +71,15 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 			return;
 		}
 		
-		if (getCarrierById(carrier.getCarrierId()) != null)
+		int carrierId = carrier.getCarrierId();
+		
+		if (this.carriers.containsKey(carrierId))
 		{
-			System.err.println("Carrier with id " + carrier.getCarrierId() + " already exists!");
+			System.err.println("Carrier with id " + carrierId + " already exists!");
 			return;
 		}
 		
-		addCarrierInternal(carrier);
+		this.carriers.put(carrierId, carrier);
 	}
 
 	public void signalScalingEricssonLte() {
@@ -85,36 +88,30 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	public void modifyCarrierEricssonLte(Integer carrierId, FrequencyBand frequencyBand) {
 		System.out.println("[EricssonLteRadioUnitReceiver] modifyCarrierEricssonLte: " + carrierId + ", " + frequencyBand.getBand());
-		
-		int idx = getCarrierIdxById(carrierId);
-		
-		if (idx == CARRIER_NOT_FOUND_IDX)
+
+		if (!this.carriers.containsKey(carrierId))
 		{
 			System.err.println("Carrier with id " + carrierId + " does not exist!");
 			return;
 		}
 		
-		Carrier existingCarrier = getCarrierById(carrierId);
-		
-		removeCarrierInternal(idx);
+		Carrier existingCarrier = this.carriers.get(carrierId);
 		
 		Objects.requireNonNull(existingCarrier).setFrequencyBand(frequencyBand);
 		
-		addCarrierInternal(existingCarrier);
+		this.carriers.replace(carrierId, existingCarrier);
 	}
 
 	public void removeCarrierEricssonLte(Integer carrierId) {
 		System.out.println("[EricssonLteRadioUnitReceiver] removeCarrierEricssonLte: " + carrierId);
 		
-		int idx = getCarrierIdxById(carrierId);
-		
-		if (idx == CARRIER_NOT_FOUND_IDX)
+		if (!this.carriers.containsKey(carrierId))
 		{
 			System.err.println("Carrier with id " + carrierId + " does not exist!");
 			return;
 		}
 		
-		removeCarrierInternal(idx);
+		this.carriers.remove(carrierId);
 	}
 
 	public void selfDiagnosticsEricssonLte() {
@@ -124,86 +121,20 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 	public void removeAllCarriersEricssonLte() {
 		System.out.println("[EricssonLteRadioUnitReceiver] removeAllCarriersEricssonLte");
 		
-		for (int i = 0; i < getAllCarriersInternal().size(); ++i)
-		{
-			removeCarrierInternal(i);
-		}
+		this.carriers.clear();
 	}
 
 	public List<Carrier> getCarriers() {
 		System.out.println("[EricssonLteRadioUnitReceiver] getCarriers");
 		
-		List<Carrier> carrierList = getAllCarriersInternal();
+		List<Carrier> allCarriers = new ArrayList<Carrier>(this.carriers.values());
 		
-		for (Carrier c : carrierList)
+		for (Carrier c : allCarriers)
 		{
 			System.out.println("Carrier: " + c);
 		}
 		
-		return carrierList;
-	}
-	
-	private Carrier getCarrierById(int id)
-	{
-		int idx = getCarrierIdxById(id);
-		
-		if (idx == CARRIER_NOT_FOUND_IDX)
-		{
-			return null;
-		}
-		
-		return getAllCarriersInternal().get(idx);
-	}
-	
-	private int getCarrierIdxById(int id)
-	{
-		for (int i = 0; i < getAllCarriersInternal().size(); ++i)
-		{
-			Carrier c = getAllCarriersInternal().get(i);
-			
-			if (c.getCarrierId() == id)
-			{
-				return i;
-			}
-		}
-		
-		return CARRIER_NOT_FOUND_IDX;
-	}
-	
-
-	/**
-	 * Private, internal method with exclusive "getter" access to the carriers list.
-	 *
-	 * @return Carrier at the specified index
-	 */
-	private synchronized List<Carrier> getAllCarriersInternal()
-	{
-		return this.carriers;
-	}
-	
-	/**
-	 * Private, internal method with exclusive "setter" access to the carriers list.
-	 * @param carrier Carrier to add to the list
-	 */
-	private synchronized void addCarrierInternal(Carrier carrier)
-	{
-		this.carriers.add(carrier);
-	}
-	
-	/**
-	 * Private, internal method with exclusive removal access to the carriers list.
-	 * @param idx Index of the carrier to be removed
-	 */
-	private synchronized void removeCarrierInternal(int idx)
-	{
-		if (idx >= 0 && idx < this.carriers.size())
-		{
-			this.carriers.remove(idx);
-		}
-		else
-		{
-			System.err.println("EricssonLteRadioUnitReceiver[] Invalid index - cannot remove carrier");
-		}
+		return allCarriers;
 	}
 
 }
