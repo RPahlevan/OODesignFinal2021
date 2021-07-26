@@ -20,7 +20,7 @@ public interface RadioCommandExecutor {
 
 	public void release();
 
-	public void setupCarrier(Carrier carrrier);
+	public void setupCarrier(Carrier carrier);
 
 	public void signalScaling();
 
@@ -30,7 +30,7 @@ public interface RadioCommandExecutor {
 
 	public void selfDiagnostics();
 
-	public void removeAllCharacters();
+	public void removeAllCarriers();
 
 	public List<Carrier> getCarriers();
 
