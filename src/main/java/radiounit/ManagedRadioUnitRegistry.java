@@ -8,6 +8,7 @@ import common.AlarmStatusLevel;
 import common.FrequencyBand;
 import common.RatType;
 import common.Vendor;
+import common.RadioUnitStateE;
 
 /**
  * Radio Unit Registry to keep track of all Radio Units
@@ -69,9 +70,9 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 	}
 
 	@Override
-	public List<ManagedRadioUnit> getByState(RadioUnitState state) {
+	public List<ManagedRadioUnit> getByState(RadioUnitStateE state) {
 		return radioUnits.stream()
-				.filter(ru -> ru.getCurrentState().equals(state)).collect(Collectors.toList());
+				.filter(ru -> ru.getCurrentState().getRuStateE().equals(state)).collect(Collectors.toList());
 	}
 
 	@Override

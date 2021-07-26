@@ -2,6 +2,7 @@ package radiounit.radiostate;
 
 import common.Carrier;
 import common.FrequencyBand;
+import common.RadioUnitStateE;
 import radiounit.AbstractRadioUnit;
 import radiounit.RadioUnitState;
 
@@ -12,7 +13,7 @@ import radiounit.RadioUnitState;
 public class IdleState implements RadioUnitState {
 	
 	private final AbstractRadioUnit radio;
-	private final String name = "IDLE";
+	private final RadioUnitStateE name = RadioUnitStateE.IDLE;
 	
 	public IdleState(AbstractRadioUnit radio)
 	{
@@ -82,9 +83,14 @@ public class IdleState implements RadioUnitState {
 	}
 	
 	@Override
+	public RadioUnitStateE getRuStateE() {
+		return name;
+	}
+	
+	@Override
 	public String toString()
 	{
-		return String.format("%s state", this.name);
+		return String.format("%s state", this.name.getRuState());
 	}
 
 }

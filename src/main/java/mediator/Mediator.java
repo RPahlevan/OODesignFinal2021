@@ -163,8 +163,8 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
         if (param instanceof RatType) {
             List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByRatType((RatType) param);
             radioUnits.forEach(System.out::println);
-        } else if (param instanceof RadioUnitState) {
-            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByState((RadioUnitState) param);
+        } else if (param instanceof RadioUnitStateE) {
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByState((RadioUnitStateE) param);
             radioUnits.forEach(System.out::println);
         } else if (param instanceof FrequencyBand) {
             List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByBand((FrequencyBand) param);
