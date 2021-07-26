@@ -96,7 +96,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 	public void removeCarrierNokiaWcdma(Integer carrierId) {
 		System.out.println("[NokiaWcdmaRadioUnitReceiver] removeCarrierNokiaWcdma: " + carrierId);
 		if (carriers.get(carrierId) == null) {
-			System.err.println("EricssonWcdmaRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
+			System.err.println("NokiaWcdmaRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
 		} else {
 			carriers.remove(carrierId);
 		}
@@ -138,7 +138,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 	 */
 	private synchronized void removeCarrierInternal(int carrierId) {
 		if (carriers.get(carrierId) == null) {
-			System.err.println("EricssonWcdmaRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
+			System.err.println("NokiaWcdmaRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
 		} else {
 			carriers.remove(carrierId);
 		}

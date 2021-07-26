@@ -96,7 +96,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 	public void removeCarrierNokiaLte(Integer carrierId) {
 		System.out.println("[NokiaLteRadioUnitReceiver] removeCarrierNokiaLte: " + carrierId);
 		if (carriers.get(carrierId) == null) {
-			System.err.println("EricssonLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
+			System.err.println("NokiaLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
 		} else {
 			carriers.remove(carrierId);
 		}
@@ -138,7 +138,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 	 */
 	private synchronized void removeCarrierInternal(int carrierId) {
 		if (carriers.get(carrierId) == null) {
-			System.err.println("EricssonLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
+			System.err.println("NokiaLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
 		} else {
 			carriers.remove(carrierId);
 		}
