@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
 
 /**
  * @author enuyhza
- *
  */
 public class NetworkManagementClient {
     private static NetworkManagementSystemIf networkManagementSys;
@@ -266,10 +265,10 @@ public class NetworkManagementClient {
      * The option also exists to create a stand-alone carrier that will
      * not be added to an RU on creation.
      *
-     * @param ip The name of the radio unit to create carrier on.
-     *               Pass as null to create carrier that isn't associated
-     *               with an RU.
-     * @param input  Scanner instance to get user input.
+     * @param ip    The name of the radio unit to create carrier on.
+     *              Pass as null to create carrier that isn't associated
+     *              with an RU.
+     * @param input Scanner instance to get user input.
      */
 
     private static void createCarrierOnRu(String ip, Scanner input) {
@@ -297,7 +296,7 @@ public class NetworkManagementClient {
      * Helper method to get the Carrier ID from user
      * Returns the Carrier ID user entered
      *
-     * @param input   Scanner instance to get user input.
+     * @param input Scanner instance to get user input.
      * @return Radio Unit State, as an String.
      */
     private static String chooseRuState(Scanner input) {
@@ -326,7 +325,7 @@ public class NetworkManagementClient {
      * Helper method to get the Carrier ID from user
      * Returns the Carrier ID user entered
      *
-     * @param input   Scanner instance to get user input.
+     * @param input Scanner instance to get user input.
      * @return Carrier ID, as an int.
      */
     private static int getCarrierId(Scanner input) {
@@ -350,7 +349,7 @@ public class NetworkManagementClient {
      * Helper method to get the IP address of the radio unit from user
      * Returns the IP address user entered
      *
-     * @param input   Scanner instance to get user input.
+     * @param input Scanner instance to get user input.
      * @return IP address, as a String.
      */
     private static String getIpAddress(Scanner input) {

@@ -92,8 +92,8 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
      * This radio unit is not initially activated. Normally upon creation,
      * RUs should be commissioned via the commissionRu method.
      *
-     * @param name The name the radio unit can be identified by.
-     * @param vendor The vendor of the radio unit.
+     * @param name    The name the radio unit can be identified by.
+     * @param vendor  The vendor of the radio unit.
      * @param ratType The RAT type of the radio unit.
      */
     @Override
@@ -159,9 +159,9 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
     /**
      * Handle the request to setup a carrier on an existing radio unit.
      *
-     * @param ip The IP address of the radio unit that will have a carrier added to it.
-     * @param rfPorts The RF ports for the carrier that is being created.
-     * @param freq The frequency band for the carrier that is being created.
+     * @param ip                The IP address of the radio unit that will have a carrier added to it.
+     * @param rfPorts           The RF ports for the carrier that is being created.
+     * @param freq              The frequency band for the carrier that is being created.
      * @param transmittingPower The transmitting power for the carrier that is being created.
      */
     @Override
@@ -173,8 +173,8 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
     /**
      * Handle the request to modify a carrier on an existing radio unit.
      *
-     * @param ip The IP address of the radio unit that will have its carrier modified.
-     * @param id The ID number of the carrier that is being modified on that radio unit.
+     * @param ip            The IP address of the radio unit that will have its carrier modified.
+     * @param id            The ID number of the carrier that is being modified on that radio unit.
      * @param frequencyBand The frequency band that will be updated on the carrier.
      */
     @Override
@@ -271,7 +271,7 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
     /**
      * Handle the request to set an alarm on a radio unit.
      *
-     * @param ip The IP address of the radio unit that will have an alarm raised.
+     * @param ip    The IP address of the radio unit that will have an alarm raised.
      * @param alarm The alarm that will be raised on the radio unit.
      */
     @Override
@@ -358,7 +358,8 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
         // Only COMMISSION and DECOMMISSION need this list, while GET does not (hence the try/catch)
         try {
             params = ((ArrayList<Object>) evt.getOldValue());
-        } catch (ClassCastException ignored) {}
+        } catch (ClassCastException ignored) {
+        }
         switch (Objects.requireNonNull(procedure)) {
             case COMMISSION -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {

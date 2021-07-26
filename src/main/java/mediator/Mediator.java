@@ -2,7 +2,6 @@ package mediator;
 
 import carriermanagementsystem.CarrierManagementSystemDirector;
 import common.*;
-import radiounit.DemoOneRadioUnit;
 import radiounit.ManagedRadioUnit;
 import radiounit.RadioUnitState;
 
@@ -157,31 +156,31 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     /**
      * List any registered radio units that contain the parameter being passed.
      *
-     * @param obj The parameter that will be used to query for radio units. Examples
-     *            include a RatType, a RadioUnitState, a FrequencyBand, or a String name.
+     * @param param The parameter that will be used to query for radio units. Examples
+     *              include a RatType, a RadioUnitState, a FrequencyBand, or a String name.
      */
-    private void listRuByParam(Object obj) {
-        if (obj instanceof RatType) {
-            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByRatType((RatType) obj);
+    private void listRuByParam(Object param) {
+        if (param instanceof RatType) {
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByRatType((RatType) param);
             radioUnits.forEach(System.out::println);
-        } else if (obj instanceof RadioUnitState) {
-            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByState((RadioUnitState) obj);
+        } else if (param instanceof RadioUnitState) {
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByState((RadioUnitState) param);
             radioUnits.forEach(System.out::println);
-        } else if (obj instanceof FrequencyBand) {
-            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByBand((FrequencyBand) obj);
+        } else if (param instanceof FrequencyBand) {
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByBand((FrequencyBand) param);
             radioUnits.forEach(System.out::println);
-        } else if (obj instanceof String) {
-            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByName((String) obj);
+        } else if (param instanceof String) {
+            List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByName((String) param);
             radioUnits.forEach(System.out::println);
         }
     }
 
     /**
-     * Notify listeners of the RAT Type for a specific
+     * Notify listeners of the RAT Type for a specific radio unit.
      *
      * @param evt The event that contains the necessary information to return alongside the RAT Type.
      */
-    private void getRatType(PropertyChangeEvent evt) {
+    private void messageRatType(PropertyChangeEvent evt) {
         List<Object> params = ((ArrayList<Object>) evt.getNewValue());
         List<Object> newParams = new ArrayList<>(Arrays.asList(params.get(0), Objects.requireNonNull(getRadioUnit((String) params.get(0))).getRatType()));
         support.firePropertyChange(evt.getPropertyName(), newParams, params.get(1));
@@ -215,7 +214,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
         switch (Objects.requireNonNull(procedure)) {
             case COMMISSION -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {
-                    case RAT_TYPE -> getRatType(evt);
+                    case RAT_TYPE -> messageRatType(evt);
                     case SETUP -> Objects.requireNonNull(getRadioUnit((String) evt.getNewValue())).setup();
                     case ACTIVATE -> Objects.requireNonNull(getRadioUnit((String) evt.getNewValue())).activate();
                     case SCALING -> Objects.requireNonNull(getRadioUnit((String) evt.getNewValue())).signalScaling();
@@ -225,7 +224,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
             }
             case DECOMMISSION -> {
                 switch ((ProcedureOptions) evt.getOldValue()) {
-                    case RAT_TYPE -> getRatType(evt);
+                    case RAT_TYPE -> messageRatType(evt);
                     case RELEASE -> Objects.requireNonNull(getRadioUnit((String) evt.getNewValue())).release();
                     case DEACTIVATE -> Objects.requireNonNull(getRadioUnit((String) evt.getNewValue())).deactivate();
                     case CARRIER -> Objects.requireNonNull(getRadioUnit((String) evt.getNewValue())).removeAllCarriers();
