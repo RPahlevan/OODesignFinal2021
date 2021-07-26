@@ -142,7 +142,7 @@ public class NetworkManagementClient {
                     case "12" -> {
                         //12.Remove all Carriers on Radio Unit
                         ip = getIpAddress(input);
-                        networkManagementSys.removeAllCarrierOnRu(ip);
+                        networkManagementSys.removeAllCarriersOnRu(ip);
                     }
                     case "13" -> {
                         //13.Signal scaling on Radio Unit

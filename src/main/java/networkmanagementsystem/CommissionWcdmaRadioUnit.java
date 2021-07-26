@@ -14,7 +14,7 @@ public class CommissionWcdmaRadioUnit extends CommissionRadioUnit {
      * @return False as this class is not for LTE radio units
      */
     @Override
-    boolean isLTE() {
+    boolean isLte() {
         return false;
     }
 }

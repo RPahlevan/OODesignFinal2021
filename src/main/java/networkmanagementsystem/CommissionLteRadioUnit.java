@@ -14,7 +14,7 @@ public class CommissionLteRadioUnit extends CommissionRadioUnit {
      * @return True as this class is for LTE radio units
      */
     @Override
-    boolean isLTE() {
+    boolean isLte() {
         return true;
     }
 }

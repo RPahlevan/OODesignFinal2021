@@ -10,6 +10,7 @@ import java.beans.PropertyChangeListener;
  *
  * @author ebreojh
  */
+@FunctionalInterface
 public interface MediatorIf {
     void addPropertyChangeListener(PropertyChangeListener pcl);
 }

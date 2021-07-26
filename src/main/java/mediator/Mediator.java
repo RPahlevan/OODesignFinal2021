@@ -114,7 +114,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      * Return a radio unit specified by a given IP address.
      *
      * @param ip The IP of the RU, as a String.
-     * @return The radio unit associated with that specific ip
+     * @return The radio unit associated with that specific ip.
      */
     private ManagedRadioUnit getRadioUnit(String ip) {
         return radioUnitRegistry.getByIpAddress(ip);
@@ -288,7 +288,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
     /**
      * Add listeners to this class.
      *
-     * @param pcl A property change listener
+     * @param pcl A property change listener.
      */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener pcl) {

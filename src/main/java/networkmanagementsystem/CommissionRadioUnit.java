@@ -69,7 +69,7 @@ public abstract class CommissionRadioUnit {
         support.firePropertyChange(Procedure.COMMISSION.getDesc(), ProcedureOptions.DIAGNOSTIC, ip);
     }
 
-    abstract boolean isLTE();
+    abstract boolean isLte();
 
     /**
      * Template for the commission procedure that radio units need to follow.
@@ -80,7 +80,7 @@ public abstract class CommissionRadioUnit {
         setupRu(ip);
         activateRu(ip);
         postActivation(ip);
-        if (isLTE()) {
+        if (isLte()) {
             performSignalScaling(ip);
         }
         performSelfDiagnotics(ip);

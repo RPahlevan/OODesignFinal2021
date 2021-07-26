@@ -234,7 +234,7 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
      * @param ip The IP address of the radio unit that will have all of its carriers removed.
      */
     @Override
-    public void removeAllCarrierOnRu(String ip) {
+    public void removeAllCarriersOnRu(String ip) {
         List<Object> params = new ArrayList<>(Arrays.asList(ip, ProcedureOptions.CARRIER));
         support.firePropertyChange(Procedure.DECOMMISSION.getDesc(), ProcedureOptions.RAT_TYPE, params);
     }
@@ -250,12 +250,12 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
     /**
      * Handle the request to list all radio units that contain a certain parameter.
      *
-     * @param obj The parameter that will be used to query for radio units. Examples
-     *            include a RatType, a RadioUnitState, a FrequencyBand, or a String name.
+     * @param param The parameter that will be used to query for radio units. Examples
+     *              include a RatType, a RadioUnitState, a FrequencyBand, or a String name.
      */
     @Override
-    public void listRuByParam(Object obj) {
-        support.firePropertyChange(Procedure.LIST.getDesc(), ProcedureOptions.PARAM, obj);
+    public void listRuByParam(Object param) {
+        support.firePropertyChange(Procedure.LIST.getDesc(), ProcedureOptions.PARAM, param);
     }
 
     /**
@@ -333,7 +333,7 @@ public class NetworkManagementSystem implements NetworkManagementSystemIf, Prope
     /**
      * Adds listeners to this class.
      *
-     * @param pcl A property change listener
+     * @param pcl A property change listener.
      */
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);

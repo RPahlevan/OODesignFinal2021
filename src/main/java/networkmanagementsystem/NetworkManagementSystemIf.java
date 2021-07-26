@@ -38,7 +38,7 @@ public interface NetworkManagementSystemIf {
 
     void removeCarrierOnRu(String ip, int id);
 
-    void removeAllCarrierOnRu(String ip);
+    void removeAllCarriersOnRu(String ip);
 
     void signalScalingOnRu(String ip);
 
@@ -48,7 +48,7 @@ public interface NetworkManagementSystemIf {
 
     void listNetworkInventory();
 
-    void listRuByParam(Object obj);
+    void listRuByParam(Object param);
 
     void listRadioUnitDetails(String ip);
 
