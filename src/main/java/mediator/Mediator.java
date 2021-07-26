@@ -107,7 +107,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      */
     private synchronized void createCarrierOnRu(String ip, List<RfPort> rfPorts, FrequencyBand carrierFrequencies,
                                                 Double transmittingPower) {
-        ManagedRadioUnit ru = radioUnitRegistry.getByIpAddress(ip);
+        ManagedRadioUnit ru = getRadioUnit(ip);
         ru.setupCarrier(createCarrier(rfPorts, carrierFrequencies, transmittingPower, ru.getRatType()));
     }
 
