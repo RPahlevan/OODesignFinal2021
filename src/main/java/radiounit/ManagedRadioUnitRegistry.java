@@ -25,7 +25,7 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 	@Override
 	public void addRadioUnit(String ipAddress, String name, Vendor vendor, RatType ratType) {
 		// check that radio hasn't already been added
-		if (getByIpAddress(ipAddress) == null) {
+		if (getByIpAddress(ipAddress) != null) {
 			System.err.println("A radio with this IP address has already been added");
 			return;
 		}
