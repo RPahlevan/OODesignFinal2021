@@ -1,9 +1,9 @@
 package radiounit;
 
+import java.util.Objects;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import common.Carrier;
 import common.FrequencyBand;
@@ -26,10 +26,10 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 	 * The three "-Internal" methods below are all synchronized and have exclusive
 	 * access to this resource.
 	 */
-	private volatile Map<Integer, Carrier> carriers;
+	private volatile ConcurrentHashMap<Integer, Carrier> carriers;
 
 	public NokiaLteRadioUnitReceiver() {
-		this.carriers = new HashMap<>();
+		this.carriers = new ConcurrentHashMap<>();
 	}
 
 	public void setupNokiaLte() {
@@ -65,13 +65,15 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 			System.err.println("Cannot add non-LTE carrier to LTE radio!");
 			return;
 		}
+		
+		int carrierId = carrier.getCarrierId();
 
-		if (carriers.get(carrier.getCarrierId()) != null) {
-			System.err.println("Carrier with ID [" + carrier.getCarrierId() + "] already exists!");
+		if (this.carriers.containsKey(carrierId)) {
+			System.err.println("Carrier with ID [" + carrierId + "] already exists!");
 			return;
 		}
 
-		addCarrierInternal(carrier);
+		this.carriers.put(carrierId, carrier);
 	}
 
 	public void signalScalingNokiaLte() {
@@ -82,24 +84,26 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 		System.out.println(
 				"[NokiaLteRadioUnitReceiver] modifyCarrierNokiaLte: " + carrierId + ", " + frequencyBand.getBand());
 
-		Carrier existingCarrier = carriers.get(carrierId);
-		if (existingCarrier == null) {
+		if (!this.carriers.containsKey(carrierId)) {
 			System.err.println("Carrier with ID [" + carrierId + "] does not exist!");
 			return;
 		}
 
-		removeCarrierInternal(carrierId);
-		existingCarrier.setFrequencyBand(frequencyBand);
-		addCarrierInternal(existingCarrier);
+		Carrier existingCarrier = this.carriers.get(carrierId);
+		
+		Objects.requireNonNull(existingCarrier).setFrequencyBand(frequencyBand);
+		
+		this.carriers.replace(carrierId, existingCarrier);
 	}
 
 	public void removeCarrierNokiaLte(Integer carrierId) {
 		System.out.println("[NokiaLteRadioUnitReceiver] removeCarrierNokiaLte: " + carrierId);
-		if (carriers.get(carrierId) == null) {
+		if (!this.carriers.containsKey(carrierId)) {
 			System.err.println("NokiaLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
-		} else {
-			carriers.remove(carrierId);
 		}
+		
+		
+		this.carriers.remove(carrierId);
 	}
 
 	public void selfDiagnosticsNokiaLte() {
@@ -108,39 +112,20 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	public void removeAllCarriersNokiaLte() {
 		System.out.println("[NokiaLteRadioUnitReceiver] removeAllCarriersNokiaLte");
-		carriers.clear();
+
+		this.carriers.clear();
 	}
 
 	public List<Carrier> getCarriers() {
-
-		List<Carrier> carrierList = new ArrayList<>(carriers.values());
-
-		for (Carrier c : carrierList) {
+		System.out.println("[NokiaLteRadioUnitReceiver] getCarriers");
+		
+		List<Carrier> allCarriers = new ArrayList<Carrier>(this.carriers.values());
+		
+		for (Carrier c : allCarriers)
+		{
 			System.out.println("Carrier: " + c);
 		}
-
-		return carrierList;
-	}
-
-	/**
-	 * Private, internal method with exclusive "setter" access to the carriers list.
-	 * 
-	 * @param carrier Carrier to add to the list
-	 */
-	private synchronized void addCarrierInternal(Carrier carrier) {
-		this.carriers.put(carrier.getCarrierId(), carrier);
-	}
-
-	/**
-	 * Private, internal method with exclusive removal access to the carriers list.
-	 * 
-	 * @param carrierId Index of the carrier to be removed
-	 */
-	private synchronized void removeCarrierInternal(int carrierId) {
-		if (carriers.get(carrierId) == null) {
-			System.err.println("NokiaLteRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
-		} else {
-			carriers.remove(carrierId);
-		}
+		
+		return allCarriers;
 	}
 }
