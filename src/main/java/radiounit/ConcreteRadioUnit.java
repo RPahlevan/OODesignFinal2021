@@ -32,13 +32,17 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		switch (this.vendor) {
 		case ERICSSON:
 			switch (this.ratType) {
-				case LTE -> cmdExecutor = EricssonLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
-				case WCDMA -> cmdExecutor = EricssonWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				case LTE:
+                    cmdExecutor = EricssonLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				case WCDMA:
+                    cmdExecutor = EricssonWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
 			}
 		case NOKIA:
 			switch (this.ratType) {
-				case LTE -> cmdExecutor = NokiaLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
-				case WCDMA -> cmdExecutor = NokiaWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				case LTE:
+                    cmdExecutor = NokiaLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+				case WCDMA:
+                    cmdExecutor = NokiaWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
 			}
 		}
 	}
@@ -140,8 +144,8 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public void acknowledgeAlarm() {
-		// TODO Auto-generated method stub
 		System.out.println("Acknowledge alarm");
+		alarmStatus = AlarmStatusLevel.NO_ALARM;
 	}
 
 	@Override

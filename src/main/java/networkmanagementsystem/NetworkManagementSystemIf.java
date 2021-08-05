@@ -5,6 +5,8 @@ import common.*;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 import java.util.List;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * The NetworkManagementSystem interface serves as the forward-facing
@@ -14,56 +16,56 @@ import java.util.List;
  *
  * @author ebreojh
  */
-public interface NetworkManagementSystemIf {
+public interface NetworkManagementSystemIf extends Remote {
 
-    void commissionRu(String ip);
+    void commissionRu(String ip) throws RemoteException;
 
-    void decommissionRu(String ip);
+    void decommissionRu(String ip) throws RemoteException;
 
-    void addRadioUnit(String name, Vendor vendor, RatType ratType);
+    void addRadioUnit(String name, Vendor vendor, RatType ratType) throws RemoteException;
 
-    void removeRadioUnit(String ip);
+    void removeRadioUnit(String ip) throws RemoteException;
 
-    void setupRu(String ip);
+    void setupRu(String ip) throws RemoteException;
 
-    void releaseRu(String ip);
+    void releaseRu(String ip) throws RemoteException;
 
-    void activateRu(String ip);
+    void activateRu(String ip) throws RemoteException;
 
-    void deactivateRu(String ip);
+    void deactivateRu(String ip) throws RemoteException;
 
-    void setupCarrierOnRu(String ip, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower);
+    void setupCarrierOnRu(String ip, List<RfPort> rfPorts, FrequencyBand freq, Double transmittingPower) throws RemoteException;
 
-    void modifyCarrierOnRu(String ip, int id, FrequencyBand frequencyBand);
+    void modifyCarrierOnRu(String ip, int id, FrequencyBand frequencyBand) throws RemoteException;
 
-    void removeCarrierOnRu(String ip, int id);
+    void removeCarrierOnRu(String ip, int id) throws RemoteException;
 
-    void removeAllCarriersOnRu(String ip);
+    void removeAllCarriersOnRu(String ip) throws RemoteException;
 
-    void signalScalingOnRu(String ip);
+    void signalScalingOnRu(String ip) throws RemoteException;
 
-    void postActivation(String ip);
+    void postActivation(String ip) throws RemoteException;
 
-    void performSelfDiagnostics(String ip);
+    void performSelfDiagnostics(String ip) throws RemoteException;
 
-    void listNetworkInventory();
+    void listNetworkInventory() throws RemoteException;
 
-    void listRuByParam(Object param);
+    void listRuByParam(Object param) throws RemoteException;
 
-    void listRadioUnitDetails(String ip);
+    void listRadioUnitDetails(String ip) throws RemoteException;
 
-    void setAlarmOnRu(String ip, AlarmStatusLevel alarm);
+    void setAlarmOnRu(String ip, AlarmStatusLevel alarm) throws RemoteException;
 
-    void getNetworkAlarms();
+    void getNetworkAlarms() throws RemoteException;
 
-    void acknowledgeAlarm(String ip);
+    void acknowledgeAlarm(String ip) throws RemoteException;
 
-    void addPropertyChangeListener(PropertyChangeListener pcl);
+    void addPropertyChangeListener(PropertyChangeListener pcl) throws RemoteException;
 
-    HashMap<RatType, CommissionRadioUnit> getCommissioners();
+    HashMap<RatType, CommissionRadioUnit> getCommissioners() throws RemoteException;
 
-    HashMap<RatType, DecommissionRadioUnit> getDecommissioners();
+    HashMap<RatType, DecommissionRadioUnit> getDecommissioners() throws RemoteException;
 
-    RatType getRuRatType(String ip);
+    RatType getRuRatType(String ip) throws RemoteException;
 
 }
