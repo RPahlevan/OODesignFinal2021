@@ -188,6 +188,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 	 *
 	 * @param evt The event that contains the necessary information to return alongside the RAT Type.
 	 */
+	@SuppressWarnings("unchecked")
 	private void messageRatType(PropertyChangeEvent evt) {
 		List<Object> params = ((ArrayList<Object>) evt.getNewValue());
 		ManagedRadioUnit radio = getRadioUnit((String) params.get(0));
@@ -228,6 +229,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 	 *            and the property that has changed.
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public void propertyChange(PropertyChangeEvent evt) {
 		Procedure procedure = null;
 		for (Procedure currProcedure : Procedure.values()) {
@@ -334,7 +336,6 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 			}
 			break;
 		case CREATE:
-			
 			switch ((ProcedureOptions) evt.getOldValue()) {
 			case CARRIER:
 				params = ((ArrayList<Object>) evt.getNewValue());

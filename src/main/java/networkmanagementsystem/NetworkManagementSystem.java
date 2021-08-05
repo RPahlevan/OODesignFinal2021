@@ -356,6 +356,7 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
 	 *            and the property that has changed.
 	 */
 	@Override
+	@SuppressWarnings("unchecked")
 	public void propertyChange(PropertyChangeEvent evt) {
 		// Determine which procedure we are working with.
 		Procedure procedure = null;

@@ -159,12 +159,6 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	}
 
 	@Override
-	public void setAlarmStatus(AlarmStatusLevel status) {
-		this.alarmStatus = status;
-
-	}
-
-	@Override
 	public String getIpAddress() {
 		return ipAddress;
 	}

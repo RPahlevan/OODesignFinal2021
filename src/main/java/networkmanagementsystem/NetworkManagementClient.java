@@ -368,19 +368,19 @@ public class NetworkManagementClient {
 	 * @return Carrier ID, as an int.
 	 */
 	private static int getCarrierId(Scanner input) {
-		int ID;
+		int carrierId;
 		do {
 			System.out.println("Please enter the Carrier ID:");
 			String id = input.next();
 			try {
-				ID = Integer.parseInt(id);
+				carrierId = Integer.parseInt(id);
 				break;
 			} catch (NumberFormatException e) {
 				System.out.println("'" + id + "'" + " is not a valid number, Try again!");
 			}
 		} while (true);
 
-		return ID;
+		return carrierId;
 	}
 
 
@@ -392,18 +392,18 @@ public class NetworkManagementClient {
 	 * @return IP address, as a String.
 	 */
 	private static String getIpAddress(Scanner input) {
-		String IP;
+		String ip;
 		do {
 			System.out.println("Please enter the IP address of the Radio Unit you want to operate on:");
-			IP = input.next();
-			if (IP_PATTERN.matcher(IP).matches()) {
+			ip = input.next();
+			if (IP_PATTERN.matcher(ip).matches()) {
 				System.out.println("IP address is fine.");
 				break;
 			}
-			System.out.println("Invalid IP address format, please try again: " + IP);
+			System.out.println("Invalid IP address format, please try again: " + ip);
 		} while (true);
 
-		return IP;
+		return ip;
 	}
 
 	/**
