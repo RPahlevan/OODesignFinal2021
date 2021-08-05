@@ -2,11 +2,15 @@ package networkmanagementsystem;
 
 import common.*;
 import mediator.Mediator;
+import radiounit.ManagedRadioUnit;
+import radiounit.ManagedRadioUnitRegistry;
+import radiounit.AbstractManagedRadioUnitRegistry;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -35,6 +39,7 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
 	private final PropertyChangeSupport support;
 	private final HashMap<RatType, CommissionRadioUnit> commissioners;
 	private final HashMap<RatType, DecommissionRadioUnit> decommissioners;
+	private final AbstractManagedRadioUnitRegistry radioUnitRegistry;
 	private RatType currRatType;
 
 	/**
@@ -49,6 +54,7 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
 		decommissioners.put(RatType.LTE, new DecommissionLteRadioUnit());
 		decommissioners.put(RatType.WCDMA, new DecommissionWcdmaRadioUnit());
 		support = new PropertyChangeSupport(this);
+		radioUnitRegistry = ManagedRadioUnitRegistry.getInstance();
 	}
 
 	/**
@@ -294,8 +300,28 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
 	 * Handle the request to list all current network alarms.
 	 */
 	@Override
-	public void getNetworkAlarms() {
-		support.firePropertyChange(Procedure.LIST.getDesc(), ProcedureOptions.ALARM, "");
+	public String getNetworkAlarms() {
+		String result = "No radios are currently alarmed!";
+		
+		List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getAllRadios();
+
+		radioUnits = radioUnits.stream()
+		.filter(ru -> ru.getAlarmStatus() != AlarmStatusLevel.NO_ALARM)
+		.collect(Collectors.toList());
+		
+		if (radioUnits.size() > 0)
+		{
+			for (ManagedRadioUnit ru : radioUnits)
+			{
+				result = ru.getIpAddress() + ": " + ru.getAlarmStatus() + "\n";
+			}
+		}
+		else
+		{
+			System.out.println("No radios are currently alarmed!");
+		}
+		
+		return result;
 	}
 
 	/**
@@ -304,8 +330,16 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
 	 * @param ip The IP address of the radio unit that will have an alarm acknowledged.
 	 */
 	@Override
-	public void acknowledgeAlarm(String ip) {
-		support.firePropertyChange(Procedure.ACKNOWLEDGE.getDesc(), ProcedureOptions.ALARM, ip);
+	public boolean acknowledgeAlarm(String ip) {
+		ManagedRadioUnit radio = radioUnitRegistry.getByIpAddress(ip);
+		if (radio == null)
+		{
+			return false;
+		}
+		
+		radio.acknowledgeAlarm();
+		
+		return true;
 	}
 
 	/**

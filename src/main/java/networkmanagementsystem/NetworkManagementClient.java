@@ -210,12 +210,21 @@ public class NetworkManagementClient {
 					networkManagementSys.setAlarmOnRu(ip, alarm);
 					break;
 				case "22": //22.List all Network Alarms
-					networkManagementSys.getNetworkAlarms();
+					String result = networkManagementSys.getNetworkAlarms();
+					System.out.println(result);
 					break;
 				case "23": 
 					//23.Acknowledge alarm on RU
 					ip = getIpAddress(input);
-					networkManagementSys.acknowledgeAlarm(ip);
+					boolean success = networkManagementSys.acknowledgeAlarm(ip);
+					if (success)
+					{
+						System.out.println("Successfully acknowledged alarm");
+					}
+					else
+					{
+						System.out.println("Failed to acknowledge alarm");
+					}
 					break;
 				default:
 					System.out.println("Unsupported option, please try again!");

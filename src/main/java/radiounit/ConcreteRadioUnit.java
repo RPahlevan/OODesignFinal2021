@@ -190,7 +190,6 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public void acknowledgeAlarm() {
-		System.out.println("Acknowledge alarm");
 		alarmStatus = AlarmStatusLevel.NO_ALARM;
 	}
 
