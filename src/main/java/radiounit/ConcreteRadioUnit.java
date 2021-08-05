@@ -34,16 +34,22 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 			switch (this.ratType) {
 				case LTE:
                     cmdExecutor = EricssonLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+                    break;
 				case WCDMA:
                     cmdExecutor = EricssonWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+                    break;
 			}
+			break;
 		case NOKIA:
 			switch (this.ratType) {
 				case LTE:
                     cmdExecutor = NokiaLteCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+                    break;
 				case WCDMA:
                     cmdExecutor = NokiaWcdmaCommandExecutorFactory.getInstance().createRadioCommandExecutor();
+                    break;
 			}
+			break;
 		}
 	}
 
@@ -52,7 +58,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void setup() {
-		cmdExecutor.setup();
+		try {
+			state.setup();
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -60,7 +70,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void activate() {
-		cmdExecutor.activate();
+		try {
+			state.activate();
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -68,7 +82,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void deactivate() {
-		cmdExecutor.deactivate();
+		try {
+			state.deactivate();
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -76,7 +94,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void release() {
-		cmdExecutor.release();
+		try {
+			state.release();
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -84,8 +106,12 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void signalScaling() {
-		cmdExecutor.signalScaling();
-		signalScalingComplete = true;
+		try {
+			state.signalScaling();
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
+		signalScalingComplete = true; // TODO DAVID
 	}
 
 	/**
@@ -93,7 +119,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void setupCarrier(Carrier carrier) {
-		cmdExecutor.setupCarrier(carrier);
+		try {
+			state.setupCarrier(carrier);
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -101,7 +131,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void modifyCarrier(int carrierId, FrequencyBand freq) {
-		cmdExecutor.modifyCarrier(carrierId, freq);
+		try {
+			state.modifyCarrier(carrierId, freq);
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -109,7 +143,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void removeCarrier(int carrierId) {
-		cmdExecutor.removeCarrier(carrierId);
+		try {
+			state.removeCarrier(carrierId);
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -117,7 +155,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void performSelfDiagnostics() {
-		cmdExecutor.selfDiagnostics();
+		try {
+			state.selfDiagnostics();
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -125,7 +167,11 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	 */
 	@Override
 	public void removeAllCarriers() {
-		cmdExecutor.removeAllCarriers();
+		try {
+			state.removeAllCarriers();
+		} catch (IllegalStateTransitionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

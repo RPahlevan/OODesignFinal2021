@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.net.MalformedURLException;
@@ -105,8 +106,11 @@ public class NetworkManagementClient {
 					}
 					Vendor vendor = chooseVendor(input);
 					ratType = chooseRatType(input);
-					networkManagementSys.addRadioUnit(ruName, vendor, ratType);
-					System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully added");
+
+					Random r = new Random();
+					ip = r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
+					networkManagementSys.addRadioUnit(ip, ruName, vendor, ratType);
+					System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully added (ip=" + ip + ")");
 					break;
 				case "4":
 					// 4.Remove(delete) Radio Unit
