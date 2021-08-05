@@ -82,9 +82,8 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 	 * @param vendor  The vendor for the RU.
 	 * @param ratType The RAT type for the RU.
 	 */
-	private synchronized void createRu(String name, Vendor vendor, RatType ratType) {
-		Random r = new Random();
-		radioUnitRegistry.addRadioUnit(r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256), name, vendor, ratType);
+	private synchronized void createRu(String ip, String name, Vendor vendor, RatType ratType) {
+		radioUnitRegistry.addRadioUnit(ip, name, vendor, ratType);
 	}
 
 	/**
@@ -343,7 +342,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 				break;
 			case RU:
 				params = ((ArrayList<Object>) evt.getNewValue());
-				createRu((String) params.get(0), (Vendor) params.get(1), (RatType) params.get(2));
+				createRu((String) params.get(0), (String) params.get(1), (Vendor) params.get(2), (RatType) params.get(3));
 				break;
 			case ALARM:
 				params = ((ArrayList<Object>) evt.getNewValue());

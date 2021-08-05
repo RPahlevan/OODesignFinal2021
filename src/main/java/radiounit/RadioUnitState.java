@@ -29,7 +29,7 @@ public interface RadioUnitState {
 	
 	void selfDiagnostics() throws IllegalStateTransitionException;
 	
-	void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException;
+	void removeAllCarriers() throws IllegalStateTransitionException;
 	
 	RadioUnitStateE getRuStateE();
 	

@@ -77,7 +77,7 @@ public class IdleState implements RadioUnitState {
 	}
 
 	@Override
-	public void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException {
+	public void removeAllCarriers() throws IllegalStateTransitionException {
 		throw new IllegalStateTransitionException(
 				String.format("Cannot remove all carriers from Radio Unit while it is in the %s state.", this.name));
 	}

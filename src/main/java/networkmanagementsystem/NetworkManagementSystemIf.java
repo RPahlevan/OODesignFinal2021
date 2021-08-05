@@ -22,7 +22,7 @@ public interface NetworkManagementSystemIf extends Remote {
 
     void decommissionRu(String ip) throws RemoteException;
 
-    void addRadioUnit(String name, Vendor vendor, RatType ratType) throws RemoteException;
+    void addRadioUnit(String ip, String name, Vendor vendor, RatType ratType) throws RemoteException;
 
     void removeRadioUnit(String ip) throws RemoteException;
 

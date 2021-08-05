@@ -107,8 +107,8 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
 	 * @param ratType The RAT type of the radio unit.
 	 */
 	@Override
-	public void addRadioUnit(String name, Vendor vendor, RatType ratType) {
-		List<Object> params = new ArrayList<>(Arrays.asList(name, vendor, ratType));
+	public void addRadioUnit(String ip, String name, Vendor vendor, RatType ratType) {
+		List<Object> params = new ArrayList<>(Arrays.asList(ip, name, vendor, ratType));
 		support.firePropertyChange(Procedure.CREATE.getDesc(), ProcedureOptions.RU, params);
 	}
 
