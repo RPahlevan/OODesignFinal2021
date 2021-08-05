@@ -71,7 +71,8 @@ public class NetworkManagementClient {
 						+ "19.	List RUs by Band\n"
 						+ "20.	List Radio Unit details\n"
 						+ "21.	Set Alarm on Radio Unit\n"
-						+ "22.	List all Network Alarms";
+						+ "22.	List all Network Alarms\n"
+						+ "23.  Acknowledge Alarm on Radio Unit";
 
 				System.out.println(menu);
 				option = input.next();

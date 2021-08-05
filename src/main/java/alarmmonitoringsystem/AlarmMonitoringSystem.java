@@ -1,6 +1,3 @@
-/**
- * 
- */
 package alarmmonitoringsystem;
 
 import java.rmi.RemoteException;
@@ -13,7 +10,7 @@ import networkmanagementsystem.NetworkManagementSystemIf;
  */
 public class AlarmMonitoringSystem {
 
-	NetworkManagementSystemIf networkMgmt;
+	final NetworkManagementSystemIf networkMgmt;
 	
 	public AlarmMonitoringSystem(NetworkManagementSystemIf net)
 	{

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package alarmmonitoringsystem;
 
 import java.rmi.Naming;
@@ -27,7 +24,9 @@ public class AlarmMonitoringClient {
 			+ "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$");
 
 	/**
-	 * @param args
+	 * Entry-point into the application.
+	 *
+	 * @param args The command-line arguments passed during initialization.
 	 */
 	public static void main(String[] args) {
 		String networkMgmtId = NetworkManagementClient.NETWORK_MGMT_ID;
@@ -41,7 +40,7 @@ public class AlarmMonitoringClient {
 			System.out.println("Welcome!");
 			Scanner input = new Scanner(System.in);
 			String option = "-1";
-			String ip = "";
+			String ip;
 
 			while(!option.equals("0"))
 			{

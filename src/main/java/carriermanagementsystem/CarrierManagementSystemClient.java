@@ -44,66 +44,6 @@ public class CarrierManagementSystemClient {
         Carrier wcdma = director.createWcdmaCarrier(WcdmaRfPorts, WcdmaBand_5, transmittingPower);
         System.out.println(wcdma.getRatType());
 
-//        /**
-//         * error & not configured cases for demo purpose
-//         */
-//        
-//        /**
-//         * case #1: pass null for the transmittingPower
-//         */
-//        List<RfPorts> LteRfPorts_2 = Stream.of(RfPorts.RF_3, RfPorts.RF_4, RfPorts.RF_5, RfPorts.RF_6)
-//                .collect(Collectors.toList());
-//        FrequencyBand LteBand_4 = FrequencyBand.LTE_BAND_3;
-//        director.createLteCarrier(LteRfPorts_2, LteBand_4, null);
-//        
-//        /**
-//         * case #1: result:
-//         * 
-//         * Final result:
-//         * LTE Carrier ID: 15
-//         * LTE Carrier Frequency: 1710 MHz
-//         * LTE RF Ports: D  E  F  G
-//         * LTE Transmission Power: Not configured
-//         */
-//        
-//        
-//        /**
-//         * case #2: pass null for the RfPorts 
-//         */
-//        
-//        FrequencyBand WcdmaBand_5 = FrequencyBand.WCDMA_BAND_5;
-//        transmittingPower = 11.7;
-//        director.createWcdmaCarrier(null, WcdmaBand_5, transmittingPower);
-//        
-//        /**
-//         * case #2:  Result:
-//         * 
-//         * [ERROR] WCDMA RF Ports are not configured!
-//         * [ERROR] Attempted to create a carrier without RF ports.
-//         * Final result:
-//         * WCDMA Carrier ID: 278
-//         * WCDMA Carrier Frequency: 850 MHz-for U.S
-//         * WCDMA RF Ports: Not configured
-//         * WCDMA Transmission Power: 11.7
-//         */
-//        
-//        /**
-//         * case #3: pass invalid number of RfPorts 
-//         */
-//        List<RfPorts> LteRfPorts = Stream.of(RfPorts.RF_3, RfPorts.RF_4, RfPorts.RF_6)
-//                .collect(Collectors.toList());
-//        FrequencyBand LteBand_3 = FrequencyBand.LTE_BAND_3;
-//        director.createLteCarrier(LteRfPorts_3, LteBand_3, null);
-//        
-//        /**
-//         * [ERROR] Invalid value for the number of LTE ports. The number of RF Ports for LTE carrier has to be 4. RF ports will not be configured.
-//         * [ERROR] Attempted to create a carrier without RF ports.
-//         * Final result:
-//         * LTE Carrier ID: 177
-//         * LTE Carrier Frequency: 1710 MHz
-//         * LTE RF Ports: Not configured
-//         * LTE Transmission Power: 12.2
-//         */
     }
 
 }

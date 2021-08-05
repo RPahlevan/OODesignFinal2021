@@ -3,7 +3,6 @@ package mediator;
 import carriermanagementsystem.CarrierManagementSystemDirector;
 import common.*;
 import radiounit.ManagedRadioUnit;
-import radiounit.RadioUnitState;
 import radiounit.AbstractManagedRadioUnitRegistry;
 import radiounit.ManagedRadioUnitRegistry;
 

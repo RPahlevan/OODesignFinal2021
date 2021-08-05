@@ -21,23 +21,11 @@ public class ManagedRadioUnitClient {
 		System.out.println("\n **********************");
 		System.out.println("[ManagedRadioUnitClient] Creating test subject");
 		System.out.println(" **********************\n");
-		
-//		RadioCommandExecutor executor = EricssonLteCommandExecutorFactory
-//				.getInstance()
-//				.createRadioCommandExecutor();
-		
-//		RadioCommandExecutor executor = EricssonWcdmaCommandExecutorFactory
-//				.getInstance()
-//				.createRadioCommandExecutor();
-		
+
 		RadioCommandExecutor executor = NokiaLteCommandExecutorFactory
 				.getInstance()
 				.createRadioCommandExecutor();
-		
-//		RadioCommandExecutor executor = NokiaWcdmaCommandExecutorFactory
-//				.getInstance()
-//				.createRadioCommandExecutor();
-		
+
 		List<RfPort> rfPorts = Stream.of(RfPort.RF_0, RfPort.RF_1, RfPort.RF_2, RfPort.RF_3)
 				.collect(Collectors.toList());
 		
@@ -54,20 +42,6 @@ public class ManagedRadioUnitClient {
 				new WcdmaCarrier(6, rfPorts, WcdmaFrequencyBand.WCDMA_BAND_3, 10.0),
 				new WcdmaCarrier(7, rfPorts, WcdmaFrequencyBand.WCDMA_BAND_4, 10.0)
 		).collect(Collectors.toList());
-		
-//		List<Carrier> carriers = Stream.of(
-//				new WcdmaCarrier(0, rfPorts, WcdmaFrequencyBand.WCDMA_BAND_1, 10.0),
-//				new WcdmaCarrier(1, rfPorts, WcdmaFrequencyBand.WCDMA_BAND_2, 10.0),
-//				new WcdmaCarrier(2, rfPorts, WcdmaFrequencyBand.WCDMA_BAND_3, 10.0),
-//				new WcdmaCarrier(3, rfPorts, WcdmaFrequencyBand.WCDMA_BAND_4, 10.0)
-//		).collect(Collectors.toList());
-//		
-//		List<Carrier> badCarriers = Stream.of(
-//				new LteCarrier(4, rfPorts, LteFrequencyBand.LTE_BAND_1, 10.0),
-//				new LteCarrier(5, rfPorts, LteFrequencyBand.LTE_BAND_2, 10.0),
-//				new LteCarrier(6, rfPorts, LteFrequencyBand.LTE_BAND_3, 10.0),
-//				new LteCarrier(7, rfPorts, LteFrequencyBand.LTE_BAND_4, 10.0)
-//		).collect(Collectors.toList());
 
 		System.out.println("\n **********************");
 		System.out.println("[ManagedRadioUnitClient] Test Activate");
