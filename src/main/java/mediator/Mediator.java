@@ -42,7 +42,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 	private Mediator() {
 		support = new PropertyChangeSupport(this);
 		carrierManagement = CarrierManagementSystemDirector.getInstance();
-		radioUnitRegistry = new ManagedRadioUnitRegistry();
+		radioUnitRegistry = ManagedRadioUnitRegistry.getInstance();
 	}
 
 	/**
@@ -205,22 +205,6 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 	/**
 	 * Print all alarms currently raised in the network.
 	 */
-	private void printNetworkAlarms() {
-		List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getAllRadios();
-
-		radioUnits = radioUnits.stream()
-		.filter(ru -> ru.getAlarmStatus() != AlarmStatusLevel.NO_ALARM)
-		.collect(Collectors.toList());
-		
-		if (radioUnits.size() > 0)
-		{
-			radioUnits.forEach(ru -> System.out.println(ru.getIpAddress() + ": " + ru.getAlarmStatus()));
-		}
-		else
-		{
-			System.out.println("No radios are currently alarmed!");
-		}
-	}
 
 	/**
 	 * This method gets called when a bound property is changed.
@@ -393,9 +377,6 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 				}
 
 				System.out.println(radio);
-				break;
-			case ALARM:
-				printNetworkAlarms();
 				break;
 			}
 			break;

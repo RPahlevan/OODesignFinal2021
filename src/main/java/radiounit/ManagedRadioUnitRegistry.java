@@ -18,9 +18,28 @@ import common.RadioUnitStateE;
  *
  */
 public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
+	
+	private static volatile ManagedRadioUnitRegistry UNIQUE_INSTANCE;
 
-	public ManagedRadioUnitRegistry() {
+	private ManagedRadioUnitRegistry() {
 		radioUnits = new ArrayList<>();
+	}
+	
+	public static ManagedRadioUnitRegistry getInstance()
+	{
+		if (UNIQUE_INSTANCE == null)
+		{
+			synchronized (ManagedRadioUnitRegistry.class)
+			{
+				if (UNIQUE_INSTANCE == null)
+				{
+					System.out.println("[ManagedRadioUnitRegistry] creating new radio unit registry");
+					UNIQUE_INSTANCE = new ManagedRadioUnitRegistry();
+				}
+			}
+		}
+		
+		return UNIQUE_INSTANCE;
 	}
 
 	@Override

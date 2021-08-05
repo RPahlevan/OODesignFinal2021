@@ -20,7 +20,7 @@ public class AlarmMonitoringSystem {
 	public void getNetAlarms()
 	{
 		try {
-			this.networkMgmt.getNetworkAlarms();
+			System.out.println(this.networkMgmt.getNetworkAlarms());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -29,7 +29,14 @@ public class AlarmMonitoringSystem {
 	public void acknowledgeAlarmOnRu(String ipAddress)
 	{
 		try {
-			this.networkMgmt.acknowledgeAlarm(ipAddress);
+			if (this.networkMgmt.acknowledgeAlarm(ipAddress))
+			{
+				System.out.println("Successfully acknowledged alarm on " + ipAddress);
+			}
+			else
+			{
+				System.out.println("Failed to acknowledge alarm on " + ipAddress);
+			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
