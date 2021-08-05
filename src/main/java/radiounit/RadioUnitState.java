@@ -31,7 +31,7 @@ public interface RadioUnitState {
 	
 	void removeAllCarriers(Integer carrierId) throws IllegalStateTransitionException;
 	
-	public RadioUnitStateE getRuStateE();
+	RadioUnitStateE getRuStateE();
 	
 	@Override
 	String toString();

@@ -119,7 +119,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 	public List<Carrier> getCarriers() {
 		System.out.println("[NokiaLteRadioUnitReceiver] getCarriers");
 		
-		List<Carrier> allCarriers = new ArrayList<Carrier>(this.carriers.values());
+		List<Carrier> allCarriers = new ArrayList<>(this.carriers.values());
 		
 		for (Carrier c : allCarriers)
 		{

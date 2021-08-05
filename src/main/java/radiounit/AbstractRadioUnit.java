@@ -30,8 +30,6 @@ public abstract class AbstractRadioUnit implements ManagedRadioUnit {
 
 	public abstract void setState(RadioUnitState state);
 
-	public abstract void setAlarmStatus(AlarmStatusLevel status);
-
 	public abstract RadioCommandExecutor getCommandExecutor();
 
 }
