@@ -278,7 +278,7 @@ public class NetworkManagementClient {
 				case "23": 
 					//23.Acknowledge alarm on RU
 					ip = getIpAddress(input);
-										if (ip.equalsIgnoreCase("BACK")) {
+					if (ip.equalsIgnoreCase("BACK")) {
 						break;
 					}
 					boolean success = networkManagementSys.acknowledgeAlarm(ip);
@@ -290,6 +290,7 @@ public class NetworkManagementClient {
 					{
 						System.out.println("Failed to acknowledge alarm");
 					}
+
 					networkManagementSys.acknowledgeAlarm(ip);
 
 					break;
