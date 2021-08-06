@@ -49,8 +49,9 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 			System.err.println("A radio with this IP address has already been added");
 			return;
 		}
-
-		radioUnits.add(new ConcreteRadioUnit(ipAddress, name, vendor, ratType));
+		ConcreteRadioUnit ru = new ConcreteRadioUnit(ipAddress, name, vendor, ratType);
+		radioUnits.add(ru);
+		System.out.println("[ManagedRadioUnitRegistry] Radio Unit added:\n" + ru.toString());
 	}
 
 	@Override
