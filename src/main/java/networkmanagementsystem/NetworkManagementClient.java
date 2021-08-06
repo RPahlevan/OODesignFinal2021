@@ -73,7 +73,7 @@ public class NetworkManagementClient {
 						+ "20.	List Radio Unit details\n"
 						+ "21.	Set Alarm on Radio Unit\n"
 						+ "22.	List all Network Alarms\n"
-						+ "23.  Acknowledge Alarm on Radio Unit";
+						+ "23.	Acknowledge Alarm on Radio Unit";
 
 				System.out.println(menu);
 				option = input.next();
@@ -88,10 +88,16 @@ public class NetworkManagementClient {
 					break;
 				case "1":
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.commissionRu(ip);
 					break;
 				case "2":
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}					
 					networkManagementSys.decommissionRu(ip);
 					break;
 				case "3":
@@ -105,77 +111,118 @@ public class NetworkManagementClient {
 						break;
 					}
 					Vendor vendor = chooseVendor(input);
+					if (vendor == null) {
+						break;
+					}
 					ratType = chooseRatType(input);
-
+					if (ratType == null) {
+						break;
+					}
 					Random r = new Random();
 					ip = r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256) + "." + r.nextInt(256);
 					networkManagementSys.addRadioUnit(ip, ruName, vendor, ratType);
-					System.out.println("Radio Unit " + "'" + ruName + "'" + " has been successfully added (ip=" + ip + ")");
 					break;
 				case "4":
 					// 4.Remove(delete) Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}					
 					networkManagementSys.removeRadioUnit(ip);
 					break;
 				case "5":
 					//5.Setup Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.setupRu(ip);
 					break;
 				case "6":
 					//6.Release Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.releaseRu(ip);
 					break;
 				case "7":
 					//7.Activate Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.activateRu(ip);
 					break;
 				case "8":
 					//8.Deactivate Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.deactivateRu(ip);
 					break;
 				case "9":
 					// 9.Setup Carrier on Radio Unit
 					System.out.println("To setup a carrier on Radio Unit, you need to have a Radio Unit ready first");
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					createCarrierOnRu(ip, input);
-					System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + ip + "'");
 					break;
 				case "10":
 					// 10.Modify Carrier on Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					carrierId = getCarrierId(input);
 					freqBand = chooseFreqBand(networkManagementSys.getRuRatType(ip), input);
+					if (freqBand == null) {
+						break;
+					}
 					networkManagementSys.modifyCarrierOnRu(ip, carrierId, freqBand);
-					System.out.println("Carrier has been successfully created on " + "Radio Unit with IP address: " + "'" + ip + "'");
 					break;
 				case "11":
 					//11.Remove Carrier on Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					carrierId = getCarrierId(input);
 					networkManagementSys.removeCarrierOnRu(ip, carrierId);
 					break;
 				case "12":
 					//12.Remove all Carriers on Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.removeAllCarriersOnRu(ip);
 					break;
 				case "13":
 					//13.Signal scaling on Radio Unit
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.signalScalingOnRu(ip);
 					break;
 				case "14":
 					//14.Post activation
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.postActivation(ip);
 					break;
 				case "15":
 					//15.Perform self diagnostics
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.performSelfDiagnostics(ip);
 					break;
 				case "16":
@@ -185,6 +232,9 @@ public class NetworkManagementClient {
 				case "17":
 					//17.List RUs by standard
 					ratType = chooseRatType(input);
+					if (ratType == null) {
+						break;
+					}
 					networkManagementSys.listRuByParam(ratType);
 					break;
 				case "18":
@@ -195,17 +245,29 @@ public class NetworkManagementClient {
 				case "19":
 					//19.List RUs by Band
 					ratType = chooseRatType(input);
+					if (ratType == null) {
+						break;
+					}
 					freqBand = chooseFreqBand(ratType, input);
+					if (freqBand == null) {
+						break;
+					}
 					networkManagementSys.listRuByParam(freqBand);
 					break;
 				case "20":
 					//20.List Radio Unit details
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					networkManagementSys.listRadioUnitDetails(ip);
 					break;
 				case "21":
 					//21.Set Alarm on RU
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					AlarmStatusLevel alarm = chooseAlarmStatusLevel(input);
 					networkManagementSys.setAlarmOnRu(ip, alarm);
 					break;
@@ -216,6 +278,9 @@ public class NetworkManagementClient {
 				case "23": 
 					//23.Acknowledge alarm on RU
 					ip = getIpAddress(input);
+					if (ip.equalsIgnoreCase("BACK")) {
+						break;
+					}
 					boolean success = networkManagementSys.acknowledgeAlarm(ip);
 					if (success)
 					{
@@ -225,6 +290,9 @@ public class NetworkManagementClient {
 					{
 						System.out.println("Failed to acknowledge alarm");
 					}
+
+					networkManagementSys.acknowledgeAlarm(ip);
+
 					break;
 				default:
 					System.out.println("Unsupported option, please try again!");
@@ -321,20 +389,34 @@ public class NetworkManagementClient {
 		List<RfPort> rfPorts;
 		FrequencyBand freqBand;
 		double transPower;
-		System.out.println("createCarrierOnRu reached");
 
 		try {
 			// Get the RatType of the RU we are currently looking at.
 			RatType currRatType = networkManagementSys.getRuRatType(ip);
 
 			//get RF Ports
-			rfPorts = chooseRfPorts(currRatType, input);
+			int noOfRfPorts;
+			if (currRatType.equals(RatType.LTE)) {
+				noOfRfPorts = LTE_RF_PORTS_NUMBER;
+			} else {
+				noOfRfPorts = WCDMA_RF_PORTS_NUMBER;
+			}
+			rfPorts = chooseRfPorts(currRatType, noOfRfPorts, input);
+			if (rfPorts.size() < noOfRfPorts) {
+				return;
+			}
 
 			//get Frequency band
 			freqBand = chooseFreqBand(currRatType, input);
+			if (freqBand == null) {
+				return;
+			}
 
 			//get transmitting power
 			transPower = getTransPower(input);
+			if (transPower == -99999) {
+				return;
+			}
 
 			networkManagementSys.setupCarrierOnRu(ip, rfPorts, freqBand, transPower);
 		} catch (RemoteException ex)
@@ -407,8 +489,12 @@ public class NetworkManagementClient {
 	private static String getIpAddress(Scanner input) {
 		String ip;
 		do {
-			System.out.println("Please enter the IP address of the Radio Unit you want to operate on:");
+			System.out.println("Please enter the IP address of the Radio Unit you want to operate on:\n"
+					         + "Enter 'Back' to go back to the menu\n");
 			ip = input.next();
+			if (ip.equalsIgnoreCase("BACK")) {
+				break;
+			}
 			if (IP_PATTERN.matcher(ip).matches()) {
 				System.out.println("IP address is fine.");
 				break;
@@ -427,10 +513,14 @@ public class NetworkManagementClient {
 	 * @return The transmitting power, as a double.
 	 */
 	private static double getTransPower(Scanner input) {
-		double transPower;
-		System.out.println("Please enter a number for transmitting Power:");
+		double transPower = -99999;
+		System.out.println("Please enter a number for transmitting Power:\n"
+				+ "Enter 'Back' to go back to the menu\n");
 		do {
 			String transPowerText = input.next();
+			if (transPowerText.equalsIgnoreCase("BACK")) {
+				break;
+			}
 			try {
 				transPower = Double.parseDouble(transPowerText);
 				break;
@@ -452,13 +542,17 @@ public class NetworkManagementClient {
 	private static Vendor chooseVendor(Scanner input) {
 		Vendor vendor = null;
 		int i = 0;
-		System.out.println("Please choose a Vendor for Radio Unit:");
+		System.out.println("Please choose a Vendor for Radio Unit:\n"
+						 + "Enter 'Back' to go back to the menu\n");
 		for (Vendor currVendor : Vendor.values()) {
 			System.out.println("	" + ++i + ".	" + currVendor.toString());
 		}
 
 		do {
 			String subOption = input.next();
+			if (subOption.equalsIgnoreCase("BACK")) {
+				break;
+			}
 			try {
 				vendor = Vendor.values()[Integer.parseInt(subOption) - 1];
 			} catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
@@ -479,12 +573,16 @@ public class NetworkManagementClient {
 	private static RatType chooseRatType(Scanner input) {
 		RatType rat = null;
 		int i = 0;
-		System.out.println("\nPlease choose a RAT type:");
+		System.out.println("\nPlease choose a RAT type:\n"
+						 + "Enter 'Back' to go back to the menu\n");
 		for (RatType currRatType : RatType.values()) {
 			System.out.println("	" + ++i + ".	" + currRatType.toString());
 		}
 		do {
 			String subOption = input.next();
+			if (subOption.equalsIgnoreCase("BACK")) {
+				break;
+			}
 			try {
 				rat = RatType.values()[Integer.parseInt(subOption) - 1];
 			} catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
@@ -504,23 +602,21 @@ public class NetworkManagementClient {
 	 * @param input   Scanner instance to get user input.
 	 * @return The RfPorts that were selected by the user, as a List.
 	 */
-	private static List<RfPort> chooseRfPorts(RatType ratType, Scanner input) {
-		int noOfRfPorts;
-		if (ratType.equals(RatType.LTE)) {
-			noOfRfPorts = LTE_RF_PORTS_NUMBER;
-		} else {
-			noOfRfPorts = WCDMA_RF_PORTS_NUMBER;
-		}
+	private static List<RfPort> chooseRfPorts(RatType ratType, int noOfRfPorts, Scanner input) {
 		List<RfPort> ports = new ArrayList<>();
 		int count = 0;
 
 		int i = 0;
-		System.out.printf("Please choose %d RF ports\n", noOfRfPorts);
+		System.out.printf("Please choose %d RF ports\n"
+						+ "Enter 'Back' to go back to the menu\n", noOfRfPorts);
 		for (RfPort currRfPort : RfPort.values()) {
 			System.out.println("	" + ++i + ".	" + currRfPort.toString());
 		}
 		do {
 			String subOption = input.next();
+			if (subOption.equalsIgnoreCase("BACK")) {
+				break;
+			}
 			try {
 				ports.add(RfPort.values()[Integer.parseInt(subOption) - 1]);
 				count++;
@@ -546,7 +642,8 @@ public class NetworkManagementClient {
 	private static FrequencyBand chooseFreqBand(RatType ratType, Scanner input) {
 		FrequencyBand freqBand = null;
 		int i = 0;
-		System.out.println("Please choose Carrier Frequency Band:");
+		System.out.println("Please choose Carrier Frequency Band:\n"
+				         + "Enter 'Back' to go back to the menu\n");
 		if (!ratType.equals(RatType.LTE)) {
 			for (WcdmaFrequencyBand currWcdmaFreq : WcdmaFrequencyBand.values()) {
 				System.out.println("	" + ++i + ".	" + currWcdmaFreq.toString());
@@ -558,6 +655,9 @@ public class NetworkManagementClient {
 		}
 		do {
 			String subOption = input.next();
+			if (subOption.equalsIgnoreCase("BACK")) {
+				break;
+			}
 			try {
 				if (ratType.equals(RatType.LTE)) {
 					freqBand = LteFrequencyBand.values()[Integer.parseInt(subOption) - 1];
