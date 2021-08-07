@@ -121,7 +121,15 @@ public class ManagedRadioUnitRegistry extends AbstractManagedRadioUnitRegistry {
 
 	@Override
 	public void removeRadioUnit(String ip) {
-		radioUnits.removeIf(ru -> (ru.getIpAddress().equals(ip)));
+		ManagedRadioUnit removedDetails = getByIpAddress(ip);
+		boolean removed = radioUnits.removeIf(ru -> (ru.getIpAddress().equals(ip)));
+		if (removed) {
+			System.out.printf("[ManagedRadioUnitRegistry] Successfully removed a Radio Unit.\n" +
+					"Here are the details of the Radio Unit that was removed:\n");
+			System.out.println(removedDetails.toString());
+		} else {
+			System.out.printf("[ManagedRadioUnitRegistry] Failed to removed Radio Unit with the IP address \"%s\" " +
+					"as it was not found in the system.\n ", ip);
+		}
 	}
-
 }

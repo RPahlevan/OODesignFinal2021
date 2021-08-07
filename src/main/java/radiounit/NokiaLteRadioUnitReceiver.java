@@ -49,7 +49,7 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 	}
 
 	public void setupCarrierNokiaLte(Carrier carrier) {
-		System.out.println("[NokiaLteRadioUnitReceiver] setupCarrierNokiaLte: " + carrier);
+		System.out.println("[NokiaLteRadioUnitReceiver] setupCarrierNokiaLte");
 
 		// check if carrier is a LTE carrier
 		boolean isLte = false;
@@ -110,6 +110,10 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 		System.out.println("[NokiaLteRadioUnitReceiver] selfDiagnosticsNokiaLte");
 	}
 
+	public void postActivationNokiaLte() {
+		System.out.println("[NokiaLteRadioUnitReceiver] postActivationNokiaLte");
+	}
+
 	public void removeAllCarriersNokiaLte() {
 		System.out.println("[NokiaLteRadioUnitReceiver] removeAllCarriersNokiaLte");
 
@@ -118,14 +122,6 @@ public class NokiaLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	public List<Carrier> getCarriers() {
 		System.out.println("[NokiaLteRadioUnitReceiver] getCarriers");
-		
-		List<Carrier> allCarriers = new ArrayList<>(this.carriers.values());
-		
-		for (Carrier c : allCarriers)
-		{
-			System.out.println("Carrier: " + c);
-		}
-		
-		return allCarriers;
+		return new ArrayList<>(this.carriers.values());
 	}
 }

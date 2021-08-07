@@ -19,10 +19,10 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	/*
 	 * The list of carriers is an important part of the radio
-	 * 
+	 *
 	 * The "volatile" keyword ensures that this resource is not cached, and is
 	 * retrieved directly from memory every time it is accessed.
-	 * 
+	 *
 	 * The three "-Internal" methods below are all synchronized and have exclusive
 	 * access to this resource.
 	 */
@@ -49,7 +49,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 	}
 
 	public void setupCarrierNokiaWcdma(Carrier carrier) {
-		System.out.println("[NokiaWcdmaRadioUnitReceiver] setupCarrierNokiaWcdma: " + carrier);
+		System.out.println("[NokiaWcdmaRadioUnitReceiver] setupCarrierNokiaWcdma");
 
 		// check if carrier is a WCDMA carrier
 		boolean isWcdma = false;
@@ -65,7 +65,7 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 			System.err.println("Cannot add non-WCDMA carrier to WCDMA radio!");
 			return;
 		}
-		
+
 		int carrierId = carrier.getCarrierId();
 
 		if (this.carriers.containsKey(carrierId)) {
@@ -80,6 +80,10 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 		System.out.println("[NokiaWcdmaRadioUnitReceiver] signalScalingNokiaWcdma");
 	}
 
+	public void postActivationNokiaWcdma() {
+		System.out.println("[NokiaWcdmaRadioUnitReceiver] postActivationNokiaWcdma");
+	}
+
 	public void modifyCarrierNokiaWcdma(Integer carrierId, FrequencyBand frequencyBand) {
 		System.out.println(
 				"[NokiaWcdmaRadioUnitReceiver] modifyCarrierNokiaWcdma: " + carrierId + ", " + frequencyBand.getBand());
@@ -90,19 +94,19 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 		}
 
 		Carrier existingCarrier = this.carriers.get(carrierId);
-		
+
 		Objects.requireNonNull(existingCarrier).setFrequencyBand(frequencyBand);
-		
+
 		this.carriers.replace(carrierId, existingCarrier);
 	}
 
 	public void removeCarrierNokiaWcdma(Integer carrierId) {
 		System.out.println("[NokiaWcdmaRadioUnitReceiver] removeCarrierNokiaWcdma: " + carrierId);
-		
+
 		if (!this.carriers.containsKey(carrierId)) {
 			System.err.println("NokiaWcdmaRadioUnitReceiver[] Invalid carrierId - cannot remove carrier");
 		}
-		
+
 		this.carriers.remove(carrierId);
 	}
 
@@ -117,14 +121,6 @@ public class NokiaWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	public List<Carrier> getCarriers() {
 		System.out.println("[NokiaWcdmaRadioUnitReceiver] getCarriers");
-		
-		List<Carrier> allCarriers = new ArrayList<>(this.carriers.values());
-		
-		for (Carrier c : allCarriers)
-		{
-			System.out.println("Carrier: " + c);
-		}
-		
-		return allCarriers;
+		return new ArrayList<>(this.carriers.values());
 	}
 }

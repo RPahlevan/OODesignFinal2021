@@ -32,6 +32,8 @@ public interface RadioCommandExecutor {
 
 	void removeAllCarriers();
 
+	void postActivation();
+
 	List<Carrier> getCarriers();
 
 }

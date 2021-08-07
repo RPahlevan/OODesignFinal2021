@@ -52,8 +52,7 @@ public class ActivatedState implements RadioUnitState {
 
 	@Override
 	public void setupCarrier(Carrier carrier) throws IllegalStateTransitionException {
-		System.out.printf("Setting up carrier (%s) on Radio Unit.%n", carrier);
-		
+		System.out.printf("Setting up carrier on Radio Unit.%n");
 		this.radio.getCommandExecutor().setupCarrier(carrier);
 	}
 
@@ -89,7 +88,14 @@ public class ActivatedState implements RadioUnitState {
 		throw new IllegalStateTransitionException(
 				String.format("Cannot remove all carriers from Radio Unit while it is in the %s state.", this.name));
 	}
-	
+
+	@Override
+	public void postActivation() throws IllegalStateTransitionException {
+		System.out.println("Performing post activation on Radio Unit.");
+
+		this.radio.getCommandExecutor().postActivation();
+	}
+
 	@Override
 	public RadioUnitStateE getRuStateE() {
 		return name;

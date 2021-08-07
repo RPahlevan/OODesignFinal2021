@@ -9,6 +9,7 @@ import java.util.List;
  * @author esiumat
  *
  */
+@FunctionalInterface
 public interface RadioUnitReceiver {
 
 	List<Carrier> getCarriers();

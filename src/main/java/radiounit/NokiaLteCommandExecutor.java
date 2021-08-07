@@ -46,7 +46,7 @@ public class NokiaLteCommandExecutor implements RadioCommandExecutor {
 
 	@Override
 	public void setupCarrier(Carrier carrier) {
-		System.out.println("[NokiaLteCommandExecutor] setupCarrier: " + carrier);
+		System.out.println("[NokiaLteCommandExecutor] setupCarrier");
 		receiver.setupCarrierNokiaLte(carrier);
 	}
 
@@ -72,6 +72,12 @@ public class NokiaLteCommandExecutor implements RadioCommandExecutor {
 	public void selfDiagnostics() {
 		System.out.println("[NokiaLteCommandExecutor] selfDiagnostics");
 		receiver.selfDiagnosticsNokiaLte();
+	}
+
+	@Override
+	public void postActivation() {
+		System.out.println("[NokiaLteCommandExecutor] postActivation");
+		receiver.postActivationNokiaLte();
 	}
 
 	@Override

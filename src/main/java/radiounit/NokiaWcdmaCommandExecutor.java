@@ -46,7 +46,7 @@ public class NokiaWcdmaCommandExecutor implements RadioCommandExecutor {
 
 	@Override
 	public void setupCarrier(Carrier carrier) {
-		System.out.println("[NokiaWcdmaCommandExecutor] setupCarrier: " + carrier);
+		System.out.println("[NokiaWcdmaCommandExecutor] setupCarrier");
 		receiver.setupCarrierNokiaWcdma(carrier);
 	}
 
@@ -78,6 +78,12 @@ public class NokiaWcdmaCommandExecutor implements RadioCommandExecutor {
 	public void removeAllCarriers() {
 		System.out.println("[NokiaWcdmaCommandExecutor] removeAllCarriers");
 		receiver.removeAllCarriersNokiaWcdma();
+	}
+
+	@Override
+	public void postActivation() {
+		System.out.println("[NokiaWcdmaCommandExecutor] postActivation");
+		receiver.postActivationNokiaWcdma();
 	}
 
 	@Override
