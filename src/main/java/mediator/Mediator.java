@@ -66,7 +66,6 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
 	 */
 	private void printRegisteredRadioUnits() {
 		List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getAllRadios();
-		radioUnits.forEach(System.out::println);
 		if (radioUnits.size() == 0) {
 			System.out.println("[ERROR] No RUs have been registered with the system.");
 		} else {
