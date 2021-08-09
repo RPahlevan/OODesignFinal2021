@@ -54,8 +54,14 @@ public class EricssonLteCommandExecutor implements RadioCommandExecutor {
 
 	@Override
 	public void setupCarrier(Carrier carrier) {
-		System.out.println("[EricssonLteCommandExecutor] setupCarrier: " + carrier);
+		System.out.println("[EricssonLteCommandExecutor] setupCarrier");
 		receiver.setupCarrierEricssonLte(carrier);
+	}
+
+	@Override
+	public void postActivation() {
+		System.out.println("[EricssonLteCommandExecutor] postActivation");
+		receiver.postActivationEricssonLte();
 	}
 
 	@Override

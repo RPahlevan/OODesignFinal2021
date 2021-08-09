@@ -21,7 +21,7 @@ public class EricssonLteRadioUnitReceiverFactory implements RadioUnitReceiverFac
 	 * Static method for retrieving the singleton object.
 	 * The synchronized keyword ensures that the block it surrounds is only accessed by a single thread at a time 
 	 * 
-	 * Forcing every thread to wait it's turn before it can enter the block via synchronize can add additional
+	 * Forcing every thread to wait its turn before it can enter the block via synchronize can add additional
 	 * 	overhead.
 	 * 
 	 * This method employs "double-checked locking" of the UNIQUE_INSTANCE variable, so that we only synchronize on the first time

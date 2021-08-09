@@ -50,7 +50,7 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 	}
 
 	public void setupCarrierEricssonLte(Carrier carrier) {
-		System.out.println("[EricssonLteRadioUnitReceiver] setupCarrierEricssonLte: " + carrier);
+		System.out.println("[EricssonLteRadioUnitReceiver] setupCarrierEricssonLte");
 		
 		// Validate carrier
 		FrequencyBand band = carrier.getFrequencyBand();
@@ -84,6 +84,10 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	public void signalScalingEricssonLte() {
 		System.out.println("[EricssonLteRadioUnitReceiver] signalScalingEricssonLte");
+	}
+
+	public void postActivationEricssonLte() {
+		System.out.println("[EricssonLteRadioUnitReceiver] postActivationEricssonLte");
 	}
 
 	public void modifyCarrierEricssonLte(Integer carrierId, FrequencyBand frequencyBand) {
@@ -126,15 +130,7 @@ public class EricssonLteRadioUnitReceiver implements RadioUnitReceiver {
 
 	public List<Carrier> getCarriers() {
 		System.out.println("[EricssonLteRadioUnitReceiver] getCarriers");
-		
-		List<Carrier> allCarriers = new ArrayList<>(this.carriers.values());
-		
-		for (Carrier c : allCarriers)
-		{
-			System.out.println("Carrier: " + c);
-		}
-		
-		return allCarriers;
+		return new ArrayList<>(this.carriers.values());
 	}
 
 }

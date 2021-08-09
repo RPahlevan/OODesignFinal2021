@@ -30,6 +30,8 @@ public interface RadioUnitState {
 	void selfDiagnostics() throws IllegalStateTransitionException;
 	
 	void removeAllCarriers() throws IllegalStateTransitionException;
+
+	void postActivation() throws IllegalStateTransitionException;
 	
 	RadioUnitStateE getRuStateE();
 	

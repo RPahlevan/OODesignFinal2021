@@ -56,7 +56,7 @@ public interface NetworkManagementSystemIf extends Remote {
 
     void setAlarmOnRu(String ip, AlarmStatusLevel alarm) throws RemoteException;
 
-    String getNetworkAlarms() throws RemoteException;
+    void getNetworkAlarms() throws RemoteException;
 
     boolean acknowledgeAlarm(String ip) throws RemoteException;
 

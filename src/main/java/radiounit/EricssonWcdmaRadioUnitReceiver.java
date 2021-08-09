@@ -49,7 +49,7 @@ public class EricssonWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 	}
 
 	public void setupCarrierEricssonWcdma(Carrier carrier) {
-		System.out.println("[EricssonWcdmaRadioUnitReceiver] setupCarrierEricssonWcdma: " + carrier);
+		System.out.println("[EricssonWcdmaRadioUnitReceiver] setupCarrierEricssonWcdma");
 
 		// check if carrier is a WCDMA carrier
 		boolean isWcdma = false;
@@ -78,6 +78,10 @@ public class EricssonWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	public void signalScalingEricssonWcdma() {
 		System.out.println("[EricssonWcdmaRadioUnitReceiver] signalScalingEricssonWcdma");
+	}
+
+	public void postActivationEricssonWcdma() {
+		System.out.println("[EricssonWcdmaRadioUnitReceiver] postActivationEricssonWcdma");
 	}
 
 	public void modifyCarrierEricssonWcdma(Integer carrierId, FrequencyBand frequencyBand) {
@@ -119,14 +123,6 @@ public class EricssonWcdmaRadioUnitReceiver implements RadioUnitReceiver {
 
 	public List<Carrier> getCarriers() {
 		System.out.println("[EricssonWcdmaRadioUnitReceiver] getCarriers");
-		
-		List<Carrier> allCarriers = new ArrayList<>(this.carriers.values());
-		
-		for (Carrier c : allCarriers)
-		{
-			System.out.println("Carrier: " + c);
-		}
-		
-		return allCarriers;
+		return new ArrayList<>(this.carriers.values());
 	}
 }

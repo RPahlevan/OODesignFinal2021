@@ -61,7 +61,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.setup();
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -73,7 +73,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.activate();
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -85,7 +85,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.deactivate();
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -97,7 +97,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.release();
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -108,10 +108,10 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 	public void signalScaling() {
 		try {
 			state.signalScaling();
+			signalScalingComplete = true; // TODO DAVID
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
-		signalScalingComplete = true; // TODO DAVID
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.setupCarrier(carrier);
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -134,7 +134,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.modifyCarrier(carrierId, freq);
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -146,7 +146,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.removeCarrier(carrierId);
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -158,7 +158,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.selfDiagnostics();
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -170,7 +170,7 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 		try {
 			state.removeAllCarriers();
 		} catch (IllegalStateTransitionException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -184,8 +184,12 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public void postActivation() {
-		System.out.println("Doing post activation");
-		postActivationComplete = true;
+		try {
+			state.postActivation();
+			postActivationComplete = true;
+		} catch (IllegalStateTransitionException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	@Override
@@ -245,7 +249,16 @@ public class ConcreteRadioUnit extends AbstractRadioUnit {
 
 	@Override
 	public String toString() {
-		return "Radio Unit Name: " + name + "\n" + "IP Address: " + ipAddress + "\n" + "Vendor and RAT type: " + vendor
-				+ " " + ratType;
+		StringBuffer details = new StringBuffer().append("Radio Unit Name: ").append(name).append("\nIP Address: ").append(ipAddress).append("\nVendor and RAT type: ").append(vendor.getLabel()).append(" ").append(ratType.getLabel()).append("\nState: ").append(state).append("\nAlarm: ").append(alarmStatus);
+		List<Carrier> carriers = getCarriers();
+		if (carriers.size() != 0) {
+			if (carriers.size() == 1) {
+				details.append("\nCarrier: ");
+			} else {
+				details.append("\nCarriers:\n");
+			}
+			carriers.forEach(carrier -> details.append(carrier.toString()));
+		}
+		return details.toString();
 	}
 }

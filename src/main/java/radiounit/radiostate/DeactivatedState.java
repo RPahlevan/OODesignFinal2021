@@ -90,7 +90,13 @@ public class DeactivatedState implements RadioUnitState {
 		
 		this.radio.getCommandExecutor().removeAllCarriers();
 	}
-	
+
+	@Override
+	public void postActivation() throws IllegalStateTransitionException {
+		throw new IllegalStateTransitionException(
+				String.format("Cannot perform self diagnostics on Radio Unit while it is in the %s state.", this.name));
+	}
+
 	@Override
 	public RadioUnitStateE getRuStateE() {
 		return name;

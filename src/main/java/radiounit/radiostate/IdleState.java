@@ -55,7 +55,7 @@ public class IdleState implements RadioUnitState {
 	@Override
 	public void signalScaling() throws IllegalStateTransitionException {
 		throw new IllegalStateTransitionException(
-				String.format("Cannot perfrom signal scaling on Radio Unit while it is in the %s state.", this.name));
+				String.format("Cannot perform signal scaling on Radio Unit while it is in the %s state.", this.name));
 	}
 
 	@Override
@@ -81,7 +81,13 @@ public class IdleState implements RadioUnitState {
 		throw new IllegalStateTransitionException(
 				String.format("Cannot remove all carriers from Radio Unit while it is in the %s state.", this.name));
 	}
-	
+
+	@Override
+	public void postActivation() throws IllegalStateTransitionException {
+		throw new IllegalStateTransitionException(
+				String.format("Cannot perform post activation on Radio Unit while it is in the %s state.", this.name));
+	}
+
 	@Override
 	public RadioUnitStateE getRuStateE() {
 		return name;
