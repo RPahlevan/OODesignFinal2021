@@ -299,7 +299,7 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
      */
     @Override
     public String getNetworkAlarms() {
-        String result = "No radios are currently alarmed!";
+        String result = "No Radio Units are currently alarmed within the system.";
 
         List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getAllRadios();
 
@@ -312,7 +312,7 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
                 result = ru.getIpAddress() + ": " + ru.getAlarmStatus() + "\n";
             }
         } else {
-            System.out.println("No radios are currently alarmed!");
+            System.out.println(result);
         }
 
         return result;
