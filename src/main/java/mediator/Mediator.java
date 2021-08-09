@@ -161,7 +161,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
      * List any registered radio units that contain the parameter being passed.
      *
      * @param param The parameter that will be used to query for radio units. Examples
-     *              include a RatType, a RadioUnitState, a FrequencyBand, or a String name.
+     *              include a RatType, a RadioUnitStateE, a FrequencyBand, or a String name.
      */
     private void listRuByParam(Object param) {
         if (param instanceof RatType) {
@@ -192,6 +192,9 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
             } else {
                 radioUnits.forEach(ru -> System.out.println(ru + "\n"));
             }
+        } else {
+            System.out.printf("The parameter %s is of an invalid type. " +
+                    "\nParameters must be a RatType, a RadioUnitStateE, a FrequencyBand, or a String", param);
         }
     }
 

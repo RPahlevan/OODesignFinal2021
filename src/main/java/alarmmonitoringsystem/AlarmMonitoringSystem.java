@@ -17,9 +17,9 @@ public class AlarmMonitoringSystem implements AlarmMonitoringSystemIf {
 
     public void getNetAlarms() {
         try {
-            networkMgmt.getNetworkAlarms();
+            System.out.println(networkMgmt.getNetworkAlarms());
         } catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("Failed to communicate with the remote server. No network alarms could be obtained.");
         }
     }
 
@@ -31,7 +31,7 @@ public class AlarmMonitoringSystem implements AlarmMonitoringSystemIf {
                 System.out.printf("Failed to acknowledge alarm on the Radio Unit with the IP address \"%s\"", ipAddress);
             }
         } catch (RemoteException e) {
-            e.printStackTrace();
+            System.out.println("Failed to communicate with the remote server. No network alarms could be acknowledged.");
         }
     }
 }

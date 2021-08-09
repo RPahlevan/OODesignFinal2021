@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
  */
 public class NetworkManagementClient {
     public static final String NETWORK_MGMT_ID = "networkMgmtId";
+    public static final String BACK_TO_MENU = "Enter 'Back' to go back to the menu.";
+    public static final String INVALID_INPUT = "Invalid input, please try again.";
+    public static final String BREAK_CHECK = "BACK";
 
     private static NetworkManagementSystemIf networkManagementSys;
     //define constants
@@ -41,7 +44,7 @@ public class NetworkManagementClient {
         int carrierId;
 
         System.out.println(
-                		"#############################################################\n" +
+                "#############################################################\n" +
                         "##               NETWORK MANAGEMENT CLIENT                 ##\n" +
                         "##                        TEAM A.2                         ##\n" +
                         "##               ERICSSON OOP: SUMMER 2021                 ##\n" +
@@ -92,19 +95,19 @@ public class NetworkManagementClient {
                         break;
                     case "1":
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         networkManagementSys.commissionRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "2":
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         networkManagementSys.decommissionRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "3":
                         // 3.Add(create) Radio Unit
@@ -115,7 +118,7 @@ public class NetworkManagementClient {
                         System.out.print(INPUT_PROMPT);
                         input.nextLine();
                         ruName = input.nextLine().trim();
-                        if (ruName.equalsIgnoreCase("BACK")) {
+                        if (ruName.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         Vendor vendor = chooseVendor(input);
@@ -134,7 +137,7 @@ public class NetworkManagementClient {
                     case "4":
                         // 4.Remove(delete) Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         networkManagementSys.removeRadioUnit(ip);
@@ -143,44 +146,44 @@ public class NetworkManagementClient {
                     case "5":
                         //5.Setup Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         networkManagementSys.setupRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "6":
                         //6.Release Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         networkManagementSys.releaseRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "7":
                         //7.Activate Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         networkManagementSys.activateRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "8":
                         //8.Deactivate Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         networkManagementSys.deactivateRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "9":
                         // 9.Setup Carrier on Radio Unit
                         System.out.println("To setup a carrier on Radio Unit, you need to have a Radio Unit ready first");
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         if (createCarrierOnRu(ip, input)) {
@@ -202,12 +205,12 @@ public class NetworkManagementClient {
                             break;
                         }
                         networkManagementSys.modifyCarrierOnRu(ip, carrierId, freqBand);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "11":
                         //11.Remove Carrier on Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         carrierId = getCarrierId(input);
@@ -216,47 +219,47 @@ public class NetworkManagementClient {
                         }
                         System.out.println();
                         networkManagementSys.removeCarrierOnRu(ip, carrierId);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "12":
                         //12.Remove all Carriers on Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         System.out.println();
                         networkManagementSys.removeAllCarriersOnRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "13":
                         //13.Signal scaling on Radio Unit
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         System.out.println();
                         networkManagementSys.signalScalingOnRu(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "14":
                         //14.Post activation
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         System.out.println();
                         networkManagementSys.postActivation(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "15":
                         //15.Perform self diagnostics
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         System.out.println();
                         networkManagementSys.performSelfDiagnostics(ip);
-						returnToMenu();
+                        returnToMenu();
                         break;
                     case "16":
                         //16.List network Inventory
@@ -302,7 +305,7 @@ public class NetworkManagementClient {
                     case "20":
                         //20.List Radio Unit details
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         System.out.println();
@@ -312,26 +315,26 @@ public class NetworkManagementClient {
                     case "21":
                         //21.Set Alarm on RU
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         AlarmStatusLevel alarm = chooseAlarmStatusLevel(input);
                         if (alarm == null) {
-                        	break;
-						}
+                            break;
+                        }
                         System.out.println();
                         networkManagementSys.setAlarmOnRu(ip, alarm);
                         returnToMenu();
                         break;
                     case "22":
                         //22.List all Network Alarms
-                        networkManagementSys.getNetworkAlarms();
+                        System.out.println(networkManagementSys.getNetworkAlarms());
                         returnToMenu();
                         break;
                     case "23":
                         //23.Acknowledge alarm on RU
                         ip = getIpAddress(input);
-                        if (ip.equalsIgnoreCase("BACK")) {
+                        if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                             break;
                         }
                         System.out.println();
@@ -349,7 +352,7 @@ public class NetworkManagementClient {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Invalid input, please try again!");
+                System.out.println(INVALID_INPUT);
             }
 
         } while (!option.equals("0"));
@@ -376,20 +379,20 @@ public class NetworkManagementClient {
         int i;
 
         do {
-        	i = 0;
-			System.out.println("Please choose an Alarm for the Radio Unit.");
-			for (AlarmStatusLevel currAlarm : AlarmStatusLevel.values()) {
-				System.out.println("	" + ++i + ".	" + currAlarm.toString());
-				if (i == 3) {
-					break;
-				}
-			}
-			System.out.println("Enter 'Back' to go back to the menu.\n");
-			System.out.print(INPUT_PROMPT);
+            i = 0;
+            System.out.println("Please choose an Alarm for the Radio Unit.");
+            for (AlarmStatusLevel currAlarm : AlarmStatusLevel.values()) {
+                System.out.println("	" + ++i + ".	" + currAlarm.toString());
+                if (i == 3) {
+                    break;
+                }
+            }
+            System.out.println(BACK_TO_MENU);
+            System.out.print(INPUT_PROMPT);
             String subOption = input.nextLine().trim();
-			if (subOption.equalsIgnoreCase("BACK")) {
-				break;
-			}
+            if (subOption.equalsIgnoreCase(BREAK_CHECK)) {
+                break;
+            }
             try {
                 if (i < 4) {
                     alarm = AlarmStatusLevel.values()[Integer.parseInt(subOption) - 1];
@@ -397,7 +400,7 @@ public class NetworkManagementClient {
                     throw new NumberFormatException();
                 }
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("Invalid input, please try again.");
+                System.out.println(INVALID_INPUT);
             }
         } while (alarm == null);
 
@@ -518,16 +521,16 @@ public class NetworkManagementClient {
             for (RadioUnitStateE ruState : RadioUnitStateE.values()) {
                 System.out.println("	" + ++i + ".	" + ruState.getRuState());
             }
-            System.out.println("Enter 'Back' to go back to the menu.");
+            System.out.println(BACK_TO_MENU);
             System.out.print(INPUT_PROMPT);
             String subOption = input.nextLine().trim();
-            if (subOption.equalsIgnoreCase("BACK")) {
+            if (subOption.equalsIgnoreCase(BREAK_CHECK)) {
                 break;
             }
             try {
                 state = RadioUnitStateE.values()[Integer.parseInt(subOption) - 1];
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("Invalid input, please try again.");
+                System.out.println(INVALID_INPUT);
             }
         } while (state == null);
 
@@ -544,18 +547,18 @@ public class NetworkManagementClient {
     private static int getCarrierId(Scanner input) {
         int carrierId;
         do {
-            System.out.print("Please enter the Carrier ID.\n"
-                    + "Enter 'Back' to go back to the menu\n");
-			System.out.print(INPUT_PROMPT);
+            System.out.print("Please enter the Carrier ID as a number.\n"
+                    + BACK_TO_MENU);
+            System.out.print(INPUT_PROMPT);
             String id = input.nextLine().trim();
-            if (id.equalsIgnoreCase("BACK")) {
+            if (id.equalsIgnoreCase(BREAK_CHECK)) {
                 return -1;
             }
             try {
                 carrierId = Integer.parseInt(id);
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("'" + id + "'" + " is not a valid number, Try again!");
+                System.out.println(INVALID_INPUT);
             }
         } while (true);
 
@@ -574,17 +577,18 @@ public class NetworkManagementClient {
         String ip;
         input.nextLine();
         do {
-            System.out.print("\nPlease enter the IP address of the Radio Unit you want to operate on.\n"
-                    + "Enter 'Back' to go back to the menu\n");
+            System.out.print("\nPlease enter the IP address of the Radio Unit you want to operate on.\n" +
+                    "For example: 123.42.234.122\n"
+                    + BACK_TO_MENU);
             System.out.print(INPUT_PROMPT);
             ip = input.nextLine().trim();
-            if (ip.equalsIgnoreCase("BACK")) {
+            if (ip.equalsIgnoreCase(BREAK_CHECK)) {
                 break;
             }
             if (IP_PATTERN.matcher(ip).matches()) {
                 break;
             }
-            System.out.println("Input is not a valid IP address: " + ip + "\nPlease try again.");
+            System.out.println(INVALID_INPUT);
         } while (true);
 
         return ip;
@@ -600,18 +604,18 @@ public class NetworkManagementClient {
     private static double getTransPower(Scanner input) {
         double transPower = -99999;
         do {
-            System.out.println("Please enter a number for the transmitting power.\n"
-                    + "Enter 'Back' to go back to the menu");
+            System.out.println("\nPlease enter a number for the transmitting power.\n"
+                    + BACK_TO_MENU);
             System.out.print(INPUT_PROMPT);
             String transPowerText = input.next();
-            if (transPowerText.equalsIgnoreCase("BACK")) {
+            if (transPowerText.equalsIgnoreCase(BREAK_CHECK)) {
                 break;
             }
             try {
                 transPower = Double.parseDouble(transPowerText);
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("'" + transPowerText + "'" + " is not a valid number, Try again!");
+                System.out.println(INVALID_INPUT);
             }
         } while (true);
         return transPower;
@@ -635,16 +639,16 @@ public class NetworkManagementClient {
             for (Vendor currVendor : Vendor.values()) {
                 System.out.println("	" + ++i + ".	" + currVendor.getLabel());
             }
-            System.out.println("Enter 'Back' to go back to the menu.");
+            System.out.println(BACK_TO_MENU);
             System.out.print(INPUT_PROMPT);
             String subOption = input.nextLine().trim();
-            if (subOption.equalsIgnoreCase("BACK")) {
+            if (subOption.equalsIgnoreCase(BREAK_CHECK)) {
                 break;
             }
             try {
                 vendor = Vendor.values()[Integer.parseInt(subOption) - 1];
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("Invalid input, please try again.");
+                System.out.println(INVALID_INPUT);
             }
         } while (vendor == null);
 
@@ -667,16 +671,16 @@ public class NetworkManagementClient {
             for (RatType currRatType : RatType.values()) {
                 System.out.println("	" + ++i + ".	" + currRatType.getLabel());
             }
-            System.out.println("Enter 'Back' to go back to the menu");
+            System.out.println(BACK_TO_MENU);
             System.out.print(INPUT_PROMPT);
             String subOption = input.nextLine().trim();
-            if (subOption.equalsIgnoreCase("BACK")) {
+            if (subOption.equalsIgnoreCase(BREAK_CHECK)) {
                 break;
             }
             try {
                 rat = RatType.values()[Integer.parseInt(subOption) - 1];
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("Invalid input, please try again.");
+                System.out.println(INVALID_INPUT);
             }
         } while (rat == null);
 
@@ -701,11 +705,11 @@ public class NetworkManagementClient {
         for (RfPort currRfPort : RfPort.values()) {
             System.out.println("	" + ++i + ".	" + currRfPort.getRfPort());
         }
-        System.out.println("Enter 'Back' to go back to the menu");
+        System.out.println(BACK_TO_MENU);
         System.out.print(INPUT_PROMPT);
         do {
             String subOption = input.next();
-            if (subOption.equalsIgnoreCase("BACK")) {
+            if (subOption.equalsIgnoreCase(BREAK_CHECK)) {
                 break;
             }
             try {
@@ -718,7 +722,7 @@ public class NetworkManagementClient {
                 ports.add(RfPort.values()[Integer.parseInt(subOption) - 1]);
                 count++;
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("Invalid input, please try again.");
+                System.out.println(INVALID_INPUT);
                 continue;
             }
             if (count != noOfRfPorts) {
@@ -752,10 +756,10 @@ public class NetworkManagementClient {
                     System.out.println("	" + ++i + ".	" + currLteFreq.getBand());
                 }
             }
-            System.out.println("Enter 'Back' to go back to the menu");
+            System.out.println(BACK_TO_MENU);
             System.out.print(INPUT_PROMPT);
             String subOption = input.next();
-            if (subOption.equalsIgnoreCase("BACK")) {
+            if (subOption.equalsIgnoreCase(BREAK_CHECK)) {
                 break;
             }
             try {
@@ -765,7 +769,7 @@ public class NetworkManagementClient {
                     freqBand = WcdmaFrequencyBand.values()[Integer.parseInt(subOption) - 1];
                 }
             } catch (ArrayIndexOutOfBoundsException | NumberFormatException ex) {
-                System.out.println("Invalid input, please try again.");
+                System.out.println(INVALID_INPUT);
             }
         } while (freqBand == null);
 
