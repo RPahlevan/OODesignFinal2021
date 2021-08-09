@@ -16,7 +16,7 @@ public class AlarmMonitoringClient {
 	private static final String MENU = "\nPlease enter the number corresponding to the option you would like to choose:\n"
 			+ "0.	Exit Program\n"
 			+ "1.	Get Network Alarms\n"
-			+ "2.	Acknowledge Alarm on Radio Unit";
+			+ "2.	Acknowledge Alarm on Radio Unit\n";
 
 	private static final Pattern IP_PATTERN = Pattern.compile("^([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."
 			+ "([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\\."

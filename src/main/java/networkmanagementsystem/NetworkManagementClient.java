@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  */
 public class NetworkManagementClient {
     public static final String NETWORK_MGMT_ID = "networkMgmtId";
-    public static final String BACK_TO_MENU = "Enter 'Back' to go back to the menu.";
+    public static final String BACK_TO_MENU = "Enter 'Back' to go back to the menu.\n";
     public static final String INVALID_INPUT = "Invalid input, please try again.";
     public static final String BREAK_CHECK = "BACK";
 

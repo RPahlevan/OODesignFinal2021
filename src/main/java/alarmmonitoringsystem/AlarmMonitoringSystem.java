@@ -26,7 +26,7 @@ public class AlarmMonitoringSystem implements AlarmMonitoringSystemIf {
     public void acknowledgeAlarmOnRu(String ipAddress) {
         try {
             if (this.networkMgmt.acknowledgeAlarm(ipAddress)) {
-                System.out.printf("Successfully acknowledged alarm on the Radio Unit with the IP address \"%s\"", ipAddress);
+                System.out.printf("Successfully acknowledged alarm on the Radio Unit with the IP address \"%s\"\n", ipAddress);
             } else {
                 System.out.printf("Failed to acknowledge alarm on the Radio Unit with the IP address \"%s\"", ipAddress);
             }
