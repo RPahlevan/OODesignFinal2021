@@ -298,7 +298,9 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
      * Handle the request to list all current network alarms.
      */
     @Override
-    public void getNetworkAlarms() {
+    public String getNetworkAlarms() {
+        String result = "No Radio Units are currently alarmed within the system.";
+
         List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getAllRadios();
 
         radioUnits = radioUnits.stream()
@@ -306,10 +308,14 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
                 .collect(Collectors.toList());
 
         if (radioUnits.size() > 0) {
-        	radioUnits.forEach(ru -> System.out.println(ru.getIpAddress() + ": " + ru.getAlarmStatus() + "\n"));
+            for (ManagedRadioUnit ru : radioUnits) {
+                result = ru.getIpAddress() + ": " + ru.getAlarmStatus() + "\n";
+            }
         } else {
-            System.out.println("No Radio Units are currently alarmed within the system.");
+            System.out.println(result);
         }
+
+        return result;
     }
 
     /**
