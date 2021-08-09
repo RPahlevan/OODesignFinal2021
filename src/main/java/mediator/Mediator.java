@@ -181,7 +181,7 @@ public class Mediator implements PropertyChangeListener, MediatorIf {
         } else if (param instanceof FrequencyBand) {
             List<ManagedRadioUnit> radioUnits = radioUnitRegistry.getByBand((FrequencyBand) param);
             if (radioUnits.size() == 0) {
-                System.out.printf("No Radio Units with the state \"%s\" exist in the system.\n", param);
+                System.out.printf("No Radio Units with the frequency band \"%s\" exist in the system.\n", param);
             } else {
                 radioUnits.forEach(ru -> System.out.println(ru + "\n"));
             }
