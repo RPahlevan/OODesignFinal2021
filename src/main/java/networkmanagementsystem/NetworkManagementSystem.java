@@ -311,8 +311,6 @@ public class NetworkManagementSystem extends UnicastRemoteObject implements Netw
             for (ManagedRadioUnit ru : radioUnits) {
                 result = ru.getIpAddress() + ": " + ru.getAlarmStatus() + "\n";
             }
-        } else {
-            System.out.println(result);
         }
 
         return result;
